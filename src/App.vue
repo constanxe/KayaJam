@@ -19,10 +19,10 @@
 
   a {
     font-weight: bold;
-    color: $color-text;
+    color: map-get($colors, text);
 
     &.router-link-exact-active {
-      color: $color-primary;
+      color: map-get($colors, primary);
     }
   }
 }

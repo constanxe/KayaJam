@@ -1,4 +1,4 @@
 body {
-  background-color: $color-bg;
-  color: $color-text;
+  background-color: map-get($colors, bg);
+  color: map-get($colors, text);
 }

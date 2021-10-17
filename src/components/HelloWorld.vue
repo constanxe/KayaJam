@@ -53,6 +53,6 @@ li {
   margin: 0 10px;
 }
 a {
-  color: $color-primary;
+  color: map-get($colors, primary);
 }
 </style>
