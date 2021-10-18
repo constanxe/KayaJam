@@ -22,16 +22,18 @@ export default {
     };
   },
   created() {
-    SpotifyApi
-      .getArtistAlbums(this.artistId, { limit: 10 })
-      .then((data) => {
-        // console.log(`=== getArtistAlbums ${this.artistId} ===`)
-        // console.log(data)
-        this.rawData = data.items
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    setTimeout(() => {
+      // console.log(`=== getArtistAlbums ${this.artistId} ===`)
+      SpotifyApi
+        .getArtistAlbums(this.artistId, { limit: 10 })
+        .then((data) => {
+          // console.log(data)
+          this.rawData = data.items
+        })
+        .catch((error) => {
+          console.log(error.responseText)
+        })
+    }, 1000);
   }
 }
 </script>

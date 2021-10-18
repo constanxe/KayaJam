@@ -12,7 +12,7 @@ var SpotifyApi = new SpotifyWebApi();
 
   adapted from https://gist.github.com/donstefani/70ef1069d4eab7f2339359526563aab2
 */
-async () => {
+(async () => {
   const clientId = process.env.VUE_APP_CLIENT_ID;
   const clientSecret = process.env.VUE_APP_CLIENT_SECRET;
 
@@ -44,6 +44,6 @@ async () => {
   } catch (error) {
     console.log(error);
   }
-};
+})();
 
 export default SpotifyApi;
