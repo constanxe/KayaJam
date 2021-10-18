@@ -9,11 +9,6 @@
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  text-align: center;
-}
-
 #nav {
   padding: 30px;
 

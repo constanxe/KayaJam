@@ -1,4 +1,10 @@
 body {
+  text-align: center;
+  font-family: $font;
   background-color: map-get($colors, bg);
   color: map-get($colors, text);
+}
+
+a {
+  color: map-get($colors, primary);
 }
