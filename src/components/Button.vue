@@ -1,14 +1,14 @@
 <template>
-  <button type="button" class="my-2 btn" :class="this.btnClass">
+  <button type="button" class="my-2 text-white btn" :class="this.btnClass">
     <slot></slot>
   </button>
 </template>
 
 <script>
 export default {
-  name: 'Rating',
+  name: 'Button',
   props: {
-    btnClass: { type: String, default: "btn-success" }
+    btnClass: { type: String, default: "bg-brand" }
   }
 }
 </script>

@@ -1,13 +1,7 @@
 <template>
   <Button :btnClass="this.btnClass">
-    <ShareNetwork
-      :network="this.network"
-      :url="this.url"
-      :title="this.title"
-    >
-      <i :class="this.iconClass"></i>
-      &nbsp;Share to {{ capitalizeFirstLetter(network) }}
-    </ShareNetwork>
+    <i :class="this.iconClass"></i>
+    <slot></slot>
   </Button>
 </template>
 
@@ -15,7 +9,7 @@
 import Button from './Button.vue'
 
 export default {
-  name: 'Rating',
+  name: 'ButtonSocial',
   components: {
     Button
   },
@@ -26,9 +20,7 @@ export default {
         // The value must match one of these strings
         return ["facebook", "twitter", "telegram"].includes(value)
       }
-    },
-    url: { type: String, default: "http://spotify.com/" },  // facebook needs a valid URL
-    title: { type: String, default: "sick!! check this out" }
+    }
   },
   computed: {
     iconClass() {
@@ -36,11 +28,6 @@ export default {
     },
     btnClass() {
       return `bg-${this.network}`
-    }
-  },
-  methods: {
-    capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1)
     }
   }
 }

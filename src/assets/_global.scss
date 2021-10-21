@@ -5,16 +5,19 @@ body {
 }
 
 a {
-  color: map-get($colors, primary);
+  color: map-get($colors, brand);
   text-decoration: none;
 }
 
+.bg-brand {
+  background-color: map-get($colors, brand);
+}
 .bg-facebook {
-  background-color: map-get($colors-brand, facebook);
+  background-color: map-get($colors-brands, facebook);
 }
 .bg-twitter {
-  background-color: map-get($colors-brand, twitter);
+  background-color: map-get($colors-brands, twitter);
 }
 .bg-telegram {
-  background-color: map-get($colors-brand, telegram);
+  background-color: map-get($colors-brands, telegram);
 }

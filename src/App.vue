@@ -32,7 +32,7 @@
               aria-label="Search for..."
               aria-describedby="btnNavbarSearch"
             />
-            <button class="btn btn-primary" id="btnNavbarSearch" type="button">
+            <button class="btn bg-brand text-white" id="btnNavbarSearch" type="button">
               <i class="bi bi-search"></i>
             </button>
           </div>
@@ -69,18 +69,18 @@
             <div class="sb-sidenav-menu">
               <div class="nav" id="sidebarNav">
                 <div class="sb-sidenav-menu-heading">Core</div>
-                <a class="nav-link">
+                <router-link to="/" class="nav-link">
                   <div class="sb-nav-link-icon">
                     <i class="bi bi-house-door-fill"></i>
                   </div>
-                  <router-link to="/">Home</router-link>
-                </a>
-                <a class="nav-link">
+                  Home
+                </router-link>
+                <router-link to="/about" class="nav-link">
                   <div class="sb-nav-link-icon">
                     <i class="bi bi-question-circle-fill"></i>
                   </div>
-                  <router-link to="/about">About</router-link>
-                </a>
+                  About
+                </router-link>
                 <div class="sb-sidenav-menu-heading">Discover</div>
                 <a
                   class="nav-link collapsed"
@@ -160,7 +160,7 @@
     }
 
     &.router-link-exact-active {
-      color: map-get($colors, primary);
+      color: map-get($colors, brand);
     }
   }
 }

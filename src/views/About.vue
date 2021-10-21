@@ -6,27 +6,40 @@
 
     <Rating :star="this.star"></Rating>
 
-    <Button>Submit</Button>
-    <Button :btnClass="'btn-primary'">Submit</Button>
+    <div>
+      <Button>Submit</Button>
+      <Button :btnClass="'btn-primary'">Submit</Button>
+    </div>
 
-    <ButtonShare :network="'facebook'" :url="'facebook.com'"></ButtonShare>
-    <ButtonShare :network="'twitter'" :title="'test'"></ButtonShare>
-    <ButtonShare :network="'telegram'"></ButtonShare>
-    <ButtonShare :network="'test'"></ButtonShare> <!--not shown due to validator-->
+    <div>
+      <ButtonSocial :network="'facebook'"></ButtonSocial>
+      <a href="https://twitter.com" target="_blank">
+        <ButtonSocial :network="'twitter'"></ButtonSocial>
+      </a>
+      <ButtonSocial :network="'telegram'">&nbsp;Telegram</ButtonSocial>
+    </div>
+
+    <div>
+      <ButtonSocialShare :network="'facebook'" :url="'facebook.com'"></ButtonSocialShare>
+      <ButtonSocialShare :network="'twitter'" :title="'test'"></ButtonSocialShare>
+      <ButtonSocialShare :network="'telegram'"></ButtonSocialShare>
+    </div>
   </div>
 </template>
 
 <script>
 import Rating from '../components/Rating.vue'
 import Button from '../components/Button.vue'
-import ButtonShare from '../components/ButtonShare.vue'
+import ButtonSocial from '../components/ButtonSocial.vue'
+import ButtonSocialShare from '../components/ButtonSocialShare.vue'
 
 export default {
-  name: 'about',
+  name: 'About',
   components: {
     Rating,
     Button,
-    ButtonShare
+    ButtonSocial,
+    ButtonSocialShare
   },
   data() {
     return {
