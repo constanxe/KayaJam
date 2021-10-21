@@ -1,7 +1,14 @@
-$font: Avenir, Helvetica, Arial, sans-serif;
+@font-face { font-family: "Circular Spotify Tx T Black"; src: url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.eot"); src: url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.woff") format("woff"), url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.svg#Circular Spotify Tx T Black") format("svg"); }
+$font: "Circular Spotify Tx T Black", Helvetica, Arial, sans-serif;
 
 $colors: (
-  bg: #2c3e50,
   text: white,
+  bg: #2a313a,
   primary: #42b983,
 );
+
+$colors-brand: (
+  facebook: #3b5998,
+  twitter: #1DA1F2,
+  telegram: #0088cc
+)

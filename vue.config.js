@@ -3,6 +3,7 @@ module.exports = {
     loaderOptions: {
       sass: {
         prependData: `
+          @import "startbootstrap-sb-admin/dist/css/styles";
           @import "bootstrap/dist/css/bootstrap";
           @import "@/assets/_config.scss";
           @import "@/assets/_global.scss";

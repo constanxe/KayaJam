@@ -1,5 +1,4 @@
 body {
-  text-align: center;
   font-family: $font;
   background-color: map-get($colors, bg);
   color: map-get($colors, text);
@@ -7,4 +6,15 @@ body {
 
 a {
   color: map-get($colors, primary);
+  text-decoration: none;
+}
+
+.bg-facebook {
+  background-color: map-get($colors-brand, facebook);
+}
+.bg-twitter {
+  background-color: map-get($colors-brand, twitter);
+}
+.bg-telegram {
+  background-color: map-get($colors-brand, telegram);
 }
