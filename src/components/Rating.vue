@@ -1,3 +1,5 @@
+// adapted from: https://github.com/Jebasuthan/vue-star-rating
+
 <template>
   <AwesomeVueStarRating
     :star="this.star"

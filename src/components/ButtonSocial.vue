@@ -16,6 +16,7 @@ export default {
   props: {
     network: {
       type: String,
+      /* adapted from: https://v3.vuejs.org/guide/component-props.html#prop-validation */
       validator(value) {
         // The value must match one of these strings
         return ["facebook", "twitter", "telegram"].includes(value)

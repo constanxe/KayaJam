@@ -1,4 +1,5 @@
 <template>
+    <!-- package used: https://github.com/nicolasbeauvais/vue-social-sharing -->
     <ShareNetwork
       :network="this.network"
       :url="this.url"

@@ -10,7 +10,7 @@ var SpotifyApi = new SpotifyWebApi();
   generate access token from locally stored client
   credentials & set it to the SpotifyWebApi object
 
-  adapted from https://gist.github.com/donstefani/70ef1069d4eab7f2339359526563aab2
+  adapted from: https://gist.github.com/donstefani/70ef1069d4eab7f2339359526563aab2
 */
 (async () => {
   const clientId = process.env.VUE_APP_CLIENT_ID;

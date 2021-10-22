@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <!-- adapted from: https://startbootstrap.com/template/sb-admin -->
     <div class="sb-nav-fixed">
       <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->

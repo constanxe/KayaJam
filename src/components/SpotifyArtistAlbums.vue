@@ -24,6 +24,7 @@ export default {
   created() {
     setTimeout(() => {
       // console.log(`=== getArtistAlbums ${this.artistId} ===`)
+      /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getartistalbums */
       SpotifyApi
         .getArtistAlbums(this.artistId, { limit: 10 })
         .then((data) => {
