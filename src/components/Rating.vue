@@ -2,13 +2,13 @@
 
 <template>
   <AwesomeVueStarRating
-    :star="this.star"
-    :starsize="this.starsize"
-    :maxstars="this.maxstars"
-    :disabled="this.disabled"
-    :hasresults="this.hasresults"
-    :hasdescription="this.hasdescription"
-    :ratingdescription="this.ratingdescription"
+    :star="star"
+    :starsize="starsize"
+    :maxstars="maxstars"
+    :disabled="disabled"
+    :hasresults="hasresults"
+    :hasdescription="hasdescription"
+    :ratingdescription="ratingdescription"
   />
 </template>
 

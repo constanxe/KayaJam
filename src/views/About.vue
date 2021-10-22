@@ -4,7 +4,7 @@
 
     <h2>components</h2>
 
-    <Rating :star="this.star"></Rating>
+    <Rating :star="star"></Rating>
 
     <div>
       <Button>Submit</Button>

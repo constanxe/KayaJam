@@ -1,6 +1,6 @@
 <template>
-  <Button :btnClass="this.btnClass">
-    <i :class="this.iconClass"></i>
+  <Button :btnClass="btnClass">
+    <i :class="iconClass"></i>
     <slot></slot>
   </Button>
 </template>
