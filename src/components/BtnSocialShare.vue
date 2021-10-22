@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import ButtonSocial from './ButtonSocial.vue'
+import ButtonSocial from './BtnSocial.vue'
 
 export default {
   name: 'ButtonSocialShare',
@@ -31,8 +31,3 @@ export default {
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-
-</style>

@@ -14,12 +14,12 @@ import SpotifyApi from '@/services/spotify-auth'
 export default {
   name: 'SpotifyArtistAlbums',
   props: {
-    artistId: String,
+    artistId: String
   },
   data() {
     return {
-      rawData: [],
-    };
+      rawData: []
+    }
   },
   created() {
     setTimeout(() => {
@@ -34,12 +34,7 @@ export default {
         .catch((error) => {
           console.log(error.responseText)
         })
-    }, 1000);
+    }, 800)
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-
-</style>

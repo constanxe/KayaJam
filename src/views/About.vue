@@ -29,9 +29,9 @@
 
 <script>
 import Rating from '../components/Rating.vue'
-import Button from '../components/Button.vue'
-import ButtonSocial from '../components/ButtonSocial.vue'
-import ButtonSocialShare from '../components/ButtonSocialShare.vue'
+import Button from '../components/Btn.vue'
+import ButtonSocial from '../components/BtnSocial.vue'
+import ButtonSocialShare from '../components/BtnSocialShare.vue'
 
 export default {
   name: 'About',
