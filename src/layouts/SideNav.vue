@@ -1,0 +1,52 @@
+<template>
+  <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+    <div class="sb-sidenav-menu">
+      <div class="nav" id="sidebarNav">
+
+        <!-- customise here -->
+        <div class="sb-sidenav-menu-heading">Core</div>
+        <SideNavItem :route="'/'" :iconClass="'bi-house-door-fill'">Home</SideNavItem>
+        <SideNavItem :route="'/about'" :iconClass="'bi-question-circle-fill'">About</SideNavItem>
+
+        <div class="sb-sidenav-menu-heading">Discover</div>
+        <SideNavMenu :heading="'Users'" :iconClass="'bi-people-fill'">
+          <SideNavItem :route="'/test1a'">Placeholder</SideNavItem>
+          <SideNavItem :route="'/test1b'">Placeholder</SideNavItem>
+        </SideNavMenu>
+        <SideNavMenu :heading="'Albums'" :iconClass="'bi-book-fill'">
+          <SideNavItem :route="'/test2a'">Placeholder</SideNavItem>
+          <SideNavItem :route="'/test2b'">Placeholder</SideNavItem>
+        </SideNavMenu>
+      </div>
+    </div>
+  </nav>
+</template>
+
+<script>
+import SideNavItem from './SideNavItem.vue'
+import SideNavMenu from './SideNavMenu.vue'
+
+export default {
+  name: 'SideNav',
+  components: {
+    SideNavItem,
+    SideNavMenu
+  }
+}
+</script>
+
+<style lang="scss">
+#sidebarNav {
+  a {
+    cursor: pointer;
+
+    &:hover {
+      color: map-get($colors, text);
+    }
+
+    &.router-link-exact-active {
+      color: map-get($colors, brand);
+    }
+  }
+}
+</style>
