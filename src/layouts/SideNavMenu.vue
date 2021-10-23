@@ -10,7 +10,7 @@
     </SideNavItem>
     <div :id="id" :aria-labelledby="heading" class="collapse" data-bs-parent="#sidenavAccordion">
       <nav class="sb-sidenav-menu-nested nav">
-        <slot></slot>
+        <slot/>
       </nav>
     </div>
   </div>

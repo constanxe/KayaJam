@@ -5,15 +5,15 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" :id="id+'Label'">
-            <slot name="title"></slot>
+            <slot name="title"/>
           </h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <slot name="body"></slot>
+          <slot name="body"/>
         </div>
         <div class="modal-footer">
-          <slot name="footer"></slot>
+          <slot name="footer"/>
         </div>
       </div>
     </div>

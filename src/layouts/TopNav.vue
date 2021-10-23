@@ -50,3 +50,15 @@ export default {
   name: 'TopNav'
 }
 </script>
+
+<style scoped lang="scss">
+.dropdown-item {
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.active, &:active {
+    background-color: map-get($colors, brand);
+  }
+}
+</style>

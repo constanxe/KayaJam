@@ -7,7 +7,6 @@
         <div class="sb-sidenav-menu-heading">Core</div>
         <SideNavItem :route="'/'" :iconClass="'bi-house-door-fill'">Home</SideNavItem>
         <SideNavItem :route="'/about'" :iconClass="'bi-question-circle-fill'">About</SideNavItem>
-
         <div class="sb-sidenav-menu-heading">Discover</div>
         <SideNavMenu :heading="'Users'" :iconClass="'bi-people-fill'">
           <SideNavItem :route="'/test1a'">Placeholder</SideNavItem>
@@ -17,6 +16,7 @@
           <SideNavItem :route="'/test2a'">Placeholder</SideNavItem>
           <SideNavItem :route="'/test2b'">Placeholder</SideNavItem>
         </SideNavMenu>
+
       </div>
     </div>
   </nav>

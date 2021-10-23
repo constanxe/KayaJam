@@ -1,5 +1,5 @@
 <template>
-<!-- adapted from: https://startbootstrap.com/template/sb-admin -->
+  <!-- adapted from: https://startbootstrap.com/template/sb-admin -->
   <div class="sb-nav-fixed">
     <TopNav></TopNav>
     <div id="layoutSidenav">

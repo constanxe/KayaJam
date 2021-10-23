@@ -1,7 +1,7 @@
 <template>
   <Button :btnClass="btnClass">
     <i :class="iconClass"></i>
-    <slot></slot>
+    <slot/>
   </Button>
 </template>
 

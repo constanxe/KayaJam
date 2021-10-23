@@ -2,9 +2,7 @@
   <div>
     <h1>getArtistAlbums</h1>
     <h4>{{ artistId }}</h4>
-    <ul>
-      <li v-for="item in rawData" :key="item.name">{{ item.name }}</li>
-    </ul>
+    <ul><li v-for="item in rawData" :key="item.name">{{ item.name }}</li></ul>
   </div>
 </template>
 
