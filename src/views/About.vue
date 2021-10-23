@@ -7,8 +7,21 @@
     <Rating :star="star"></Rating>
 
     <div>
-      <Button>Submit</Button>
       <Button :btnClass="'btn-primary'">Submit</Button>
+      <!-- Modal with button as example trigger-->
+      <Button data-bs-target="#exampleModal" data-bs-toggle="modal">Open Modal</Button>
+      <Modal :id="'exampleModal'">
+        <template v-slot:title>
+          Title
+        </template>
+        <template v-slot:body>
+          Body
+        </template>
+        <template v-slot:footer>
+          <Button :btnClass="'btn-secondary'" data-bs-dismiss="modal">Close</Button>
+          <Button data-bs-dismiss="modal">Submit</Button>
+        </template>
+      </Modal>
     </div>
 
     <div>
@@ -30,6 +43,7 @@
 <script>
 import Rating from '../components/Rating.vue'
 import Button from '../components/Btn.vue'
+import Modal from '../components/Modal.vue'
 import ButtonSocial from '../components/BtnSocial.vue'
 import ButtonSocialShare from '../components/BtnSocialShare.vue'
 
@@ -38,8 +52,9 @@ export default {
   components: {
     Rating,
     Button,
+    Modal,
     ButtonSocial,
-    ButtonSocialShare
+    ButtonSocialShare,
   },
   data() {
     return {

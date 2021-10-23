@@ -1,6 +1,6 @@
 body {
   font-family: $font;
-  background-color: map-get($colors, bg);
+  background-color: map-get($colors-bg, default);
   color: map-get($colors, text);
 }
 
