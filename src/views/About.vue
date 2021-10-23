@@ -4,38 +4,34 @@
 
     <h2>components</h2>
 
-    <Rating :star="star"></Rating>
+    <Rating :star="star"/>
 
     <div>
-      <Button :btnClass="'btn-primary'">Submit</Button>
+      <Button btnClass="btn-primary">Submit</Button>
       <!-- Modal with button as example trigger-->
       <Button data-bs-target="#exampleModal" data-bs-toggle="modal">Open Modal</Button>
-      <Modal :id="'exampleModal'">
-        <template v-slot:title>
-          Title
-        </template>
-        <template v-slot:body>
-          Body
-        </template>
-        <template v-slot:footer>
-          <Button :btnClass="'btn-secondary'" data-bs-dismiss="modal">Close</Button>
+      <Modal id="exampleModal">
+        <template #title>Title</template>
+        <template #body>Body</template>
+        <template #footer>
+          <Button btnClass="btn-secondary" data-bs-dismiss="modal">Close</Button>
           <Button data-bs-dismiss="modal">Submit</Button>
         </template>
       </Modal>
     </div>
 
     <div>
-      <ButtonSocial :network="'facebook'"></ButtonSocial>
+      <ButtonSocial network="facebook"></ButtonSocial>
       <a href="https://twitter.com" target="_blank">
-        <ButtonSocial :network="'twitter'"></ButtonSocial>
+        <ButtonSocial network="twitter"></ButtonSocial>
       </a>
-      <ButtonSocial :network="'telegram'">&nbsp;Telegram</ButtonSocial>
+      <ButtonSocial network="telegram">&nbsp;Telegram</ButtonSocial>
     </div>
 
     <div>
-      <ButtonSocialShare :network="'facebook'" :url="'facebook.com'"></ButtonSocialShare>
-      <ButtonSocialShare :network="'twitter'" :title="'test'"></ButtonSocialShare>
-      <ButtonSocialShare :network="'telegram'"></ButtonSocialShare>
+      <ButtonSocialShare network="facebook" url="facebook.com"/>
+      <ButtonSocialShare network="twitter" title="test"/>
+      <ButtonSocialShare network="telegram"/>
     </div>
   </div>
 </template>

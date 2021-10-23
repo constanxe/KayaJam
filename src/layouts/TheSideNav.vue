@@ -5,16 +5,16 @@
 
         <!-- customise here -->
         <div class="sb-sidenav-menu-heading">Core</div>
-        <SideNavItem :route="'/'" :iconClass="'bi-house-door-fill'">Home</SideNavItem>
-        <SideNavItem :route="'/about'" :iconClass="'bi-question-circle-fill'">About</SideNavItem>
+        <SideNavItem route="/" icon-class="bi-house-door-fill">Home</SideNavItem>
+        <SideNavItem route="/about" icon-class="bi-question-circle-fill">About</SideNavItem>
         <div class="sb-sidenav-menu-heading">Discover</div>
-        <SideNavMenu :heading="'Users'" :iconClass="'bi-people-fill'">
-          <SideNavItem :route="'/test1a'">Placeholder</SideNavItem>
-          <SideNavItem :route="'/test1b'">Placeholder</SideNavItem>
+        <SideNavMenu heading="Users" icon-class="bi-people-fill">
+          <SideNavItem route="/test1a">Placeholder</SideNavItem>
+          <SideNavItem route="/test1b">Placeholder</SideNavItem>
         </SideNavMenu>
-        <SideNavMenu :heading="'Albums'" :iconClass="'bi-book-fill'">
-          <SideNavItem :route="'/test2a'">Placeholder</SideNavItem>
-          <SideNavItem :route="'/test2b'">Placeholder</SideNavItem>
+        <SideNavMenu heading="Albums" icon-class="bi-book-fill">
+          <SideNavItem route="/test2a">Placeholder</SideNavItem>
+          <SideNavItem route="/test2b">Placeholder</SideNavItem>
         </SideNavMenu>
 
       </div>
@@ -27,7 +27,7 @@ import SideNavItem from './SideNavItem.vue'
 import SideNavMenu from './SideNavMenu.vue'
 
 export default {
-  name: 'SideNav',
+  name: 'TheSideNav',
   components: {
     SideNavItem,
     SideNavMenu

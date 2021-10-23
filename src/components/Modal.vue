@@ -7,7 +7,7 @@
           <h5 class="modal-title" :id="id+'Label'">
             <slot name="title"/>
           </h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"/>
         </div>
         <div class="modal-body">
           <slot name="body"/>
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: 'Button',
+  name: 'Modal',
   props: {
     id: String
   }

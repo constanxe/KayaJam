@@ -1,6 +1,6 @@
 <template>
   <router-link :is="!route ? 'a' : 'router-link'" :to="route" class="nav-link">
-    <SideNavItemIcon v-if="iconClass" :iconClass="iconClass"/>
+    <SideNavItemIcon v-if="iconClass" :icon-class="iconClass"/>
     <slot/>
   </router-link>
 </template>

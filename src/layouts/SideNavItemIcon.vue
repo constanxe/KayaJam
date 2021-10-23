@@ -1,6 +1,6 @@
 <template>
   <div :class="collapseIcon ? 'sb-sidenav-collapse-arrow' : 'sb-nav-link-icon'">
-    <i class="bi" :class="collapseIcon ? 'bi-caret-down-fill' : iconClass"></i>
+    <i class="bi" :class="collapseIcon ? 'bi-caret-down-fill' : iconClass"/>
   </div>
 </template>
 

@@ -4,7 +4,7 @@
     <a class="navbar-brand ps-3" href="#">Spotify Webapp</a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle">
-      <i class="bi bi-list"></i>
+      <i class="bi bi-list"/>
     </button>
     <!-- Navbar Search-->
     <form class="
@@ -19,7 +19,7 @@
           aria-label="Search" aria-describedby="btnNavbarSearch"
         />
         <button class="btn bg-brand text-white" id="btnNavbarSearch" type="button">
-          <i class="bi bi-search"></i>
+          <i class="bi bi-search"/>
         </button>
       </div>
     </form>
@@ -31,14 +31,14 @@
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
-        ><i class="bi bi-person-fill fa-fw"></i>
+        ><i class="bi bi-person-fill fa-fw"/>
         </a>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
           <!-- customise here -->
-          <li><a class="dropdown-item">Profile</a></li>
-          <li><a class="dropdown-item">Settings</a></li>
-          <li><hr class="dropdown-divider" /></li>
-          <li><a class="dropdown-item">Logout</a></li>
+          <TopNavDropdownItem route="/profile">Profile</TopNavDropdownItem>
+          <TopNavDropdownItem route="/settings">Settings</TopNavDropdownItem>
+          <li><hr class="dropdown-divider"/></li>
+          <TopNavDropdownItem route="/">Logout</TopNavDropdownItem>
         </ul>
       </li>
     </ul>
@@ -46,19 +46,12 @@
 </template>
 
 <script>
+import TopNavDropdownItem from './TopNavDropdownItem.vue'
+
 export default {
-  name: 'TopNav'
+  name: 'TheTopNav',
+  components: {
+    TopNavDropdownItem
+  }
 }
 </script>
-
-<style scoped lang="scss">
-.dropdown-item {
-  &:hover {
-    cursor: pointer;
-  }
-
-  &.active, &:active {
-    background-color: map-get($colors, brand);
-  }
-}
-</style>

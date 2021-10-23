@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <SpotifyArtistAlbums artistId="43ZHCT0cAZBISjO8DG9PnE"></SpotifyArtistAlbums>
+    <SpotifyArtistAlbums artistId="43ZHCT0cAZBISjO8DG9PnE"/>
   </div>
 </template>
 

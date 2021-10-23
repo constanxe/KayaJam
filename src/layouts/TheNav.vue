@@ -1,10 +1,10 @@
 <template>
   <!-- adapted from: https://startbootstrap.com/template/sb-admin -->
   <div class="sb-nav-fixed">
-    <TopNav></TopNav>
+    <TheTopNav/>
     <div id="layoutSidenav">
       <div id="layoutSidenav_nav">
-        <SideNav></SideNav>
+        <TheSideNav/>
       </div>
       <div id="layoutSidenav_content">
         <main class="p-4">
@@ -16,14 +16,14 @@
 </template>
 
 <script>
-import TopNav from './TopNav.vue'
-import SideNav from './SideNav.vue'
+import TheTopNav from './TheTopNav.vue'
+import TheSideNav from './TheSideNav.vue'
 
 export default {
-  name: 'Nav',
+  name: 'TheNav',
   components: {
-    TopNav,
-    SideNav
+    TheTopNav,
+    TheSideNav
   }
 }
 </script>

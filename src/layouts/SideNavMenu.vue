@@ -1,12 +1,12 @@
 <template>
   <div>
-    <SideNavItem class="collapsed" 
+    <SideNavItem class="collapsed"
       data-bs-toggle="collapse"
       :data-bs-target="'#'+id"
-      :iconClass="iconClass"
+      :icon-class="iconClass"
       aria-expanded="false"
       :aria-controls="id"
-    >{{ heading }}<SideNavItemIcon :collapseIcon="true"/>
+    >{{ heading }}<SideNavItemIcon :collapse-icon="true"/>
     </SideNavItem>
     <div :id="id" :aria-labelledby="heading" class="collapse" data-bs-parent="#sidenavAccordion">
       <nav class="sb-sidenav-menu-nested nav">
@@ -21,7 +21,7 @@ import SideNavItemIcon from './SideNavItemIcon.vue'
 import SideNavItem from './SideNavItem.vue'
 
 export default {
-  name: 'SideNav',
+  name: 'TheSideNav',
   components: {
     SideNavItemIcon,
     SideNavItem
