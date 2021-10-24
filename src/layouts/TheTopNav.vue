@@ -1,7 +1,7 @@
 <template>
   <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="#">Spotify Webapp</a>
+    <router-link class="navbar-brand ps-3" to="/home">Spotify Webapp</router-link>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle">
       <i class="bi bi-list"/>
@@ -38,7 +38,7 @@
           <TopNavDropdownItem route="/profile">Profile</TopNavDropdownItem>
           <TopNavDropdownItem route="/settings">Settings</TopNavDropdownItem>
           <li><hr class="dropdown-divider"/></li>
-          <TopNavDropdownItem route="/">Logout</TopNavDropdownItem>
+          <TopNavDropdownItem route="/login">Logout</TopNavDropdownItem>
         </ul>
       </li>
     </ul>

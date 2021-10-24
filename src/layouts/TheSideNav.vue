@@ -5,7 +5,7 @@
 
         <!-- customise here -->
         <div class="sb-sidenav-menu-heading">Core</div>
-        <SideNavItem route="/" icon-class="bi-house-door-fill">Home</SideNavItem>
+        <SideNavItem route="/home" icon-class="bi-house-door-fill">Home</SideNavItem>
         <SideNavItem route="/about" icon-class="bi-question-circle-fill">About</SideNavItem>
         <div class="sb-sidenav-menu-heading">Discover</div>
         <SideNavMenu heading="Users" icon-class="bi-people-fill">
