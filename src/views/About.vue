@@ -4,7 +4,8 @@
 
     <h2>components</h2>
 
-    <Rating :star="star"/>
+    <div><Star :star="starValue" :maxstars="1" starsize="xs"/> Star</div>
+    <div>5 Stars <Star :star="starsValue" hasdescription/></div>
 
     <div>
       <Button btnClass="btn-primary">Submit</Button>
@@ -37,24 +38,24 @@
 </template>
 
 <script>
-import Rating from '../components/Rating.vue'
-import Button from '../components/Btn.vue'
+import Star from '../components/Star.vue'
 import Modal from '../components/Modal.vue'
+import Button from '../components/Btn.vue'
 import ButtonSocial from '../components/BtnSocial.vue'
 import ButtonSocialShare from '../components/BtnSocialShare.vue'
 
 export default {
   name: 'About',
   components: {
-    Rating,
-    Button,
+    Star,
     Modal,
+    Button,
     ButtonSocial,
     ButtonSocialShare,
   },
   data() {
     return {
-      star: 0,   // or the value if rated before
+      starValue: 0, starsValue: 0,  // or the value if rated before
     }
   }
 }
