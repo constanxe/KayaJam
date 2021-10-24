@@ -52,6 +52,10 @@ export default {
 </script>
 
 <style lang="scss">
+.rating {
+  width: fit-content;
+}
+
 .no-desc {
   display: inline-block;
 
