@@ -28,7 +28,7 @@ export default {
   },
   props: {
     heading: String,
-    iconClass: String,
+    iconClass: String
   },
   created() {
     this.id = `collapse${this.heading}`

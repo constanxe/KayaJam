@@ -1,4 +1,4 @@
-// adapted from: https://github.com/Jebasuthan/vue-star-rating
+// source: https://github.com/Jebasuthan/vue-star-rating
 
 <template>
   <AwesomeVueStarRating
