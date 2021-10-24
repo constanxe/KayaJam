@@ -12,9 +12,9 @@
           <SideNavItem route="/test1a">Placeholder</SideNavItem>
           <SideNavItem route="/test1b">Placeholder</SideNavItem>
         </SideNavMenu>
-        <SideNavMenu heading="Albums" icon-class="bi-book-fill">
-          <SideNavItem route="/test2a">Placeholder</SideNavItem>
-          <SideNavItem route="/test2b">Placeholder</SideNavItem>
+        <SideNavMenu heading="Music" icon-class="bi-book-fill">
+          <SideNavItem route="/music">Album</SideNavItem>
+          <SideNavItem route="/music">Artists</SideNavItem>
         </SideNavMenu>
 
       </div>
