@@ -8,16 +8,21 @@ a {
   color: map-get($colors, brand);
   text-decoration: none;
 }
+.btn-link:hover {
+  color: map-get($colors, brand);
+}
 
-.bg-brand {
-  background-color: map-get($colors, brand);
-}
-.bg-facebook {
-  background-color: map-get($colors-brands, facebook);
-}
-.bg-twitter {
-  background-color: map-get($colors-brands, twitter);
-}
-.bg-telegram {
-  background-color: map-get($colors-brands, telegram);
+.bg {
+  &_brand {
+    background-color: map-get($colors, brand);
+  }
+  &_facebook {
+    background-color: map-get($colors-brands, facebook);
+  }
+  &_twitter {
+    background-color: map-get($colors-brands, twitter);
+  }
+  &_telegram {
+    background-color: map-get($colors-brands, telegram);
+  }
 }

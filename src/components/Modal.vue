@@ -33,7 +33,8 @@ export default {
 .modal-content {
   background-color: map-get($colors-bg, dark);
 
-  .modal-header, .modal-footer {
+  .modal-header,
+  .modal-footer {
     border-color: map-get($colors-bg, light);
   }
 }

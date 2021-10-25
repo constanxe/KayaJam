@@ -8,22 +8,27 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    redirect: '/music'
+  },
+  {
     path: '/login',
     name: 'Login',
     component: Login
   },
   {
-    path: '/home',
+    path: '/music*',
+    name: 'Music',
+    component: Music
+  },
+  /* temporary pages */
+  {
+    path: '/temp/home',
     name: 'Home',
     component: Home
   },
   {
-    path: '/music',
-    name: 'Music',
-    component: Music
-  },
-  {
-    path: '/about',
+    path: '/temp/about',
     name: 'About',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

@@ -21,7 +21,8 @@ export default {
     cursor: pointer;
   }
 
-  &.active, &:active {
+  &.active,
+  &:active {
     background-color: map-get($colors, brand);
   }
 }

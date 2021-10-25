@@ -1,6 +1,6 @@
 <template>
-  <Button :btn-class="btnClass">
-    <i :class="iconClass"/>
+  <Button :btn-class="'bg_'+network">
+    <i :class="'bi bi-'+network"/>
     <slot/>
   </Button>
 </template>
@@ -21,14 +21,6 @@ export default {
         // The value must match one of these strings
         return ["facebook", "twitter", "telegram"].includes(value)
       }
-    }
-  },
-  computed: {
-    iconClass() {
-      return `bi bi-${this.network}`
-    },
-    btnClass() {
-      return `bg-${this.network}`
     }
   }
 }

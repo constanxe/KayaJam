@@ -3,18 +3,18 @@
     <div class="row">
       <div class="col-lg-3 col-md-2"></div>
       <div class="col-lg-6 col-md-8 login-box">
-        <div class="col-lg-12 login-title">Spotify WebApp</div>
-        <div class="col-lg-12 login-form">
+        <div class="col-lg-12 login-box_title">Spotify WebApp</div>
+        <div class="col-lg-12 login-box_form">
           <div class="form-group">
-            <label for="user">Username</label>
-            <input type="text" class="form-control" id="user" v-model="user" placeholder="Enter Name">
+            <label for="givenUsername">Username</label>
+            <input type="text" class="form-control" id="givenUsername" v-model="givenUsername" placeholder="Enter Name">
           </div>
           <div class="form-group">
-            <label for="pwd1">Password</label>
-            <input type="password" class="form-control" id="pwd1" v-model="pwd1" placeholder="Password">
+            <label for="givenPwd">Password</label>
+            <input type="password" class="form-control" id="givenPwd" v-model="givenPwd" placeholder="Password" @keyup.enter="validate()">
           </div>
           <Button @click.native="validate()" btn-class="btn-primary">Submit</Button>
-          <div class="alert" v-if="show">{{error}}</div>
+          <div class="alert" v-if="showError">{{error}}</div>
           <div v-else>{{redirect()}}</div>
         </div>
       </div>
@@ -34,34 +34,35 @@ export default {
   data() {
     return {
       users: [
-        { user: "Jack", pwd: "abc" },
-        { user: "Mary", pwd: "def" },
-        { user: "John", pwd: "123" },
-        { user: "Cherry", pwd: "456" },
+        { username: "Jack", pwd: "abc" },
+        { username: "Mary", pwd: "def" },
+        { username: "John", pwd: "123" },
+        { username: "Cherry", pwd: "456" },
       ],
-      user: "",
-      pwd1: "",
+      givenUsername: "",
+      givenPwd: "",
 
-      show: true,
       error: "",
+      showError: true,
     };
   },
   methods: {
     validate() {
       console.log("in validate");
       // clear previous error
-      this.show = false;
+      this.error= "";
+      this.showError = false;
 
-      if (this.user == "" || this.pwd1 == "") {
+      if (this.givenUsername == "" || this.givenPwd == "") {
         // check if any of the input fields are empty
         this.error = "Username and password cannot be empty";
-        this.show = true;
+        this.showError = true;
       } else {
-        // check if user exists in the data
+        // check if username exists in the data
         let userExist = false;
         let pwd = "";
         for (let a_user of this.users) {
-          if (a_user.user == this.user) {
+          if (a_user.username == this.givenUsername) {
             userExist = true;
             pwd = a_user.pwd;
             break;
@@ -69,15 +70,15 @@ export default {
         }
         if (!userExist) {
           this.error = "Username does not exist!";
-          this.show = true;
-        } else if (pwd != this.pwd1) {
+          this.showError = true;
+        } else if (pwd != this.givenPwd) {
           this.error = "Password incorrect!";
-          this.show = true;
+          this.showError = true;
         }
       }
     },
     redirect() {
-      this.$router.push("/home");
+      this.$router.push("/");
     },
   },
 };
@@ -85,78 +86,45 @@ export default {
 
 <style scoped lang="scss">
 .login-box {
+  margin-bottom: 75px;
   margin-top: 75px;
-  height: auto;
-  background: #5db871;
   text-align: center;
+  background: #5db871;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
-  .login-title {
+  &_title {
     margin-top: 15px;
-    text-align: center;
     font-size: 50px;
     letter-spacing: 2px;
-    margin-top: 15px;
     font-weight: bold;
-    color: #000000;
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    color: map-get($colors-bg, dark);
   }
 
-  .login-form {
+  &_form {
     margin-top: 25px;
     text-align: left;
   }
 }
 
-input {
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0;
-  }
-
-  &[type=text] {
-    background-color: #1a2226;
-    border: none;
-    border-bottom: 2px solid #0db8de;
-    border-top: 0px;
-    border-radius: 0px;
-    font-weight: bold;
-    outline: 0;
-    margin-bottom: 20px;
-    padding-left: 0px;
-    color: #ecf0f5;
-  }
-
-  &[type=password] {
-    background-color: #1a2226;
-    border: none;
-    border-bottom: 2px solid #0db8de;
-    border-top: 0px;
-    border-radius: 0px;
-    font-weight: bold;
-    outline: 0;
-    padding-left: 0px;
-    margin-bottom: 20px;
-    color: #ecf0f5;
-  }
-}
-
 .form-group {
   margin-bottom: 40px;
-  outline: 0px;
 
-  .form-control:focus {
-    border-color: inherit;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border-bottom: 2px solid #0db8de;
-    outline: 0;
-    background-color: #1a2226;
-    color: #ecf0f5;
+  .form-control {
+    margin-bottom: 20px;
+    padding-left: 5px;
+    border: none;
+    font-weight: bold;
+    color: map-get($colors, text);
+    background-color: map-get($colors-bg, dark);
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0;
+    }
   }
 
   label {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 }
 </style>

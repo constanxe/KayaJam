@@ -8,7 +8,7 @@
       :aria-controls="id"
     >{{ heading }}<SideNavItemIcon :collapse-icon="true"/>
     </SideNavItem>
-    <div :id="id" :aria-labelledby="heading" class="collapse" data-bs-parent="#sidenavAccordion">
+    <div :id="id" :aria-labelledby="heading" class="collapse show" data-bs-parent="#sidenavAccordion">
       <nav class="sb-sidenav-menu-nested nav">
         <slot/>
       </nav>

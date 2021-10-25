@@ -23,3 +23,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+#layoutSidenav {
+  &_nav {
+    height: 100% !important;
+  }
+
+  &_content {
+    min-width: auto !important;
+  }
+}
+</style>

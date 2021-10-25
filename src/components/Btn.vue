@@ -8,7 +8,7 @@
 export default {
   name: 'Button',
   props: {
-    btnClass: { type: String, default: "bg-brand" }
+    btnClass: { type: String, default: "bg_brand" }
   }
 }
 </script>
