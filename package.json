@@ -16,6 +16,7 @@
     "spotify-web-api-js": "^1.5.2",
     "startbootstrap-sb-admin": "^7.0.4",
     "vue": "^2.6.11",
+    "vue-custom-scrollbar": "^1.4.1",
     "vue-router": "^3.2.0",
     "vue-social-sharing": "^3.0.8"
   },

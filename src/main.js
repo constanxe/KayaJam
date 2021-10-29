@@ -1,8 +1,8 @@
-import "bootstrap-icons/font/bootstrap-icons.css";
-import "bootstrap/dist/js/bootstrap";
-import "startbootstrap-sb-admin/dist/js/scripts";
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'bootstrap/dist/js/bootstrap';
+import 'startbootstrap-sb-admin/dist/js/scripts';
 
-import VueSocialSharing from "vue-social-sharing";
+import VueSocialSharing from 'vue-social-sharing';
 
 import Vue from 'vue'
 import App from './App.vue'
