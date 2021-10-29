@@ -16,136 +16,70 @@
       </div>
 
       <!-- Filter Buttons-->
-      <div class="container filterbutton" id="filterbuttons">
+      <div class="container filter-buttons" ref="filterButtons">
         <router-link to="/music"><button class="btn" @click="filterSelection('')">All</button></router-link>
         <router-link to="/music/album"><button class="btn" @click="filterSelection('album')">Albums</button></router-link>
         <router-link to="/music/artist"><button class="btn" @click="filterSelection('artist')">Artists</button></router-link>
       </div>
     </div>
 
-    <!-- Albums/Artists-->
+    <!-- Albums/Artists Cards-->
     <div class="container">
-      <div class="row">
-        <!-- Album Cards -->
-        <div class="box album col-xl-3 col-md-4 col-sm-12 mt-5">
-          <router-link to="/music/album">
-            <div class="card-img"><img src="https://f4.bcbits.com/img/a2407592093_10.jpg" alt="Card image"></div>
-            <div class="card-body">
-              <h4 class="card-title">Time/Space</h4>
-              <p class="card-text">by <router-link to="/music/artist" class="album-artist-tag">Charlie Lim</router-link></p>
-            </div>
-          </router-link>
-        </div>
+      <div class="row" ref="musicCards">
+        <MusicCard data-type="album" artist-tag-name="Charlie Lim" title="Time/Space" img-src="https://f4.bcbits.com/img/a2407592093_10.jpg"/>
+        <MusicCard data-type="album" artist-tag-name="Subsonic Eye" title="Strawberry Feels" img-src="https://f4.bcbits.com/img/a3424343514_10.jpg"/>
+        <MusicCard data-type="album" artist-tag-name="Inch" title="Letters To Ubin" img-src="https://images.squarespace-cdn.com/content/v1/561f70f2e4b05c4e86dede19/1591256499796-J3CM6FL7W3W71PT8FJM2/1frontcover.jpg?format=2500w"/>
+        <MusicCard data-type="album" artist-tag-name="James Blake" title="Friends" img-src="https://media.pitchfork.com/photos/60f9880e4a319e50a860a52e/1:1/w_600/James-Blake.jpg"/>
 
-        <div class="box album col-xl-3 col-md-4 col-sm-12 mt-5">
-          <router-link to="/music/album">
-            <div class="card-img"><img src="https://f4.bcbits.com/img/a3424343514_10.jpg" alt="Card image"></div>
-            <div class="card-body">
-              <h4 class="card-title">Strawberry Feels</h4>
-              <p class="card-text">by <router-link to="/music/artist" class="album-artist-tag">Subsonic Eye</router-link></p>
-            </div>
-          </router-link>
-        </div>
-
-        <div class="box album col-xl-3 col-md-4 col-sm-12 mt-5">
-          <router-link to="/music/album">
-            <div class="card-img"><img src="https://images.squarespace-cdn.com/content/v1/561f70f2e4b05c4e86dede19/1591256499796-J3CM6FL7W3W71PT8FJM2/1frontcover.jpg?format=2500w" alt="Card image"></div>
-            <div class="card-body">
-              <h4 class="card-title">Letters To Ubin</h4>
-              <p class="card-text">by <router-link to="/music/artist" class="album-artist-tag">Inch</router-link></p>
-            </div>
-          </router-link>
-        </div>
-
-        <div class="box album col-xl-3 col-md-4 col-sm-12 mt-5">
-            <router-link to="/music/album">
-            <div class="card-img"><img src="https://media.pitchfork.com/photos/60f9880e4a319e50a860a52e/1:1/w_600/James-Blake.jpg" alt="Card image"></div>
-            <div class="card-body">
-              <h4 class="card-title">Friends</h4>
-              <p class="card-text">by <router-link to="/music/artist" class="album-artist-tag">James Blake</router-link></p>
-            </div>
-          </router-link>
-        </div>
-
-        <!-- Artist Cards -->
-        <div class="box artist col-xl-3 col-md-4 col-sm-12 mt-5">
-          <router-link to="/music/album">
-            <div class="card-img"><img src="https://cdn.filestackcontent.com/eLeq7DuSsKWq57U1mC1t/convert?cache=true&crop=0%2C146%2C1920%2C960&crop_first=true&quality=90&w=1920"></div>
-            <div class="card-body">
-              <h4 class="card-title">Gentle Bones</h4>
-              <p class="card-text"></p>
-            </div>
-          </router-link>
-        </div>
-
-        <div class="box artist col-xl-3 col-md-4 col-sm-12 mt-5">
-          <router-link to="/music/album">
-            <div class="card-img"><img src="http://pilerats.com/assets/Uploads/benjamin-kheng-find-me-introducing.jpg"></div>
-            <div class="card-body">
-              <h4 class="card-title">Benjamin Kheng</h4>
-              <p class="card-text"></p>
-            </div>
-          </router-link>
-        </div>
-
-        <div class="box artist col-xl-3 col-md-4 col-sm-12 mt-5">
-          <router-link to="/music/album">
-            <div class="card-img"><img src="https://www.nme.com/wp-content/uploads/2021/07/linying-credit-jovian-lim@2000x1270.jpg"></div>
-            <div class="card-body">
-              <h4 class="card-title">Linying</h4>
-              <p class="card-text"></p>
-            </div>
-          </router-link>
-        </div>
-
-        <div class="box artist col-xl-3 col-md-4 col-sm-12 mt-5">
-          <router-link to="/music/album">
-            <div class="card-img"><img src="https://www.augustman.com/my/wp-content/uploads/sites/3/2021/04/Yung_Raja_Thumb-scaled.jpg"></div>
-            <div class="card-body">
-              <h4 class="card-title">Yung Raja</h4>
-              <p class="card-text"></p>
-            </div>
-          </router-link>
-        </div>
+        <MusicCard data-type="artist" title="Gentle Bones" img-src="https://cdn.filestackcontent.com/eLeq7DuSsKWq57U1mC1t/convert?cache=true&crop=0%2C146%2C1920%2C960&crop_first=true&quality=90&w=1920"/>
+        <MusicCard data-type="artist" title="Benjamin Kheng" img-src="http://pilerats.com/assets/Uploads/benjamin-kheng-find-me-introducing.jpg"/>
+        <MusicCard data-type="artist" title="Linying" img-src="https://www.nme.com/wp-content/uploads/2021/07/linying-credit-jovian-lim@2000x1270.jpg"/>
+        <MusicCard data-type="artist" title="Yung Raja" img-src="https://www.augustman.com/my/wp-content/uploads/sites/3/2021/04/Yung_Raja_Thumb-scaled.jpg"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import MusicCard from '../components/MusicCard'
+
 export default {
   name: "Music",
+  components: {
+    MusicCard
+  },
   methods: {
     filterSelection(selection) {
-      var i, cardBoxes;
-      cardBoxes = document.getElementsByClassName("box");
-      for (i = 0; i < cardBoxes.length; i++) {
+      var cardBoxes = this.$refs.musicCards.children;
+      for (let i = 0; i < cardBoxes.length; i++) {
         // Hide elements that are not selected by removing the "show" class (display:block)
         this.RemoveClass(cardBoxes[i], "show");
         // Show filtered elements by adding the "show" class (display:block)
-        if (cardBoxes[i].className.indexOf(selection) > -1) this.AddClass(cardBoxes[i], "show");
+        if (cardBoxes[i].getAttribute("data-type").includes(selection)) this.AddClass(cardBoxes[i], "show");
       }
     },
     AddClass(element, name) {
-      var i, elementClasses, newClasses;
-      elementClasses = element.className.split(" ");
-      newClasses = name.split(" ");
-      for (i = 0; i < newClasses.length; i++) {
+      var elementClasses = element.className.split(" ");
+      var newClasses = name.split(" ");
+      for (let i = 0; i < newClasses.length; i++) {
         if (elementClasses.indexOf(newClasses[i]) == -1) {
           element.className += " " + newClasses[i];
         }
       }
     },
     RemoveClass(element, name) {
-      var i, elementClasses, newClasses;
-      elementClasses = element.className.split(" ");
-      newClasses = name.split(" ");
-      for (i = 0; i < newClasses.length; i++) {
+      var elementClasses = element.className.split(" ");
+      var newClasses = name.split(" ");
+      for (let i = 0; i < newClasses.length; i++) {
         while (elementClasses.indexOf(newClasses[i]) > -1) {
           elementClasses.splice(elementClasses.indexOf(newClasses[i]), 1);
         }
       }
       element.className = elementClasses.join(" ");
+    },
+    ResetActiveClass(btnContainer) {
+      var currentBtn = btnContainer.getElementsByClassName("active");
+      if (currentBtn.length > 0) currentBtn[0].className = currentBtn[0].className.replace(" active", "");
     },
     routeLoaded() {
       // get subroute on change in $route (specifically /music/subroute) or mounted
@@ -153,12 +87,9 @@ export default {
       // Determine cards to display
       this.filterSelection(currentSelection);
       // Add active class to the current control button (highlight it)
-      var btnContainer = document.getElementById("filterbuttons");
+      var btnContainer = this.$refs.filterButtons;
       var btns = btnContainer.getElementsByClassName("btn");
-      var currentBtn = btnContainer.getElementsByClassName("active");
-      if (currentBtn.length > 0) {
-        currentBtn[0].className = currentBtn[0].className.replace(" active", "");
-      }
+      this.ResetActiveClass(btnContainer);
       var possibleSelections = ["", "album", "artist"];
       var newBtn = btns[possibleSelections.indexOf(currentSelection)];
       newBtn.className += " active";
@@ -172,12 +103,11 @@ export default {
   mounted() {
     this.$router.onReady(() => this.routeLoaded());
     // Add active class to the current control button (highlight it)
-    var btnContainer = document.getElementById("filterbuttons");
+    var btnContainer = this.$refs.filterButtons;
     var btns = btnContainer.getElementsByClassName("btn");
     for (var i = 0; i < btns.length; i++) {
-      btns[i].addEventListener("click", function() {
-        var currentBtn = btnContainer.getElementsByClassName("active");
-        currentBtn[0].className = currentBtn[0].className.replace(" active", "");
+      btns[i].addEventListener("click", () => {
+        this.ResetActiveClass(btnContainer);
         this.className += " active";
       });
     }
@@ -229,7 +159,7 @@ button {
   padding-bottom: 20px;
 }
 
-.filterbutton {
+.filter-buttons {
   all: unset;
   margin-left: auto;
   margin-right: auto;
@@ -286,43 +216,8 @@ button {
   color: white;
 }
 
-.box {
-  display: none; /* Default state for albums/artists is invisible */
-  justify-content: center;
-  text-align: center;
-  text-align: -webkit-center;
-  color: map-get($colors, text);
-
-  a {
-    color: map-get($colors, text);
-
-    &.album-artist-tag:hover {
-      color: map-get($colors, brand);
-    }
-  }
-}
 /* The "show" class is added to the filtered elements */
 .show {
   display: block;
-}
-
-.card-img {
-  width: 230px;
-  height: 230px;
-  position: relative;
-  overflow: hidden;
-  border: 2px solid map-get($colors, text);
-  justify-content: center;
-  display: flex;
-
-  img {
-    display: block;
-    margin: auto;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-    justify-content: center;
-  }
 }
 </style>

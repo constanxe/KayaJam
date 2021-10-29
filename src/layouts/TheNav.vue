@@ -32,6 +32,10 @@ export default {
 
   &_content {
     min-width: auto !important;
+
+    main {
+      height: 100%;
+    }
   }
 }
 </style>

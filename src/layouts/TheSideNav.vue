@@ -1,6 +1,6 @@
 <template>
   <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-    <custom-scrollbar :settings="settings">
+    <custom-scrollbar :settings="scrollbarSettings">
       <div class="sb-sidenav-menu">
         <div class="nav" id="sidebarNav">
           <!-- customise here -->
@@ -42,8 +42,8 @@ export default {
   },
   data() {
     return {
-      // reference: https://binaryify.github.io/vue-custom-scrollbar/en/#why-custom-scrollbar
-      settings: {
+      /* reference: https://binaryify.github.io/vue-custom-scrollbar/en/#why-custom-scrollbar */
+      scrollbarSettings: {
         suppressScrollY: false,
         suppressScrollX: true,
         wheelPropagation: false
