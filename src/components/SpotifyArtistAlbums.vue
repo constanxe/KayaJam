@@ -1,8 +1,19 @@
 <template>
   <div>
+    <!-- Header -->
     <h1>getArtistAlbums</h1>
     <h4>{{ artistId }}</h4>
-    <ul><li v-for="item in rawData" :key="item.name">{{ item.name }}</li></ul>
+    <!-- Data -->
+    <ul><li v-for="item in dataItems" :key="item.id">{{ item.name }}</li></ul>
+    <!-- Paginator -->
+    <nav class="pagination">
+      <a
+        v-for="page in Math.min(dataPages, 5)" :key="page"
+        :class="{ 'active': dataActivePage == page }"
+        @click="handlePaginate(page)"
+        role="button"
+      />
+    </nav>
   </div>
 </template>
 
@@ -16,23 +27,38 @@ export default {
   },
   data() {
     return {
-      rawData: []
+      /* can customise */
+      dataLimit: 12,
+      /* will be updated automatically by paginator */
+      dataOffset: 0,
+      dataItems: [],
+      dataPages: 0,
+      dataActivePage: 1
     }
   },
-  created() {
-    setTimeout(() => {
-      // console.log(`=== getArtistAlbums ${this.artistId} ===`)
+  methods: {
+    getArtistAlbums() {
       /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getartistalbums */
       SpotifyApi
-        .getArtistAlbums(this.artistId, { limit: 10 })
+        .getArtistAlbums(this.artistId, { limit: this.dataLimit, offset: this.dataOffset })
         .then((data) => {
           // console.log(data)
-          this.rawData = data.items
+          this.dataItems = data.items
+          this.dataPages = Math.ceil(data.total / this.dataLimit)
         })
         .catch((error) => {
           console.log(error.responseText)
         })
-    }, 800)
+    },
+    handlePaginate(page) {
+      this.dataOffset = page * this.dataLimit
+      this.getArtistAlbums()
+      this.dataActivePage = page
+    }
+  },
+  created() {
+    /* give time to set access token in spotify-auth.js */
+    setTimeout(() => this.getArtistAlbums(), 800)
   }
 }
 </script>

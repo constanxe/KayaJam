@@ -42,7 +42,7 @@ export default {
   },
   data() {
     return {
-      /* reference: https://binaryify.github.io/vue-custom-scrollbar/en/#why-custom-scrollbar */
+      /* documentation: https://binaryify.github.io/vue-custom-scrollbar/en/#why-custom-scrollbar */
       scrollbarSettings: {
         suppressScrollY: false,
         suppressScrollX: true,
@@ -54,13 +54,7 @@ export default {
 </script>
 
 <style lang="scss">
-#sidebarNav {
-  a {
-    cursor: pointer;
-
-    &.router-link-exact-active {
-      color: map-get($colors, brand);
-    }
-  }
+#sidebarNav a.router-link-exact-active {
+  color: map-get($colors, brand);
 }
 </style>

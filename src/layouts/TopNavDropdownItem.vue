@@ -1,6 +1,6 @@
 <template>
   <li>
-    <router-link :to="route" class="dropdown-item">
+    <router-link :to="route" class="dropdown-item" role="button">
       <slot/>
     </router-link>
   </li>
@@ -17,10 +17,6 @@ export default {
 
 <style scoped lang="scss">
 .dropdown-item {
-  &:hover {
-    cursor: pointer;
-  }
-
   &.active,
   &:active {
     background-color: map-get($colors, brand);

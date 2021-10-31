@@ -23,6 +23,15 @@
       </div>
     </div>
 
+    <!-- Paginator -->
+    <nav class="pagination">
+      <a role="button" class="active"/>
+      <a role="button"/>
+      <a role="button"/>
+      <a role="button"/>
+      <a role="button"/>
+    </nav>
+
     <!-- Albums/Artists Cards-->
     <div class="container">
       <div class="row" ref="musicCards">
@@ -95,6 +104,7 @@ export default {
       newBtn.className += " active";
     },
   },
+  /* reference: https://stackoverflow.com/questions/52468088/vue-router-call-function-after-route-has-loaded */
   watch: {
     $route() {
       this.$nextTick(this.routeLoaded());
@@ -142,7 +152,6 @@ input {
 }
 button {
   all: unset;
-  cursor: pointer;
   width: 44px;
   height: 44px;
   font-weight: bold;
@@ -173,7 +182,6 @@ button {
   padding: 2px 10px;
   background-color: #2f4f4f;
   color: white;
-  cursor: pointer;
   border-radius: 50px;
 
   &:hover {

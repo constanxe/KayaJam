@@ -31,6 +31,7 @@ export default {
   components: {
     Button
   },
+  /* adapted from: SMU IS216 extra exercise */
   data() {
     return {
       users: [

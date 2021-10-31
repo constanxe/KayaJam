@@ -4,13 +4,6 @@ body {
   color: map-get($colors, text);
 }
 
-a {
-  color: map-get($colors, brand);
-  text-decoration: none;
-}
-.btn-link:hover {
-  color: map-get($colors, brand);
-}
 
 .bg {
   &_brand {
@@ -25,4 +18,32 @@ a {
   &_telegram {
     background-color: map-get($colors-brands, telegram);
   }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
+
+  /* adapted from: https://codepen.io/RRoberts/pen/jVOWEQ */
+  a {
+    width: 30px;
+    height: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: rgba(46, 204, 113, 0.4);
+
+    &.active {
+      background-color: map-get($colors, brand);
+    }
+  }
+}
+
+a {
+  color: map-get($colors, brand);
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  color: map-get($colors, brand);
 }

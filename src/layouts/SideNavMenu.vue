@@ -6,6 +6,7 @@
       :icon-class="iconClass"
       aria-expanded="false"
       :aria-controls="id"
+      role="button"
     >{{ heading }}<SideNavItemIcon :collapse-icon="true"/>
     </SideNavItem>
     <div :id="id" :aria-labelledby="heading" class="collapse show" data-bs-parent="#sidenavAccordion">
