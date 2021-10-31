@@ -86,11 +86,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.container,
-.row {
-  height: 100%;
-}
-
 .login-box {
   height: fit-content;
   margin-bottom: 25px;

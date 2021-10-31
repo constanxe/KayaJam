@@ -28,7 +28,6 @@ export default {
 <style lang="scss">
 .music-card {
   display: none; /* Default state for albums/artists is invisible */
-  justify-content: center;
   text-align: center;
   text-align: -webkit-center;
   color: map-get($colors, text);
@@ -45,17 +44,16 @@ export default {
 .card-img {
   width: 230px;
   height: 230px;
-  position: relative;
-  overflow: hidden;
-  border: 2px solid map-get($colors, text);
-  justify-content: center;
   display: flex;
+  overflow: hidden;
+  position: relative;
+  justify-content: center;
+  border: 2px solid map-get($colors, text);
 
   img {
-    display: block;
-    margin: auto;
-    height: 100%;
     width: 100%;
+    height: 100%;
+    display: block;
     object-fit: cover;
     object-position: center;
     justify-content: center;

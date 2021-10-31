@@ -3,7 +3,7 @@
     <!-- Navbar Brand-->
     <router-link class="navbar-brand ps-3" to="/">Spotify Webapp</router-link>
     <!-- Sidebar Toggle-->
-    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle">
+    <button class="btn btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle">
       <i class="bi bi-list"/>
     </button>
     <!-- Navbar Search-->

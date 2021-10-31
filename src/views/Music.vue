@@ -35,15 +35,15 @@
     <!-- Albums/Artists Cards-->
     <div class="container">
       <div class="row" ref="musicCards">
-        <MusicCard data-type="album" artist-tag-name="Charlie Lim" title="Time/Space" img-src="https://f4.bcbits.com/img/a2407592093_10.jpg"/>
-        <MusicCard data-type="album" artist-tag-name="Subsonic Eye" title="Strawberry Feels" img-src="https://f4.bcbits.com/img/a3424343514_10.jpg"/>
-        <MusicCard data-type="album" artist-tag-name="Inch" title="Letters To Ubin" img-src="https://images.squarespace-cdn.com/content/v1/561f70f2e4b05c4e86dede19/1591256499796-J3CM6FL7W3W71PT8FJM2/1frontcover.jpg?format=2500w"/>
-        <MusicCard data-type="album" artist-tag-name="James Blake" title="Friends" img-src="https://media.pitchfork.com/photos/60f9880e4a319e50a860a52e/1:1/w_600/James-Blake.jpg"/>
+        <MusicCard data-type="album" type="album" artist-tag-name="Charlie Lim" title="Time/Space" img-src="https://f4.bcbits.com/img/a2407592093_10.jpg"/>
+        <MusicCard data-type="album" type="album" artist-tag-name="Subsonic Eye" title="Strawberry Feels" img-src="https://f4.bcbits.com/img/a3424343514_10.jpg"/>
+        <MusicCard data-type="album" type="album" artist-tag-name="Inch" title="Letters To Ubin" img-src="https://images.squarespace-cdn.com/content/v1/561f70f2e4b05c4e86dede19/1591256499796-J3CM6FL7W3W71PT8FJM2/1frontcover.jpg?format=2500w"/>
+        <MusicCard data-type="album" type="album" artist-tag-name="James Blake" title="Friends" img-src="https://media.pitchfork.com/photos/60f9880e4a319e50a860a52e/1:1/w_600/James-Blake.jpg"/>
 
-        <MusicCard data-type="artist" title="Gentle Bones" img-src="https://cdn.filestackcontent.com/eLeq7DuSsKWq57U1mC1t/convert?cache=true&crop=0%2C146%2C1920%2C960&crop_first=true&quality=90&w=1920"/>
-        <MusicCard data-type="artist" title="Benjamin Kheng" img-src="http://pilerats.com/assets/Uploads/benjamin-kheng-find-me-introducing.jpg"/>
-        <MusicCard data-type="artist" title="Linying" img-src="https://www.nme.com/wp-content/uploads/2021/07/linying-credit-jovian-lim@2000x1270.jpg"/>
-        <MusicCard data-type="artist" title="Yung Raja" img-src="https://www.augustman.com/my/wp-content/uploads/sites/3/2021/04/Yung_Raja_Thumb-scaled.jpg"/>
+        <MusicCard data-type="artist" type="artist" title="Gentle Bones" img-src="https://cdn.filestackcontent.com/eLeq7DuSsKWq57U1mC1t/convert?cache=true&crop=0%2C146%2C1920%2C960&crop_first=true&quality=90&w=1920"/>
+        <MusicCard data-type="artist" type="artist" title="Benjamin Kheng" img-src="http://pilerats.com/assets/Uploads/benjamin-kheng-find-me-introducing.jpg"/>
+        <MusicCard data-type="artist" type="artist" title="Linying" img-src="https://www.nme.com/wp-content/uploads/2021/07/linying-credit-jovian-lim@2000x1270.jpg"/>
+        <MusicCard data-type="artist" type="artist" title="Yung Raja" img-src="https://www.augustman.com/my/wp-content/uploads/sites/3/2021/04/Yung_Raja_Thumb-scaled.jpg"/>
       </div>
     </div>
   </div>
@@ -51,6 +51,7 @@
 
 <script>
 import MusicCard from '../components/MusicCard'
+import { gsap } from "gsap";
 
 export default {
   name: "Music",
@@ -66,6 +67,10 @@ export default {
         // Show filtered elements by adding the "show" class (display:block)
         if (cardBoxes[i].getAttribute("data-type").includes(selection)) this.AddClass(cardBoxes[i], "show");
       }
+      /* [animation] reference: https://greensock.com/get-started/ */
+      gsap.timeline()
+        .to(cardBoxes, { duration: 0, opacity: 0, ease: 'expo.out' })
+        .to(cardBoxes, { duration: 0.9, opacity: 1, ease: 'back.out' })
     },
     AddClass(element, name) {
       var elementClasses = element.className.split(" ");
@@ -159,69 +164,51 @@ button {
 }
 
 .container-jumbotron {
-  text-align: center;
-  justify-content: center;
-  background-color: map-get($colors, brand);
   padding: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-bottom: 20px;
+  text-align: center;
+  background-color: map-get($colors, brand);
 }
 
 .filter-buttons {
   all: unset;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  padding-top: 5px;
-}
-.btn {
-  border: none;
-  outline: none;
-  width: 70px;
-  padding: 2px 10px;
-  background-color: #2f4f4f;
-  color: white;
-  border-radius: 50px;
 
-  &:hover {
-    background-color: lightgrey;
-  }
-
-  &.active {
-    background-color: darkgrey;
+  .btn {
+    border: none;
+    outline: none;
+    width: 70px;
+    padding: 2px 10px;
+    border-radius: 50px;
+    background-color: #2f4f4f;
     color: white;
+
+    &:hover {
+      background-color: lightgrey;
+    }
+
+    &.active {
+      background-color: darkgrey;
+      color: white;
+    }
   }
 }
 
 .container {
-  justify-content: center;
-  border: 0;
-  margin-left: auto;
-  margin-right: auto;
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-.form {
-  all: unset;
-  display: grid;
-  justify-content: center;
-  border: 0;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
 .header {
   all: unset;
-  justify-content: center;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
   font-size: 40px;
   font-weight: bolder;
   color: white;
+}
+.form {
+  all: unset;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 /* The "show" class is added to the filtered elements */
