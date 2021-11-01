@@ -49,7 +49,6 @@ export default {
   },
   methods: {
     validate() {
-      console.log("in validate");
       // clear previous error
       this.error= "";
       this.showError = false;

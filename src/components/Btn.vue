@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="my-2 text-white btn" :class="btnClass">
+  <button type="button" class="my-1 btn" :class="btnClass">
     <slot/>
   </button>
 </template>
@@ -8,7 +8,7 @@
 export default {
   name: 'Button',
   props: {
-    btnClass: { type: String, default: "bg_brand" }
+    btnClass: { type: String, default: "btn--brand" }
   }
 }
 </script>

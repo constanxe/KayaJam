@@ -4,19 +4,71 @@ body {
   color: map-get($colors, text);
 }
 
+/* Block */
+.btn {
+  color: map-get($colors, text);
+  border: none;
+  /* remove focus */
+  outline: none !important;
+  box-shadow: none !important;
+  /* for overflow */
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
 
-.bg {
-  &_brand {
+  &:hover {
+    color: map-get($colors, text);
+    opacity: 0.9;
+  }
+
+  /* Modifiers */
+  &--radio {
+    all: unset;
+    color: white;
+    margin: 0 2px;
+    padding: 2px 10px;
+    border-radius: 50px;
+    background-color: #2f4f4f;
+
+    &:hover {
+      background-color: lightgrey;
+      opacity: 1 !important;
+    }
+
+    &.active {
+      background-color: darkgrey;
+      color: white;
+    }
+  }
+
+  &--brand {
     background-color: map-get($colors, brand);
   }
-  &_facebook {
+  &--facebook {
     background-color: map-get($colors-brands, facebook);
   }
-  &_twitter {
+  &--twitter {
     background-color: map-get($colors-brands, twitter);
   }
-  &_telegram {
+  &--telegram {
     background-color: map-get($colors-brands, telegram);
+  }
+
+  /* Elements */
+  &__search {
+    all: unset;
+    width: 44px;
+    font-weight: bold;
+    color: map-get($colors-bg, dark);
+
+    &:hover {
+      color: map-get($colors-bg, dark);
+    }
+  }
+
+  &__filter {
+    height: 44px;
+    width: 70px;
   }
 }
 
@@ -40,6 +92,15 @@ body {
 }
 
 a {
-  color: map-get($colors, brand);
   text-decoration: none;
+  color: map-get($colors, brand);
+
+  &:hover {
+    color: map-get($colors, brand);
+  }
+}
+
+/* if <a> color not brand */
+.tag:hover {
+  color: map-get($colors, brand) !important;
 }

@@ -3,10 +3,10 @@
     <router-link :to="'/music/'+type">
       <div class="card-img"><img :src="imgSrc" alt="Card image"></div>
       <div class="card-body">
-        <h4 class="card-title">{{ title }}</h4>
+        <h4 class="card-title tag">{{ title }}</h4>
         <!-- for album typed cards -->
         <p class="card-text" v-if="artistTagName">
-          by <router-link to="/music/artist" class="album-artist-tag">{{ artistTagName }}</router-link>
+          by <router-link to="/music/artist" class="tag">{{ artistTagName }}</router-link>
         </p>
       </div>
     </router-link>
@@ -32,12 +32,9 @@ export default {
   text-align: -webkit-center;
   color: map-get($colors, text);
 
-  a {
+  a,
+  a:hover {
     color: map-get($colors, text);
-
-    &.album-artist-tag:hover {
-      color: map-get($colors, brand);
-    }
   }
 }
 

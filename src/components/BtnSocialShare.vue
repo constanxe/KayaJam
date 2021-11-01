@@ -1,10 +1,6 @@
 <template>
   <!-- package used: https://github.com/nicolasbeauvais/vue-social-sharing -->
-  <ShareNetwork
-    :network="network"
-    :url="url"
-    :title="title"
-  >
+  <ShareNetwork :network="network" :url="url" :title="title">
     <ButtonSocial :network="network">
       &nbsp;Share to {{ capitalizeFirstLetter(network) }}
     </ButtonSocial>
@@ -21,7 +17,7 @@ export default {
   },
   props: {
     network: String,
-    url: { type: String, default: "http://spotify.com/" },  // facebook needs a valid URL
+    url: { type: String, default: "http://spotify.com/" },  /* facebook needs a valid URL */
     title: { type: String, default: "sick!! check this out" }
   },
   methods: {

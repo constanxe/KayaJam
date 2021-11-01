@@ -8,14 +8,18 @@
     <div>5 Stars <Star :star="starsValue" hasdescription/></div>
 
     <div>
-      <Button btnClass="btn-primary">Submit</Button>
+      <Button btn-class="btn--radio">Unchosen</Button>
+      <Button btn-class="btn--radio active">Chosen</Button>
+    </div>
+    <div>
+      <Button btn-class="btn-primary">Submit</Button>
       <!-- Modal with button as example trigger-->
       <Button data-bs-target="#exampleModal" data-bs-toggle="modal">Open Modal</Button>
       <Modal id="exampleModal">
         <template #title>Title</template>
         <template #body>Body</template>
         <template #footer>
-          <Button btnClass="btn-secondary" data-bs-dismiss="modal">Close</Button>
+          <Button btn-class="btn-secondary" data-bs-dismiss="modal">Close</Button>
           <Button data-bs-dismiss="modal">Submit</Button>
         </template>
       </Modal>
@@ -55,7 +59,7 @@ export default {
   },
   data() {
     return {
-      starValue: 0, starsValue: 0,  // or the value if rated before
+      starValue: 0, starsValue: 0,  /* or the value if rated before */
     }
   }
 }

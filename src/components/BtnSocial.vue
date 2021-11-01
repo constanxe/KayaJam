@@ -1,5 +1,5 @@
 <template>
-  <Button :btn-class="'bg_'+network">
+  <Button :btn-class="'btn--'+network">
     <i :class="'bi bi-'+network"/>
     <slot/>
   </Button>
@@ -18,7 +18,7 @@ export default {
       type: String,
       /* adapted from: https://v3.vuejs.org/guide/component-props.html#prop-validation */
       validator(value) {
-        // The value must match one of these strings
+        /* The value must match one of these strings */
         return ["facebook", "twitter", "telegram"].includes(value)
       }
     }

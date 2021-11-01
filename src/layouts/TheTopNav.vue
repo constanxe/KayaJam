@@ -19,7 +19,7 @@
           <input class="form-control" type="text" placeholder="Search"
             aria-label="Search" aria-describedby="btnNavbarSearch"
           />
-          <button class="btn bg_brand text-white" id="btnNavbarSearch" type="button">
+          <button class="btn btn--brand" id="btnNavbarSearch" type="button">
             <i class="bi bi-search"/>
           </button>
         </div>

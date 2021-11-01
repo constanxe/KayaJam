@@ -11,15 +11,15 @@
           <input type="search" id="query" name="q"
             placeholder="Search for your favourite artists or albums"
             aria-label="Search through site content">
-          <button>Search</button>
+          <Button btn-class="btn__search">Search</Button>
         </form>
       </div>
 
       <!-- Filter Buttons-->
-      <div class="container filter-buttons" ref="filterButtons">
-        <router-link to="/music"><button class="btn" @click="filterSelection('')">All</button></router-link>
-        <router-link to="/music/album"><button class="btn" @click="filterSelection('album')">Albums</button></router-link>
-        <router-link to="/music/artist"><button class="btn" @click="filterSelection('artist')">Artists</button></router-link>
+      <div class="container" ref="filterButtons">
+        <router-link to="/music"><Button btn-class="btn__filter btn--radio" @click="filterSelection('')">All</Button></router-link>
+        <router-link to="/music/album"><Button btn-class="btn__filter btn--radio" @click="filterSelection('album')">Albums</Button></router-link>
+        <router-link to="/music/artist"><Button btn-class="btn__filter btn--radio" @click="filterSelection('artist')">Artists</Button></router-link>
       </div>
     </div>
 
@@ -50,12 +50,14 @@
 </template>
 
 <script>
+import Button from '../components/Btn.vue'
 import MusicCard from '../components/MusicCard'
 import { gsap } from "gsap";
 
 export default {
   name: "Music",
   components: {
+    Button,
     MusicCard
   },
   methods: {
@@ -67,7 +69,7 @@ export default {
         // Show filtered elements by adding the "show" class (display:block)
         if (cardBoxes[i].getAttribute("data-type").includes(selection)) this.AddClass(cardBoxes[i], "show");
       }
-      /* [animation] reference: https://greensock.com/get-started/ */
+      /* [animation] documentation: https://greensock.com/get-started/ */
       gsap.timeline()
         .to(cardBoxes, { duration: 0, opacity: 0, ease: 'expo.out' })
         .to(cardBoxes, { duration: 0.9, opacity: 1, ease: 'back.out' })
@@ -120,9 +122,10 @@ export default {
     // Add active class to the current control button (highlight it)
     var btnContainer = this.$refs.filterButtons;
     var btns = btnContainer.getElementsByClassName("btn");
+    const instanceRef = this;
     for (var i = 0; i < btns.length; i++) {
-      btns[i].addEventListener("click", () => {
-        this.ResetActiveClass(btnContainer);
+      btns[i].addEventListener("click", function() {
+        instanceRef.ResetActiveClass(btnContainer);
         this.className += " active";
       });
     }
@@ -144,6 +147,7 @@ form {
   margin-left: 5px;
   margin-right: 5px;
 }
+
 input {
   all: unset;
   color: black;
@@ -151,64 +155,39 @@ input {
   width: 100%;
   padding: 6px 10px;
 }
+
 ::placeholder {
   color: black;
   opacity: 0.7;
-}
-button {
-  all: unset;
-  width: 44px;
-  height: 44px;
-  font-weight: bold;
-  color: black;
 }
 
 .container-jumbotron {
   padding: 20px;
   text-align: center;
   background-color: map-get($colors, brand);
-}
 
-.filter-buttons {
-  all: unset;
+  /* immediate children */
+  & > * {
+    all: unset;
+  }
 
-  .btn {
-    border: none;
-    outline: none;
-    width: 70px;
-    padding: 2px 10px;
-    border-radius: 50px;
-    background-color: #2f4f4f;
+  .header {
+    font-size: 40px;
+    font-weight: bolder;
     color: white;
+  }
 
-    &:hover {
-      background-color: lightgrey;
-    }
-
-    &.active {
-      background-color: darkgrey;
-      color: white;
-    }
+  .form {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 }
 
 .container {
   margin-top: 5px;
   margin-bottom: 5px;
-}
-
-.header {
-  all: unset;
-  font-size: 40px;
-  font-weight: bolder;
-  color: white;
-}
-.form {
-  all: unset;
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 /* The "show" class is added to the filtered elements */
