@@ -4,7 +4,9 @@
     <h1>getArtistAlbums</h1>
     <h4>{{ artistId }}</h4>
     <!-- Data -->
-    <ul><li v-for="item in dataItems" :key="item.id">{{ item.name }}</li></ul>
+    <div ref="artist-albums-data">
+      <li v-for="item in dataItems" :key="item.id">{{ item.name }}</li>
+    </div>
     <!-- Paginator -->
     <nav class="pagination">
       <a
@@ -45,9 +47,11 @@ export default {
           // console.log(data)
           this.dataItems = data.items
           this.dataPages = Math.ceil(data.total / this.dataLimit)
+          this.$refs["artist-albums-data"].innerText = ""
         })
         .catch((error) => {
-          console.log(error.responseText)
+          // console.log(error.responseText)
+          this.$refs["artist-albums-data"].innerText = "Error occurred. Please try again."
         })
     },
     handlePaginate(page) {
