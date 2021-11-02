@@ -1,12 +1,11 @@
 <template>
   <div>
     <!-- Header -->
-    <h1>getArtistAlbums</h1>
-    <h4>{{ artistId }}</h4>
+    <h1>Spotify API</h1>
+    <h4>getArtistAlbums ({{ artistId }})</h4>
     <!-- Data -->
-    <div ref="artist-albums-data">
-      <li v-for="item in dataItems" :key="item.id">{{ item.name }}</li>
-    </div>
+    <div><li v-for="item in dataItems" :key="item.id">{{ item.name }}</li></div>
+    <div ref="errorArtistAlbums"/>
     <!-- Paginator -->
     <nav class="pagination">
       <a
@@ -47,11 +46,11 @@ export default {
           // console.log(data)
           this.dataItems = data.items
           this.dataPages = Math.ceil(data.total / this.dataLimit)
-          this.$refs["artist-albums-data"].innerText = ""
+          this.$refs["errorArtistAlbums"].innerText = ""
         })
         .catch((error) => {
           // console.log(error.responseText)
-          this.$refs["artist-albums-data"].innerText = "Error occurred. Please try again."
+          this.$refs["errorArtistAlbums"].innerText = "Error occurred. Please try again."
         })
     },
     handlePaginate(page) {

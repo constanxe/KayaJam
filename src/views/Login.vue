@@ -87,12 +87,13 @@ export default {
 <style scoped lang="scss">
 .login-box {
   height: fit-content;
+  max-width: 550px;
   margin-bottom: 25px;
   margin-top: 25px;
   padding-right: 45px;
   padding-left: 45px;
   text-align: center;
-  background: #5db871;
+  background: map-get($colors, brand);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   color: map-get($colors-bg, dark);
 

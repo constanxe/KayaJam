@@ -1,8 +1,6 @@
 <template>
   <div class="about p-4">
-    <h1>demo/test page</h1>
-
-    <h2>components</h2>
+    <h1>Components</h1>
 
     <div><Star :star="starValue" :maxstars="1" starsize="xs"/> Star</div>
     <div>5 Stars <Star :star="starsValue" hasdescription/></div>
