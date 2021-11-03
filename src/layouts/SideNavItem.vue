@@ -19,3 +19,9 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+.nav-link:hover {
+  color: map-get($colors, text) !important;
+}
+</style>

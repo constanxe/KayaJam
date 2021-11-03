@@ -95,7 +95,7 @@ export default {
   text-align: center;
   background: map-get($colors, brand);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  color: map-get($colors-bg, dark);
+  color: black;
 
   &_title {
     margin-top: 30px;
@@ -118,8 +118,7 @@ export default {
     padding-left: 5px;
     border: none;
     font-weight: bold;
-    color: map-get($colors, text);
-    background-color: map-get($colors-bg, dark);
+    background-color: black;
 
     &:focus {
       outline: none;

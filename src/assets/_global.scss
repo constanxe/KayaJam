@@ -6,7 +6,7 @@ body {
 
 /* Block */
 .btn {
-  color: map-get($colors, text);
+  color: white;
   border: none;
   /* remove focus */
   outline: none !important;
@@ -17,7 +17,7 @@ body {
   justify-content: space-between;
 
   &:hover {
-    color: map-get($colors, text);
+    color: white;
     opacity: 0.9;
   }
 
@@ -59,10 +59,10 @@ body {
     all: unset;
     width: 44px;
     font-weight: bold;
-    color: map-get($colors-bg, dark);
+    color: black;
 
     &:hover {
-      color: map-get($colors-bg, dark);
+      color: black;
     }
   }
 

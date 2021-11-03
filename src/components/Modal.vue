@@ -31,7 +31,7 @@ export default {
 
 <style scoped lang="scss">
 .modal-content {
-  background-color: map-get($colors-bg, dark);
+  background-color: map-get($colors-bg, default);
 
   .modal-header,
   .modal-footer {

@@ -3,19 +3,19 @@
 
 $font: "Circular Spotify Tx T Black", Helvetica, Arial, sans-serif;
 
-$colors: (
-  text: white,
-  brand: #1DB954,
+$colors-brands: (
+  spotify: #1DB954,
+  facebook: #3b5998,
+  twitter: #1DA1F2,
+  telegram: #0088cc,
 );
 
 $colors-bg: (
-  dark: #1e2229,
   default: #2a313a,
   light: #424242,
 );
 
-$colors-brands: (
-  facebook: #3b5998,
-  twitter: #1DA1F2,
-  telegram: #0088cc,
-)
+$colors: (
+  text: white,
+  brand: map-get($colors-brands, spotify),
+);

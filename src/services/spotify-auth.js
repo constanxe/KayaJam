@@ -27,7 +27,7 @@ var SpotifyApi = new SpotifyWebApi();
     },
   };
   const data = {
-    grant_type: 'SPOTIFY_CLIENT_credentials',
+    grant_type: 'client_credentials',
   };
 
   try {

@@ -30,7 +30,6 @@ export default {
   display: none; /* Default state for albums/artists is invisible */
   text-align: center;
   text-align: -webkit-center;
-  color: map-get($colors, text);
 
   a,
   a:hover {
