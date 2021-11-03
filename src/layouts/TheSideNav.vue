@@ -11,8 +11,7 @@
             <SideNavItem route="/music/artist">Artists</SideNavItem>
           </SideNavMenu>
           <SideNavMenu heading="Users" icon-class="bi-people-fill">
-            <SideNavItem route="/users/a">Placeholder</SideNavItem>
-            <SideNavItem route="/users/b">Placeholder</SideNavItem>
+            <SideNavItem route="/chat">Chat</SideNavItem>
           </SideNavMenu>
           <div class="sb-sidenav-menu-heading">Account</div>
           <SideNavItem route="/account/profile" icon-class="bi-person-fill">Profile</SideNavItem>

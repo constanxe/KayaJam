@@ -13,8 +13,8 @@ var SpotifyApi = new SpotifyWebApi();
   adapted from: https://gist.github.com/donstefani/70ef1069d4eab7f2339359526563aab2
 */
 (async () => {
-  const clientId = process.env.VUE_APP_CLIENT_ID;
-  const clientSecret = process.env.VUE_APP_CLIENT_SECRET;
+  const clientId = process.env.VUE_APP_SPOTIFY_CLIENT_ID;
+  const clientSecret = process.env.VUE_APP_SPOTIFY_CLIENT_SECRET;
 
   const headers = {
     headers: {
@@ -27,7 +27,7 @@ var SpotifyApi = new SpotifyWebApi();
     },
   };
   const data = {
-    grant_type: 'client_credentials',
+    grant_type: 'SPOTIFY_CLIENT_credentials',
   };
 
   try {

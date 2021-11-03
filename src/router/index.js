@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Music from '../views/Music.vue'
+import Chat from '../views/Chat.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,12 @@ const routes = [
     name: 'Music',
     component: Music
   },
+  {
+    path: '/chat',
+    name: 'Chat',
+    component: Chat
+  },
+
   /* temporary pages */
   {
     path: '/temp/home',
