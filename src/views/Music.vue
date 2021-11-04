@@ -17,9 +17,9 @@
 
       <!-- Filter Buttons-->
       <div class="container" ref="filterButtons">
-        <router-link to="/music"><Button btn-class="btn__filter btn--radio" @click="filterSelection('')">All</Button></router-link>
-        <router-link to="/music/album"><Button btn-class="btn__filter btn--radio" @click="filterSelection('album')">Albums</Button></router-link>
-        <router-link to="/music/artist"><Button btn-class="btn__filter btn--radio" @click="filterSelection('artist')">Artists</Button></router-link>
+        <router-link to="/music"><Button btn-class="btn__toggle btn--radio" @click="filterSelection('')">All</Button></router-link>
+        <router-link to="/music/album"><Button btn-class="btn__toggle btn--radio" @click="filterSelection('album')">Albums</Button></router-link>
+        <router-link to="/music/artist"><Button btn-class="btn__toggle btn--radio" @click="filterSelection('artist')">Artists</Button></router-link>
       </div>
     </div>
 
@@ -164,7 +164,7 @@ input {
 .container-jumbotron {
   padding: 20px;
   text-align: center;
-  background-color: map-get($colors, brand);
+  background-color: map-get($colors-brands, spotify);
 
   /* immediate children */
   & > * {

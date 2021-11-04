@@ -33,7 +33,7 @@ export default {
 
   a,
   a:hover {
-    color: map-get($colors, text);
+    color: var(--color-text);
   }
 }
 
@@ -44,7 +44,7 @@ export default {
   overflow: hidden;
   position: relative;
   justify-content: center;
-  border: 2px solid map-get($colors, text);
+  border: 2px solid var(--color-text);
 
   img {
     width: 100%;

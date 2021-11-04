@@ -22,6 +22,6 @@ export default {
 
 <style scoped lang="scss">
 .nav-link:hover {
-  color: map-get($colors, text) !important;
+  color: var(--color-text) !important;
 }
 </style>

@@ -8,7 +8,7 @@
     :hasresults="hasresults"
     :hasdescription="hasdescription"
     :ratingdescription="ratingdescription"
-    :class="{ 'with-desc' : hasdescription, 'hide-desc' : !hasdescription }"
+    :class="hasdescription ? 'with-desc' : 'hide-desc'"
   />
 </template>
 
@@ -64,11 +64,6 @@ export default {
 }
 
 .with-desc {
-  span {
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-
   /* keep stars to 1 line */
   .star {
     display: contents !important;

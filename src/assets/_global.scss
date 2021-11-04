@@ -1,7 +1,7 @@
 body {
   font-family: $font;
-  background-color: map-get($colors-bg, default);
-  color: map-get($colors, text);
+  background-color: var(--color-default);
+  color: var(--color-text);
 }
 
 /* Block */
@@ -15,43 +15,11 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
+  text-align: center !important;
 
   &:hover {
     color: white;
     opacity: 0.9;
-  }
-
-  /* Modifiers */
-  &--radio {
-    all: unset;
-    color: white;
-    margin: 0 2px;
-    padding: 2px 10px;
-    border-radius: 50px;
-    background-color: #2f4f4f;
-
-    &:hover {
-      background-color: lightgrey;
-      opacity: 1 !important;
-    }
-
-    &.active {
-      background-color: darkgrey;
-      color: white;
-    }
-  }
-
-  &--brand {
-    background-color: map-get($colors, brand);
-  }
-  &--facebook {
-    background-color: map-get($colors-brands, facebook);
-  }
-  &--twitter {
-    background-color: map-get($colors-brands, twitter);
-  }
-  &--telegram {
-    background-color: map-get($colors-brands, telegram);
   }
 
   /* Elements */
@@ -66,9 +34,48 @@ body {
     }
   }
 
-  &__filter {
+  &__toggle {
+    all: unset;
+    color: white;
+    margin: 0 2px;
+    padding: 2px 10px;
+    border-radius: 50px;
+    background-color: #2f4f4f;
+
+    &:hover {
+      background-color: lightgrey;
+    }
+
+    &.active {
+      background-color: darkgrey;
+      color: white;
+    }
+  }
+
+  /* Modifiers */
+  &--radio{
     height: 44px;
     width: 70px;
+
+    &:hover {
+      opacity: 1 !important;
+    }
+  }
+
+  &--brand {
+    background-color: map-get($colors-brands, spotify);
+  }
+
+  &--facebook {
+    background-color: map-get($colors-brands, facebook);
+  }
+
+  &--twitter {
+    background-color: map-get($colors-brands, twitter);
+  }
+
+  &--telegram {
+    background-color: map-get($colors-brands, telegram);
   }
 }
 
@@ -86,21 +93,21 @@ body {
     background-color: rgba(46, 204, 113, 0.4);
 
     &.active {
-      background-color: map-get($colors, brand);
+      background-color: map-get($colors-brands, spotify);
     }
   }
 }
 
 a {
   text-decoration: none;
-  color: map-get($colors, brand);
+  color: map-get($colors-brands, spotify);
 
   &:hover {
-    color: map-get($colors, brand);
+    color: map-get($colors-brands, spotify);
   }
 }
 
 /* if <a> color not brand */
 .tag:hover {
-  color: map-get($colors, brand) !important;
+  color: map-get($colors-brands, spotify) !important;
 }

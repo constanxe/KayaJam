@@ -19,7 +19,7 @@ export default {
 .dropdown-item {
   &.active,
   &:active {
-    background-color: map-get($colors, brand);
+    background-color: map-get($colors-brands, spotify);
   }
 }
 </style>

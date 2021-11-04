@@ -57,10 +57,10 @@
       this.$nextTick(fetchHistory(this.$store));
     },
     computed: {
-    ...mapGetters({
-      uuid: 'getMyUuid',
-    }),
-  },
+      ...mapGetters({
+        uuid: 'getMyUuid',
+      }),
+    },
   };
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+  <nav class="sb-sidenav accordion" :class="theme == 'light' ? 'sb-sidenav-light' : 'sb-sidenav-dark'" id="sidenavAccordion">
     <custom-scrollbar :settings="scrollbarSettings">
       <div class="sb-sidenav-menu">
         <div class="nav" id="sidebarNav">
@@ -48,12 +48,17 @@ export default {
         wheelPropagation: false
       }
     }
+  },
+  computed: {
+    theme() {
+      return this.$store.getters.getTheme;
+    }
   }
 }
 </script>
 
 <style lang="scss">
 #sidebarNav a.router-link-exact-active {
-  color: map-get($colors, brand);
+  color: map-get($colors-brands, spotify);
 }
 </style>

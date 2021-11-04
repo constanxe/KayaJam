@@ -1,5 +1,12 @@
+/* customise */
+$default-theme: dark !default;  /* dark or light, default dark */
+
 /* source: https://www.onlinewebfonts.com/download/01173b246d9d9ea808ea75a26b3b61bb */
-@font-face { font-family: "Circular Spotify Tx T Black"; src: url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.eot"); src: url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.woff") format("woff"), url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.svg#Circular Spotify Tx T Black") format("svg"); }
+@font-face {
+  font-family: "Circular Spotify Tx T Black";
+  src: url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.eot");
+  src: url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.woff") format("woff"), url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/01173b246d9d9ea808ea75a26b3b61bb.svg#Circular Spotify Tx T Black") format("svg");
+}
 
 $font: "Circular Spotify Tx T Black", Helvetica, Arial, sans-serif;
 
@@ -10,12 +17,20 @@ $colors-brands: (
   telegram: #0088cc,
 );
 
-$colors-bg: (
-  default: #2a313a,
-  light: #424242,
-);
+/* reference: https://dev.to/lindaojo/dark-mode-using-css-variables-vue-js-37il */
+:root, [data-theme=dark] {
+  --color-text: white;
+  --color-default: #2a313a;
+  --color-supporting: #424242;
+}
 
-$colors: (
-  text: white,
-  brand: map-get($colors-brands, spotify),
-);
+[data-theme=light] {
+  --color-text: black;
+  --color-default: white;
+  --color-supporting: #f8f9fa;
+}
+
+/* reference: https://css-tricks.com/getting-javascript-to-talk-to-css-and-sass/ */
+:export {
+  defaultTheme: $default-theme;
+}

@@ -11,6 +11,9 @@ export default {
   name: 'App',
   components: {
     TheNav
+  },
+  mounted() {
+    document.documentElement.setAttribute('data-theme', this.$store.getters.getTheme)
   }
 }
 </script>

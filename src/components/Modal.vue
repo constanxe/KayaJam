@@ -31,11 +31,11 @@ export default {
 
 <style scoped lang="scss">
 .modal-content {
-  background-color: map-get($colors-bg, default);
+  background-color: var(--color-default);
 
   .modal-header,
   .modal-footer {
-    border-color: map-get($colors-bg, light);
+    border-color: var(--color-supporting);
   }
 }
 </style>

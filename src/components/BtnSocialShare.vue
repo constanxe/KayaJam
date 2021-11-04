@@ -9,6 +9,7 @@
 
 <script>
 import ButtonSocial from './BtnSocial.vue'
+import { capitalizeFirstLetter } from '../utils'
 
 export default {
   name: 'ButtonSocialShare',
@@ -22,7 +23,7 @@ export default {
   },
   methods: {
     capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1)
+      return capitalizeFirstLetter(string)
     }
   }
 }
