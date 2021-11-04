@@ -8,7 +8,7 @@
       <!-- Search Bar-->
       <div class="container form">
         <form id="form" role="search">
-          <input type="search" id="query" name="q"
+          <input type="search" id="query" name="q" autocomplete="off"
             placeholder="Search for your favourite artists or albums"
             aria-label="Search through site content">
           <Button btn-class="btn__search">Search</Button>

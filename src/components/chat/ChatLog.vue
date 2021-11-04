@@ -1,23 +1,19 @@
 /* reference: https://www.pubnub.com/blog/vuejs-group-chat-app-tutorial/ */
 
 <template>
-  <div
-    class="chat-log"
-    ref="chatLogContainer"
-  >
-   <message-bubble
-    v-for="historyMsg in history"
-    v-bind:key="historyMsg.id"
-    v-bind:uuid="historyMsg.uuid"
-    v-bind:text="historyMsg.text"
-  ></message-bubble>
-
-  <message-bubble
-    v-for="msg in vueChatMsg"
-    v-bind:key="msg.id"
-    v-bind:uuid="msg.message.uuid"
-    v-bind:text="msg.message.text"
-  ></message-bubble>
+  <div class="chat-log" ref="chatLogContainer">
+    <message-bubble
+      v-for="historyMsg in history"
+      v-bind:key="historyMsg.id"
+      v-bind:uuid="historyMsg.uuid"
+      v-bind:text="historyMsg.text"
+    />
+    <message-bubble
+      v-for="msg in vueChatMsg"
+      v-bind:key="msg.id"
+      v-bind:uuid="msg.message.uuid"
+      v-bind:text="msg.message.text"
+    />
   </div>
 </template>
 
@@ -57,7 +53,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .chat-log {
   display: block;
   height: inherit;
@@ -65,9 +61,9 @@ export default {
   padding: 2% 4%;
   box-sizing: border-box;
   overflow-y: scroll;
-}
 
-.chat-log::-webkit-scrollbar {
-  display: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 </style>

@@ -57,10 +57,10 @@ export default {
 }
 
 textarea {
-  width: 98%;
+  width: 96%;
   height: 30px;
   padding: 0 5px;
-  margin: 0;
+  margin: 0 2%;
   box-sizing: border-box;
   line-height: 20pt;
   resize: none;

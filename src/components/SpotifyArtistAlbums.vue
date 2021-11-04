@@ -1,8 +1,8 @@
 <template>
   <div>
-    <!-- Header -->
-    <h1>Spotify API</h1>
-    <h4>getArtistAlbums ({{ artistId }})</h4>
+    <h1>Artist {{ artistId }}</h1>
+
+    <h4>Albums</h4>
     <!-- Data -->
     <div><li v-for="item in dataItems" :key="item.id">{{ item.name }}</li></div>
     <div ref="errorArtistAlbums"/>
@@ -15,6 +15,22 @@
         role="button"
       />
     </nav>
+
+    <h4>Artist</h4>
+    <!-- [Spotify widget] reference: https://developer.spotify.com/documentation/widgets/generate/follow-button/ -->
+    <!-- Detail view -->
+    <iframe class="spotify-follow" :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=detail&theme='+theme" width="210" height="56" scrolling="no" frameborder="0" allowtransparency="true"/>
+    <iframe class="spotify-follow" :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=detail&theme='+theme+'&show-count=0'" width="168" height="56" scrolling="no" frameborder="0" allowtransparency="true"/>
+    <!-- Basic View -->
+    <iframe class="spotify-follow" :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=basic&theme='+theme+'&show-count=0'" width="100" height="27" scrolling="no" frameborder="0" allowtransparency="true"/>
+    <iframe class="spotify-follow" :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=basic&theme='+theme" width="150" height="27" scrolling="no" frameborder="0" allowtransparency="true"/>
+
+    <h4>Album</h4>
+    <!-- [Spotify widget] reference: https://developer.spotify.com/documentation/widgets/generate/embed/ -->
+    <!-- Large view: customisable height -->
+    <iframe class="spotify-player" :src="'https://open.spotify.com/embed/album/'+activeAlbum" width="300" height="240" frameborder="0" allowtransparency="true" allow="encrypted-media"/>
+    <!-- Compact view -->
+    <iframe class="spotify-player" :src="'https://open.spotify.com/embed/album/'+activeAlbum" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"/>
   </div>
 </template>
 
@@ -29,6 +45,7 @@ export default {
   data() {
     return {
       /* can customise */
+      activeAlbum: "5Ay88ZVN61blW8QYUpofy6",  /* temporary */
       dataLimit: 12,
       /* will be updated automatically by paginator */
       dataOffset: 0,
@@ -47,6 +64,8 @@ export default {
           this.dataItems = data.items
           this.dataPages = Math.ceil(data.total / this.dataLimit)
           this.$refs["errorArtistAlbums"].innerText = ""
+          /* for player (temporary) */
+          this.activeAlbum = this.dataItems[0].id
         })
         .catch((error) => {
           // console.log(error.responseText)
@@ -62,6 +81,11 @@ export default {
   created() {
     /* give time to set access token in spotify-auth.js */
     setTimeout(() => this.getArtistAlbums(), 800)
+  },
+  computed: {
+    theme() {
+      return this.$store.getters.getTheme;
+    }
   }
 }
 </script>
