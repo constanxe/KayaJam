@@ -73,7 +73,7 @@ export default {
         })
     },
     handlePaginate(page) {
-      this.dataOffset = page * this.dataLimit
+      this.dataOffset = (page-1) * this.dataLimit
       this.getArtistAlbums()
       this.dataActivePage = page
     }

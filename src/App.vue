@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-    <TheNav/>
+    <Login v-if="$route.name == 'Login'"/>
+    <TheNav v-else/>
   </div>
 </template>
 
 <script>
 import TheNav from './layouts/TheNav.vue'
+import Login from './views/Login.vue'
 
 export default {
   name: 'App',
   components: {
-    TheNav
+    TheNav,
+    Login
   },
   mounted() {
     document.documentElement.setAttribute('data-theme', this.$store.getters.getTheme)

@@ -7,7 +7,7 @@
         <div class="col-lg-12 login-box_form">
           <div class="form-group">
             <label for="givenUsername">Username</label>
-            <input type="text" class="form-control" id="givenUsername" v-model="givenUsername" placeholder="Enter Name">
+            <input type="text" class="form-control" id="givenUsername" v-model="givenUsername" placeholder="Enter Name" autocomplete="off">
           </div>
           <div class="form-group">
             <label for="givenPwd">Password</label>
@@ -88,8 +88,8 @@ export default {
 .login-box {
   height: fit-content;
   max-width: 550px;
-  margin-bottom: 25px;
-  margin-top: 25px;
+  margin-bottom: 35px;
+  margin-top: 35px;
   padding-right: 45px;
   padding-left: 45px;
   text-align: center;
@@ -119,6 +119,7 @@ export default {
     border: none;
     font-weight: bold;
     background-color: black;
+    color: white;
 
     &:focus {
       outline: none;
