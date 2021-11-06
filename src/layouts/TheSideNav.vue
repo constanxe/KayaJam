@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     theme() {
-      return this.$store.getters.getTheme;
+      return this.$store.getters.getTheme
     }
   }
 }

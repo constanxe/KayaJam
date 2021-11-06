@@ -1,14 +1,14 @@
 <template>
   <div>
-    <h1>Artist {{ artistId }}</h1>
-
     <!-- documentation: https://github.com/ankurk91/vue-loading-overlay -->
     <loading
-      :active="isLoading"
+      :active="dataLoading"
       :background-color="theme == 'light' ? 'white' : 'black'"
       color="green"
       loader="bars"
     />
+
+    <h1>Artist {{ artistId }}</h1>
 
     <h4>Albums</h4>
     <!-- Data -->
@@ -25,28 +25,33 @@
     </nav>
     <hr>
 
+    <!-- [Spotify widgets] reference: https://developer.spotify.com/documentation/widgets -->
     <h4>Artist</h4>
-    <!-- [Spotify widget] reference: https://developer.spotify.com/documentation/widgets/generate/follow-button/ -->
-    <!-- Detail view -->
-    <iframe class="spotify-follow" :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=detail&theme='+theme" width="210" height="56" scrolling="no" frameborder="0" allowtransparency="true"/>
-    <iframe class="spotify-follow" :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=detail&theme='+theme+'&show-count=0'" width="168" height="56" scrolling="no" frameborder="0" allowtransparency="true"/>
-    <!-- Basic View -->
-    <iframe class="spotify-follow" :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=basic&theme='+theme+'&show-count=0'" width="100" height="27" scrolling="no" frameborder="0" allowtransparency="true"/>
-    <iframe class="spotify-follow" :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=basic&theme='+theme" width="150" height="27" scrolling="no" frameborder="0" allowtransparency="true"/>
+    <!-- Follow: Detail view -->
+    <iframe :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=detail&theme='+theme"
+            width="210" height="56" scrolling="no" frameborder="0" allowtransparency="true"/>
+    <iframe :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=detail&theme='+theme+'&show-count=0'"
+            width="168" height="56" scrolling="no" frameborder="0" allowtransparency="true"/>
+    <!-- Follow: Basic View -->
+    <iframe :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=basic&theme='+theme+'&show-count=0'"
+            width="100" height="27" scrolling="no" frameborder="0" allowtransparency="true"/>
+    <iframe :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=basic&theme='+theme"
+            width="150" height="27" scrolling="no" frameborder="0" allowtransparency="true"/>
     <hr>
     <h4>Album</h4>
-    <!-- [Spotify widget] reference: https://developer.spotify.com/documentation/widgets/generate/embed/ -->
-    <!-- Large view: customisable height -->
-    <iframe class="spotify-player" :src="'https://open.spotify.com/embed/album/'+activeAlbum" width="300" height="240" frameborder="0" allowtransparency="true" allow="encrypted-media"/>
-    <!-- Compact view -->
-    <iframe class="spotify-player" :src="'https://open.spotify.com/embed/album/'+activeAlbum" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"/>
+    <!-- Player: Large view (customisable height) -->
+    <iframe :src="'https://open.spotify.com/embed/album/'+activeAlbum"
+            width="300" height="240" frameborder="0" allowtransparency="true" allow="encrypted-media"/>
+    <!-- Player: Compact view -->
+    <iframe :src="'https://open.spotify.com/embed/album/'+activeAlbum"
+            width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"/>
   </div>
 </template>
 
 <script>
 import SpotifyApi from '@/services/spotify-auth'
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
   name: 'SpotifyArtistAlbums',
@@ -62,8 +67,8 @@ export default {
       activeAlbum: "5Ay88ZVN61blW8QYUpofy6",  /* temporary fallback */
       dataLimit: 12,
       /* will be updated automatically */
-      isLoading: true,
       dataOffset: 0,
+      dataLoading: true,
       dataItems: [],
       dataPages: 0,
       dataActivePage: 1
@@ -78,19 +83,21 @@ export default {
           // console.log(data)
           this.dataItems = data.items
           this.dataPages = Math.ceil(data.total / this.dataLimit)
-          this.isLoading = false
+
+          this.dataLoading = false
           this.$refs["errorArtistAlbums"].innerText = ""
+
           /* for player (temporary) */
           this.activeAlbum = this.dataItems[0].id
         })
         .catch((error) => {
           // console.log(error.responseText)
-          this.isLoading = false
+          this.dataLoading = false
           this.$refs["errorArtistAlbums"].innerText = "Error occurred. Please try again."
         })
     },
     handlePaginate(page) {
-      this.dataOffset = (page-1) * this.dataLimit
+      this.dataOffset = (page - 1) * this.dataLimit
       this.getArtistAlbums()
       this.dataActivePage = page
     }
@@ -101,7 +108,7 @@ export default {
   },
   computed: {
     theme() {
-      return this.$store.getters.getTheme;
+      return this.$store.getters.getTheme
     }
   }
 }
