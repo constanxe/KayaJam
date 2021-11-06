@@ -55,11 +55,7 @@ export default {
 
 <style scoped lang="scss">
 .chat-log {
-  display: block;
-  height: inherit;
-  width: 100%;
-  padding: 2% 4%;
-  box-sizing: border-box;
+  height: calc(100vh - 135px);  /* minus topnav & messageinput */
   overflow-y: scroll;
 
   &::-webkit-scrollbar {

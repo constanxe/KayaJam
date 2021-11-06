@@ -1,3 +1,5 @@
+/* reference: https://www.pubnub.com/blog/vuejs-group-chat-app-tutorial/ */
+
 <template>
   <div class="message-bubble" :class="me">
     <span class="from" :class="me">{{ uuid }}</span>
@@ -22,29 +24,38 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .message-bubble {
-  display: block;
-  max-width: 50%;
-  margin-bottom: 4px;
   float: left;
   clear: both;
-}
+  display: block;
+  margin-bottom: 8px;
 
-.message-text {
-  padding: 8px;
-  margin: 4px;
-  text-align: left;
-  background-color: #dfdfdf;
-  border-radius: 4px;
-}
+  .message-text {
+    border-radius: 4px;
+    padding: 8px;
+    margin: 4px;
+    color: black;
+    text-align: left;
+    word-break: break-word;
+    background-color: #dfdfdf;
+  }
 
-.message-bubble.me {
-  float: right;
-}
+  &.me {
+    float: right;
 
-.message-bubble.me .message-text {
-  background-color: #9ec6f5;
+    .message-text {
+      background-color: map-get($colors-brands, spotify);
+    }
+
+    br.me {
+      display: none;
+    }
+  }
+
+  span {
+    display: block;
+  }
 }
 
 .from {
@@ -52,17 +63,9 @@ export default {
   margin: 4px;
   font-size: 10px;
   color: #9DA7AF;
-}
 
-.from.me {
-  display: none;
-}
-
-.message-bubble span {
-  display: block;
-}
-
-.message-bubble.me br.me {
-  display: none;
+  &.me {
+    display: none;
+  }
 }
 </style>
