@@ -2,6 +2,14 @@
   <div>
     <h1>Artist {{ artistId }}</h1>
 
+    <!-- documentation: https://github.com/ankurk91/vue-loading-overlay -->
+    <loading
+      :active="isLoading"
+      :background-color="theme == 'light' ? 'white' : 'black'"
+      color="green"
+      loader="bars"
+    />
+
     <h4>Albums</h4>
     <!-- Data -->
     <div><li v-for="item in dataItems" :key="item.id">{{ item.name }}</li></div>
@@ -15,6 +23,7 @@
         role="button"
       />
     </nav>
+    <hr>
 
     <h4>Artist</h4>
     <!-- [Spotify widget] reference: https://developer.spotify.com/documentation/widgets/generate/follow-button/ -->
@@ -24,7 +33,7 @@
     <!-- Basic View -->
     <iframe class="spotify-follow" :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=basic&theme='+theme+'&show-count=0'" width="100" height="27" scrolling="no" frameborder="0" allowtransparency="true"/>
     <iframe class="spotify-follow" :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=basic&theme='+theme" width="150" height="27" scrolling="no" frameborder="0" allowtransparency="true"/>
-
+    <hr>
     <h4>Album</h4>
     <!-- [Spotify widget] reference: https://developer.spotify.com/documentation/widgets/generate/embed/ -->
     <!-- Large view: customisable height -->
@@ -36,18 +45,24 @@
 
 <script>
 import SpotifyApi from '@/services/spotify-auth'
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   name: 'SpotifyArtistAlbums',
+  components: {
+    Loading
+  },
   props: {
     artistId: String
   },
   data() {
     return {
       /* can customise */
-      activeAlbum: "5Ay88ZVN61blW8QYUpofy6",  /* temporary */
+      activeAlbum: "5Ay88ZVN61blW8QYUpofy6",  /* temporary fallback */
       dataLimit: 12,
-      /* will be updated automatically by paginator */
+      /* will be updated automatically */
+      isLoading: true,
       dataOffset: 0,
       dataItems: [],
       dataPages: 0,
@@ -63,12 +78,14 @@ export default {
           // console.log(data)
           this.dataItems = data.items
           this.dataPages = Math.ceil(data.total / this.dataLimit)
+          this.isLoading = false
           this.$refs["errorArtistAlbums"].innerText = ""
           /* for player (temporary) */
           this.activeAlbum = this.dataItems[0].id
         })
         .catch((error) => {
           // console.log(error.responseText)
+          this.isLoading = false
           this.$refs["errorArtistAlbums"].innerText = "Error occurred. Please try again."
         })
     },
