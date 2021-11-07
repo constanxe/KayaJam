@@ -31,13 +31,16 @@ function scrollBottom() {
 export default {
   name: 'chat-log',
   components: {MessageBubble},
+  props: {
+    channel: String
+  },
   data() {
     return {
       /*
        * $pnGetMessage will listen to a channel subscribed to and start to
        * display messages as soon as they are received.
       */
-      vueChatMsg: this.$pnGetMessage('vueChat'),
+      vueChatMsg: this.$pnGetMessage(this.channel),
     }
   },
   watch: {
@@ -55,7 +58,7 @@ export default {
 
 <style scoped lang="scss">
 .chat-log {
-  height: calc(100vh - 135px);  /* minus topnav & messageinput */
+  height: calc(100vh - 177px);  /* minus topnav, filter buttons & messageinput */
   overflow-y: scroll;
 
   &::-webkit-scrollbar {

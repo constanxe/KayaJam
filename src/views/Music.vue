@@ -16,7 +16,7 @@
       </div>
 
       <!-- Filter Buttons-->
-      <div class="container" ref="filterButtons">
+      <div class="container filter-buttons" ref="filterButtons">
         <router-link to="/music"><Button btn-class="btn__toggle btn--radio" @click="filterSelection('')">All</Button></router-link>
         <router-link to="/music/album"><Button btn-class="btn__toggle btn--radio" @click="filterSelection('album')">Albums</Button></router-link>
         <router-link to="/music/artist"><Button btn-class="btn__toggle btn--radio" @click="filterSelection('artist')">Artists</Button></router-link>
@@ -193,5 +193,10 @@ input {
 /* The "show" class is added to the filtered elements */
 .show {
   display: block;
+}
+
+.filter-buttons * {
+  height: 44px;
+  width: 70px;
 }
 </style>

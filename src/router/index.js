@@ -5,6 +5,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Music from '../views/Music.vue'
 import Chat from '../views/Chat.vue'
+import ChatContainer from '../components/chat/ChatContainer.vue'
 
 Vue.use(VueRouter)
 
@@ -24,19 +25,22 @@ const routes = [
     component: Music
   },
   {
-    path: '/chat',
+    path: '/chat/:channel',
     name: 'Chat',
-    component: Chat
+    component: Chat,
+    children: [
+      { path: '', component: ChatContainer },
+    ]
   },
 
-  /* temporary pages */
+  /* showcase pages */
   {
-    path: '/temp/home',
+    path: '/demo/home',
     name: 'Home',
     component: Home
   },
   {
-    path: '/temp/about',
+    path: '/demo/about',
     name: 'About',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

@@ -25,8 +25,9 @@
     </nav>
     <hr>
 
-    <!-- [Spotify widgets] reference: https://developer.spotify.com/documentation/widgets -->
     <h4>Artist</h4>
+    <router-link :to="'/chat/artist:'+artistId"><Button>Chat</Button></router-link><br>
+    <!-- [Spotify widgets] reference: https://developer.spotify.com/documentation/widgets -->
     <!-- Follow: Detail view -->
     <iframe :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=detail&theme='+theme"
             width="210" height="56" scrolling="no" frameborder="0" allowtransparency="true"/>
@@ -49,14 +50,15 @@
 </template>
 
 <script>
+import Button from '@/components/Btn.vue'
 import SpotifyApi from '@/services/spotify-auth'
 import Loading from 'vue-loading-overlay'
-import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
   name: 'SpotifyArtistAlbums',
   components: {
-    Loading
+    Loading,
+    Button
   },
   props: {
     artistId: String

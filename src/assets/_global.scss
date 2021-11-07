@@ -53,13 +53,8 @@ body {
   }
 
   /* Modifiers */
-  &--radio{
-    height: 44px;
-    width: 70px;
-
-    &:hover {
-      opacity: 1 !important;
-    }
+  &--radio:hover {
+    opacity: 1 !important;
   }
 
   &--brand {

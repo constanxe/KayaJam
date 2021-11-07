@@ -11,15 +11,15 @@
             <SideNavItem route="/music/artist">Artists</SideNavItem>
           </SideNavMenu>
           <SideNavMenu heading="Users" icon-class="bi-people-fill">
-            <SideNavItem route="/chat">Chat</SideNavItem>
+            <SideNavItem route="/chat/global">Chat</SideNavItem>
           </SideNavMenu>
           <div class="sb-sidenav-menu-heading">Account</div>
           <SideNavItem route="/account/profile" icon-class="bi-person-fill">Profile</SideNavItem>
           <SideNavItem route="/account/settings" icon-class="bi-gear-fill">Settings</SideNavItem>
           <!-- temporary -->
           <div class="sb-sidenav-menu-heading">Core</div>
-          <SideNavItem route="/temp/home" icon-class="bi-house-door-fill">Home</SideNavItem>
-          <SideNavItem route="/temp/about" icon-class="bi-question-circle-fill">About</SideNavItem>
+          <SideNavItem route="/demo/home" icon-class="bi-house-door-fill">Home</SideNavItem>
+          <SideNavItem route="/demo/about" icon-class="bi-question-circle-fill">About</SideNavItem>
         </div>
       </div>
     </custom-scrollbar>
