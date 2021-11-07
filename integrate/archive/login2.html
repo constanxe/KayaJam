@@ -195,14 +195,6 @@ label {
 
     <script>
         const app = Vue.createApp({
-            created() {
-                window.addEventListener('keydown', (e) => {
-                    // Validate username and password on pressing Enter; credit https://stackoverflow.com/a/50395988
-                    if (e.key == 'Enter') {
-                        this.validate()
-                    }
-                });
-            },
             data() {
                 return {
                     users: [{ "user": "Jack", "pwd": "abc" }, { "user": "Mary", "pwd": "def" },
