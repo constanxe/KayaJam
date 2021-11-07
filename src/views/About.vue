@@ -48,12 +48,12 @@
 </template>
 
 <script>
-import Star from '../components/Star.vue'
-import Modal from '../components/Modal.vue'
-import Button from '../components/Btn.vue'
-import ButtonSocial from '../components/BtnSocial.vue'
-import ButtonSocialShare from '../components/BtnSocialShare.vue'
-import { capitalizeFirstLetter } from '../utils'
+import Star from '@/components/Star.vue'
+import Modal from '@/components/Modal.vue'
+import Button from '@/components/Btn.vue'
+import ButtonSocial from '@/components/BtnSocial.vue'
+import ButtonSocialShare from '@/components/BtnSocialShare.vue'
+import { capitalizeFirstLetter } from '@/utils'
 
 export default {
   name: 'About',

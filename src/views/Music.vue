@@ -50,8 +50,8 @@
 </template>
 
 <script>
-import Button from '../components/Btn.vue'
-import MusicCard from '../components/MusicCard'
+import Button from '@/components/Btn.vue'
+import MusicCard from '@/components/MusicCard'
 import { gsap } from "gsap";
 
 export default {

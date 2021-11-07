@@ -9,7 +9,7 @@
 
 <script>
 import ButtonSocial from './BtnSocial.vue'
-import { capitalizeFirstLetter } from '../utils'
+import { capitalizeFirstLetter } from '@/utils'
 
 export default {
   name: 'ButtonSocialShare',
