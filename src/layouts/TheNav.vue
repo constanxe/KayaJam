@@ -5,7 +5,7 @@
     <div id="layoutSidenav">
       <div id="layoutSidenav_nav"><TheSideNav/></div>
       <div id="layoutSidenav_content" @click="closeSidenavIfOverlay">
-        <main><router-view/></main>
+        <main><router-view :key="$route.fullPath"/></main>
       </div>
     </div>
   </div>

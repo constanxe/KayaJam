@@ -4,7 +4,7 @@
     :star="star"
     :starsize="starsize"
     :maxstars="maxstars"
-    :disabled="disabled"
+    :disabled="isdisabled"
     :hasresults="hasresults"
     :hasdescription="hasdescription"
     :ratingdescription="ratingdescription"
@@ -23,6 +23,7 @@ export default {
   props: {
     star: { type: Number, default: 0 },
     maxstars: { type: Number, default: 5 },
+    isdisabled: { type: Boolean, default: false },
     hasdescription: { type: Boolean, default: false },
     starsize: {
       type: String,
@@ -43,8 +44,7 @@ export default {
         { text: 'Good', class: 'star-good' },
         { text: 'Excellent', class: 'star-excellent' }
       ],
-      hasresults: false,
-      disabled: false
+      hasresults: false
     }
   }
 }

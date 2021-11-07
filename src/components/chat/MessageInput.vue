@@ -3,7 +3,6 @@
 <template>
   <div class="message-input">
     <textarea
-      ref="messageInput"
       placeholder="Enter message"
       maxlength="20000"
       @keydown.enter="submitMessage"

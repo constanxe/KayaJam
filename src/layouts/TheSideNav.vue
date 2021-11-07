@@ -6,17 +6,17 @@
           <!-- customise here -->
           <div class="sb-sidenav-menu-heading">Discover</div>
           <SideNavMenu heading="Music" icon-class="bi-book-fill">
-            <SideNavItem route="/music">All</SideNavItem>
+            <SideNavItem route="/music" exact>All</SideNavItem>
             <SideNavItem route="/music/album">Albums</SideNavItem>
             <SideNavItem route="/music/artist">Artists</SideNavItem>
           </SideNavMenu>
           <SideNavMenu heading="Users" icon-class="bi-people-fill">
-            <SideNavItem route="/chat/global">Chat</SideNavItem>
+            <SideNavItem route="/chat">Chat</SideNavItem>
           </SideNavMenu>
           <div class="sb-sidenav-menu-heading">Account</div>
           <SideNavItem route="/account/profile" icon-class="bi-person-fill">Profile</SideNavItem>
           <SideNavItem route="/account/settings" icon-class="bi-gear-fill">Settings</SideNavItem>
-          <!-- temporary -->
+          <!-- showcase pages -->
           <div class="sb-sidenav-menu-heading">Core</div>
           <SideNavItem route="/demo/home" icon-class="bi-house-door-fill">Home</SideNavItem>
           <SideNavItem route="/demo/about" icon-class="bi-question-circle-fill">About</SideNavItem>
@@ -58,7 +58,7 @@ export default {
 </script>
 
 <style lang="scss">
-#sidebarNav a.router-link-exact-active {
+#sidebarNav a.router-link-active {
   color: map-get($colors-brands, spotify);
 }
 </style>

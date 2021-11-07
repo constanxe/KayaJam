@@ -25,12 +25,13 @@ const routes = [
     component: Music
   },
   {
-    path: '/chat/:channel',
+    path: '/chat/:channel?',
     name: 'Chat',
     component: Chat,
     children: [
       { path: '', component: ChatContainer },
-    ]
+    ],
+    props: true
   },
 
   /* showcase pages */

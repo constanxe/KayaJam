@@ -1,7 +1,7 @@
 /* reference: https://www.pubnub.com/blog/vuejs-group-chat-app-tutorial/ */
 
 <template>
-  <div class="chat-log" ref="chatLogContainer">
+  <div class="chat-log">
     <message-bubble
       v-for="historyMsg in history"
       v-bind:key="historyMsg.id"
@@ -58,7 +58,7 @@ export default {
 
 <style scoped lang="scss">
 .chat-log {
-  height: calc(100vh - 177px);  /* minus topnav, filter buttons & messageinput */
+  height: calc(100vh - 186px);  /* minus topnav, filter buttons & messageinput */
   overflow-y: scroll;
 
   &::-webkit-scrollbar {

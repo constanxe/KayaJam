@@ -1,30 +1,42 @@
 <template>
   <div class="chat">
-    <!-- documentation: https://github.com/ankurk91/vue-loading-overlay -->
-    <loading
-      :active="dataLoading"
-      :background-color="theme == 'light' ? 'white' : 'black'"
-      color="green"
-      loader="bars"
-    />
-
+    <!-- Selectable chats -->
     <div class="filter-buttons">
-      <template v-if="activeChannel != 'global'">
-        <router-link to="/chat/global">
-          <Button btn-class="btn__toggle btn--radio">Global</Button>
+      <!-- Global chat -->
+      <router-link to="/chat/global">
+        <Button btn-class="btn__toggle btn--radio" :class="{'active': channel == 'global'}">
+          Global
+          <Star :star="1" isdisabled
+                :maxstars="1" starsize="xs"/>
+        </Button>
+      </router-link>
+      <!-- Saved chats -->
+      <router-link :to="'/chat/'+savedChannel" v-for="savedChannel of savedChatChannels" :key="savedChannel">
+        <Button btn-class="btn__toggle btn--radio" :class="{'active': channel == savedChannel}">
+          {{ capitalizeFirstLetter(savedChannel) }}
+          <Star :star="1" @click.native="handleSavedChatChannels($event, savedChannel)"
+                :maxstars="1" starsize="xs"/>
+        </Button>
+      </router-link>
+      <!-- Active chat -->
+      <template v-if="channel != 'global' && !savedChatChannels.includes(channel)">
+        <router-link :to="'/chat/'+channel">
+          <Button btn-class="btn__toggle btn--radio active">
+            {{ capitalizeFirstLetter(channel) }}
+            <Star :star="0" @click.native="handleSavedChatChannels($event, channel)"
+                  :maxstars="1" starsize="xs"/>
+          </Button>
         </router-link>
       </template>
-      <router-link :to="'/chat/'+activeChannel">
-        <Button btn-class="btn__toggle btn--radio active">{{ capitalizeFirstLetter(activeChannel) }}</Button>
-      </router-link>
     </div>
-    <router-view/>
+    <!-- Chat container -->
+    <router-view :channel="activeChannel"/>
   </div>
 </template>
 
 <script>
-import Loading from 'vue-loading-overlay'
 import Button from '@/components/Btn.vue'
+import Star from '@/components/Star.vue'
 import { capitalizeFirstLetter } from '@/utils'
 import {mapGetters} from 'vuex';
 
@@ -32,35 +44,31 @@ export default {
   name: 'chat',
   components: {
     Button,
-    Loading
+    Star
   },
-  data() {
-    return {
-      dataLoading: false
-    }
+  props: {
+    channel: { type: String, default: 'global' }
   },
   computed: {
     ...mapGetters({
       theme: 'getTheme',
+      savedChatChannels: 'getSavedChatChannels'
     }),
     activeChannel() {
-      return this.$route.params.channel
+      return this.$route.params.channel || this.channel
     },
   },
   methods: {
     capitalizeFirstLetter(string) {
       return capitalizeFirstLetter(string)
     },
-    routeLoaded() {
-      this.dataLoading = true
-      this.$router.go(0)  /* reference: https://stackoverflow.com/questions/41301099/do-we-have-router-reload-in-vue-router */
+    handleSavedChatChannels(event, channel) {
+      if (event.target.parentNode.classList.contains("active")) {
+        this.$store.commit('addSavedChatChannel', channel)
+      } else {
+        this.$store.commit('removeSavedChatChannel', channel)
+      }
     },
-  },
-  /* reference: https://stackoverflow.com/questions/52468088/vue-router-call-function-after-route-has-loaded */
-  watch: {
-    $route() {
-      this.$nextTick(this.routeLoaded());
-    }
   },
 };
 </script>
