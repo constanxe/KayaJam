@@ -14,12 +14,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-.dropdown-item {
-  &.active,
-  &:active {
-    background-color: map-get($colors-brands, spotify);
-  }
-}
-</style>

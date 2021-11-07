@@ -43,7 +43,7 @@ export default {
   }
 
   &_content {
-    min-width: auto !important;
+    min-width: auto !important;  /* for unrealistically small widths */
 
     main {
       height: 100%;

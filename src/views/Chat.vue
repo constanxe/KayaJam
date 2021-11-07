@@ -75,10 +75,18 @@ export default {
 
 <style scoped lang="scss">
 .chat {
-  padding: 20px 50px 0 50px;
+  padding: 20px 30px 0 30px;
 
   .filter-buttons {
     margin-bottom: 10px;
+    word-break: break-word;
+    // /* horizontal scroll */
+    // overflow: auto;
+    // white-space: nowrap;
+
+    // & * {
+    //   display: inline-block;
+    // }
   }
 }
 </style>
