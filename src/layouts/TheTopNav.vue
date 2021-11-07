@@ -3,7 +3,7 @@
     <!-- Navbar Brand-->
     <router-link class="navbar-brand ps-3" to="/">Spotify Webapp</router-link>
     <!-- Sidebar Toggle-->
-    <button class="btn btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle">
+    <button class="btn btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" @click="toggleSidebar">
       <i class="bi bi-list"/>
     </button>
     <!-- Navbar Search-->
@@ -40,7 +40,7 @@
           <TopNavDropdownItem route="/account/profile">Profile</TopNavDropdownItem>
           <TopNavDropdownItem route="/account/settings">Settings</TopNavDropdownItem>
           <li><hr class="dropdown-divider"/></li>
-          <TopNavDropdownItem route="/login">Logout</TopNavDropdownItem>
+          <a class="dropdown-item" role="button" :href="logoutUrl">Logout</a>
         </ul>
       </li>
     </ul>
@@ -49,11 +49,24 @@
 
 <script>
 import TopNavDropdownItem from './TopNavDropdownItem.vue'
+import { keycloakInitOptions } from '@/utils'
 
 export default {
   name: 'TheTopNav',
   components: {
     TopNavDropdownItem
+  },
+  methods: {
+    toggleSidebar() {
+      /* reference: startbootstrap-sb-admin/dist/js/scripts */
+      document.body.classList.toggle('sb-sidenav-toggled');
+    },
+  },
+  computed: {
+    /* URL reference: https://suedbroecker.net/2021/05/18/simply-logout-from-keycloak/ */
+    logoutUrl() {
+      return `${keycloakInitOptions.url}/realms/${keycloakInitOptions.realm}/protocol/openid-connect/logout?redirect_uri=${process.env.BASE_URL}`
+    }
   }
 }
 </script>

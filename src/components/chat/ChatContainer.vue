@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      uuid: 'getMyUuid',
+      uuid: 'getUserUuid',
     }),
   },
   data() {

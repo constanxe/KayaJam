@@ -9,7 +9,7 @@ Vue.use(Vuex);
 
 const state = {
   theme: styles.defaultTheme,
-  me: {},
+  user: {},
   history: [],
   savedChatChannels: []
 };
@@ -18,9 +18,10 @@ const mutations = {
   setTheme(state, theme) {
     state.theme = theme;
   },
-  setMe(state, {me}) {
-    state.me = me;
+  login(state, payload) {
+    state.user = payload;
   },
+  /* chat */
   addHistory(state, {history}) {
     state.history = []
     history.forEach(element => {
@@ -39,7 +40,8 @@ const mutations = {
 
 const getters = {
   getTheme: (state) => state.theme,
-  getMyUuid: (state) => state.me.uuid,
+  getUser: (state) => state.user,
+  getUserUuid: (state) => state.user.name,
   getHistoryMsgs: (state) => state.history,
   getSavedChatChannels: (state) => state.savedChatChannels,
 };

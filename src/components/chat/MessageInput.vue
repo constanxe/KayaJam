@@ -29,7 +29,7 @@ export default {
         return;
       }
 
-      const userUUID = this.$store.getters.getMyUuid;
+      const userUUID = this.$store.getters.getUserUuid;
 
       // console.log(even.target.value);
       // Publish to PubNub the text and user's uuid

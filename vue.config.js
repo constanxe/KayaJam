@@ -21,5 +21,10 @@ module.exports = {
       // template title tag needs to be <title><%= htmlWebpackPlugin.options.title %></title>
       title: 'Spotify Webapp'
     }
-  }
+  },
+  /* for BASE_URL environment variable */
+  publicPath: 'http://localhost:8081/',
+  devServer: {
+    port: 8081
+  },
 };

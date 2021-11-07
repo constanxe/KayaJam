@@ -2,6 +2,7 @@
 node_modules
 /dist
 
+keycloak-15.0.2
 
 # local env files
 .env.local
