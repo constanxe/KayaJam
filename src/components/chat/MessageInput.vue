@@ -3,7 +3,6 @@
 <template>
   <div class="message-input">
     <textarea
-      ref="messageInput"
       placeholder="Enter message"
       maxlength="20000"
       @keydown.enter="submitMessage"
@@ -14,6 +13,9 @@
 <script>
 export default {
   name: 'message-input',
+  props: {
+    channel: String
+  },
   methods: {
     submitMessage(event) {
       if (!event.shiftKey) {
@@ -32,7 +34,7 @@ export default {
       // console.log(even.target.value);
       // Publish to PubNub the text and user's uuid
       this.$pnPublish({
-        channel: 'vueChat',
+        channel: this.channel,
         message: {
           text: event.target.value,
           uuid: userUUID,

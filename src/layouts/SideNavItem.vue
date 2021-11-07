@@ -1,5 +1,5 @@
 <template>
-  <router-link :is="!route ? 'a' : 'router-link'" :to="route" class="nav-link">
+  <router-link :is="!route ? 'a' : 'router-link'" :to="route" class="nav-link" :exact="exact">
     <SideNavItemIcon v-if="iconClass" :icon-class="iconClass"/>
     <slot/>
   </router-link>
@@ -15,7 +15,8 @@ export default {
   },
   props: {
     route: String,
-    iconClass: String
+    iconClass: String,
+    exact: { type: Boolean, default: false }
   }
 }
 </script>

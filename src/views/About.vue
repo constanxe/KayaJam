@@ -4,7 +4,7 @@
 
     <h4>Star</h4>
     5 Stars <Star :star="starsValue" hasdescription/>
-    <Star :star="starValue" :maxstars="1" starsize="xs"/> Star
+    <Star :star="starValue" :maxstars="1" starsize="xs" isdisabled/> Star
     <hr>
 
     <h4>Buttons with Features</h4>
@@ -48,12 +48,12 @@
 </template>
 
 <script>
-import Star from '../components/Star.vue'
-import Modal from '../components/Modal.vue'
-import Button from '../components/Btn.vue'
-import ButtonSocial from '../components/BtnSocial.vue'
-import ButtonSocialShare from '../components/BtnSocialShare.vue'
-import { capitalizeFirstLetter } from '../utils'
+import Star from '@/components/Star.vue'
+import Modal from '@/components/Modal.vue'
+import Button from '@/components/Btn.vue'
+import ButtonSocial from '@/components/BtnSocial.vue'
+import ButtonSocialShare from '@/components/BtnSocialShare.vue'
+import { capitalizeFirstLetter } from '@/utils'
 
 export default {
   name: 'About',

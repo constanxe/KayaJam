@@ -1,3 +1,4 @@
+import 'vue-loading-overlay/dist/vue-loading.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/js/bootstrap';
 import 'startbootstrap-sb-admin/dist/js/scripts';
