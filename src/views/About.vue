@@ -28,7 +28,7 @@
     <hr>
 
     <h4>Standard Buttons</h4>
-    <Button>&nbsp;Default&nbsp;</Button>
+    <Button v-tooltip="'Tooltip'">&nbsp;Default&nbsp;</Button>
     <Button btn-class="btn-primary">With Class</Button>
     <br>
     <ButtonSocial network="facebook"></ButtonSocial>

@@ -1,12 +1,14 @@
+import 'v-tooltip/dist/v-tooltip.css';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/js/bootstrap';
 import 'startbootstrap-sb-admin/dist/js/scripts';
 
 import VueSocialSharing from 'vue-social-sharing';
+import VTooltip from 'v-tooltip';
 
 import store from './store';
-import PubNubVue from 'pubnub-vue'
+import PubNubVue from 'pubnub-vue';
 
 import Vue from 'vue'
 import App from './App.vue'
@@ -14,6 +16,7 @@ import router from './router'
 
 Vue.config.productionTip = false
 Vue.use(VueSocialSharing)
+Vue.use(VTooltip)
 
 const publish_Key = process.env.VUE_APP_PUBNUB_PUB_KEY;
 const subscribe_Key = process.env.VUE_APP_PUBNUB_SUB_KEY;

@@ -17,6 +17,7 @@
     "pubnub-vue": "^1.0.1",
     "spotify-web-api-js": "^1.5.2",
     "startbootstrap-sb-admin": "^7.0.4",
+    "v-tooltip": "^3.0.0-beta.1",
     "vue": "^2.6.11",
     "vue-custom-scrollbar": "^1.4.1",
     "vue-loading-overlay": "^3.4.2",

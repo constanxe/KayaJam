@@ -5,31 +5,43 @@
       <div class="filter-buttons">
         <!-- Global chat -->
         <router-link to="/chat/global">
-          <Button btn-class="btn__toggle btn--radio" :class="{'active': channel == 'global'}">
+          <Button btn-class="btn__toggle btn--radio" :class="{'active': channel == 'global'}" v-tooltip="'All users'">
             Global
-            <Star :star="1" isdisabled
+            <Star :star="1" isdisabled v-tooltip="'You can\'t unstar this chat'"
                   :maxstars="1" starsize="xs"/>
           </Button>
         </router-link>
         <!-- Saved chats -->
         <router-link :to="'/chat/'+savedChannel" v-for="savedChannel of savedChatChannels" :key="savedChannel">
           <Button btn-class="btn__toggle btn--radio" :class="{'active': channel == savedChannel}">
-            <i class="bi" :class="savedChannel.split(':')[0] == 'artist' ? 'bi-person-video2' : 'bi-book-fill'"/>
+            <i
+              class="bi"
+              :class="savedChannel.split(':')[0] == 'artist' ? 'bi-person-video2' : 'bi-book-fill'"
+              v-tooltip="capitalizeFirstLetter(savedChannel.split(':')[0])"
+            />
             {{ capitalizeFirstLetter(savedChannel.split(':')[1]) }}
             <Star :star="1" @click.native="handleSavedChatChannels($event, savedChannel)"
-                  :maxstars="1" starsize="xs"/>
-            <router-link :to="'/music/'+savedChannel"><i class="bi bi-link-45deg go-icon"/></router-link>
+                  :maxstars="1" starsize="xs" v-tooltip="'Star this chat for future viewing'"/>
+            <router-link :to="'/music/'+savedChannel" v-tooltip="'Visit this '+channel.split(':')[0]+'\'s page'">
+              <i class="bi bi-link-45deg go-icon"/>
+            </router-link>
           </Button>
         </router-link>
         <!-- Active chat -->
         <template v-if="channel != 'global' && !savedChatChannels.includes(channel)">
           <router-link :to="'/chat/'+channel">
             <Button btn-class="btn__toggle btn--radio active">
-              <i class="bi" :class="channel.split(':')[0] == 'artist' ? 'bi-person-video2' : 'bi-book-fill'"/>
+              <i
+                class="bi"
+                :class="channel.split(':')[0] == 'artist' ? 'bi-person-video2' : 'bi-book-fill'"
+                v-tooltip="capitalizeFirstLetter(channel.split(':')[0])"
+              />
               {{ capitalizeFirstLetter(channel.split(':')[1]) }}
               <Star :star="0" @click.native="handleSavedChatChannels($event, channel)"
-                    :maxstars="1" starsize="xs"/>
-              <router-link :to="'/music/'+channel"><i class="bi bi-link-45deg go-icon"/></router-link>
+                    :maxstars="1" starsize="xs" v-tooltip="'Star this chat for future viewing'"/>
+              <router-link :to="'/music/'+channel" v-tooltip="'Visit this '+channel.split(':')[0]+'\'s page'">
+                <i class="bi bi-link-45deg go-icon"/>
+              </router-link>
             </Button>
           </router-link>
         </template>
