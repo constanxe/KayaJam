@@ -25,7 +25,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .music-card {
   display: none; /* Default state for albums/artists is invisible */
   text-align: center;

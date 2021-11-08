@@ -37,6 +37,7 @@ export default {
     margin: 4px;
     color: black;
     text-align: left;
+    width: fit-content;
     word-break: break-word;
     background-color: #dfdfdf;
   }

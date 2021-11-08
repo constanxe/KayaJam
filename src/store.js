@@ -27,7 +27,7 @@ const mutations = {
       state.history.push(element.entry);
     });
   },
-  addSavedChatChannel(state, channel){
+  addSavedChatChannel(state, channel) {
     const pos = state.savedChatChannels.indexOf(channel);
     if (pos == -1) state.savedChatChannels.push(channel);
   },

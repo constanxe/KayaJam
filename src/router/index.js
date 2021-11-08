@@ -5,7 +5,6 @@ import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import Music from '@/views/Music.vue'
 import Chat from '@/views/Chat.vue'
-import ChatContainer from '@/components/chat/ChatContainer.vue'
 
 Vue.use(VueRouter)
 
@@ -28,9 +27,6 @@ const routes = [
     path: '/chat/:channel?',
     name: 'Chat',
     component: Chat,
-    children: [
-      { path: '', component: ChatContainer },
-    ],
     props: true
   },
 

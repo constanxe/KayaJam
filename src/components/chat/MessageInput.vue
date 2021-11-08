@@ -49,23 +49,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.message-input {
-  display: table-row;
-  height: 55px;
-}
-
 textarea {
   width: 100%;
-  height: 40px;
-  padding: 2px 5px;
+  height: 45px;
+  padding: 5px 10px;
   font-size: 14px;
   border-radius: 3px;
   color: var(--color-default);
   background-color: var(--color-text);
-  border: solid 3px var(--color-supporting);
   resize: none;
   outline: none;
-  overflow: hidden;
   line-height: normal;
 }
 </style>
