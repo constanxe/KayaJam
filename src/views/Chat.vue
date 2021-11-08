@@ -14,18 +14,22 @@
         <!-- Saved chats -->
         <router-link :to="'/chat/'+savedChannel" v-for="savedChannel of savedChatChannels" :key="savedChannel">
           <Button btn-class="btn__toggle btn--radio" :class="{'active': channel == savedChannel}">
-            {{ capitalizeFirstLetter(savedChannel) }}
+            <i class="bi" :class="savedChannel.split(':')[0] == 'artist' ? 'bi-person-video2' : 'bi-book-fill'"/>
+            {{ capitalizeFirstLetter(savedChannel.split(':')[1]) }}
             <Star :star="1" @click.native="handleSavedChatChannels($event, savedChannel)"
                   :maxstars="1" starsize="xs"/>
+            <router-link :to="'/music/'+savedChannel"><i class="bi bi-link-45deg go-icon"/></router-link>
           </Button>
         </router-link>
         <!-- Active chat -->
         <template v-if="channel != 'global' && !savedChatChannels.includes(channel)">
           <router-link :to="'/chat/'+channel">
             <Button btn-class="btn__toggle btn--radio active">
-              {{ capitalizeFirstLetter(channel) }}
+              <i class="bi" :class="channel.split(':')[0] == 'artist' ? 'bi-person-video2' : 'bi-book-fill'"/>
+              {{ capitalizeFirstLetter(channel.split(':')[1]) }}
               <Star :star="0" @click.native="handleSavedChatChannels($event, channel)"
                     :maxstars="1" starsize="xs"/>
+              <router-link :to="'/music/'+channel"><i class="bi bi-link-45deg go-icon"/></router-link>
             </Button>
           </router-link>
         </template>
@@ -129,6 +133,16 @@ export default {
     // & * {
     //   display: inline-block;
     // }
+
+    .active .go-icon {
+      color: green; /* darker */
+    }
+
+    .go-icon {
+      position: relative;
+      top: 2px;
+      font-size: 18px;
+    }
   }
 }
 
