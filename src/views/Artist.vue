@@ -2,25 +2,6 @@
   <div class="album">
          <div class="container">
 
-                  <SpotifyArtistAlbums :dataItems='dataItems' ref="test"/>
-
-
-    
-                    <div v-for="item in dataItems" :key="item">
-                       <div v-for="id in item"  :key="id">
-                      <h1>
-                        {{ id }}
-                     </h1>
-
-                     </div>
-                     </div> 
-    
-  <div class="home p-4">
-    <SpotifyArtistAlbums artist-id="3FodFdWfVWIiER6Cv6YVVQ"/>
-
-
-  
-  </div>
         <div class="row">
             <!--Empty Col-->
             <div class="col-xl-1 col-lg-1 col-md-12 ">
@@ -35,13 +16,14 @@
                 <h4>Artist</h4>
 
                 <p style="color:white ;">Classically trained pianist Charlie Lim had an early start in music, sowing the seeds of ambition in church choirs and school bands since he was 14 years old. 2011’s self-titled debut EP kickstarted his journey into songwriting, blending neo-soul, electronic pop, R&B, folk and velvety vocals into a bright, breezy and groove-laden sound. <span id="dots">...</span><span id="more"> Released in 2015, Lim’s breakout double EP TIME / SPACE swept the charts and soundtracked festivals that year with its head-bobbing, electronica-tinged pop that fluently evoked a mix of moods. Lim continues to be an inspirational force on the Southeast Asian music scene, boldly pushing his musicality into exciting new places like 2018’s fresh-sounding effort, CHECK-HOOK, which slaloms between R&B and smart electronics. Lim draws lyrical inspiration from the reality of daily life, allowing a younger generation of music fans to find affinity in his universal observations.</span></p>
-                <button class="btn btn-light" onclick="readMoreLess()" id="readmoreButton">Read more</button>
+                
+                <button class="btn btn-secondary" v-on:click="readMoreLess" id="readmoreButton">Read more</button>
 
 
                 <!--Discussion Button-->
-                <!-- <div class="row text-center mt-5">
-            <router-link :to="'/chat/artist:'+artistName"><Button class="btn btn-success" id="chatButton" v-tooltip="'Chat with others about this artist'">Chat with other fans of this artist!</Button></router-link><br>
-                </div> -->
+                <div class="row text-center mt-5">
+            <router-link :to="'/chat/artist:'+artistName"><Button class="btn btn-success" id="chatButton" v-tooltip="'Chat with others about this artist'">Connect with fans</Button></router-link><br>
+                </div> 
             </div>
 
             <!--Empty Col-->
@@ -103,21 +85,44 @@ export default {
   name: 'Home',
    components: {
     //Star,
-    // Button,
-    SpotifyArtistAlbums
+    //Button,
+    // SpotifyArtistAlbums
   },
   props: ['dataItems'],
   mounted() {
           setTimeout(() => console.log(this.$refs.test.dataItems), 900)
+        
+  },
+    methods: {
+      readMoreLess: function() {
+            console.log("test");
+            var dots = document.getElementById("dots");
+            var moreText = document.getElementById("more");
+            var btnText = document.getElementById("readmoreButton");
 
-      
-  }
+            if (dots.style.display === "none") {
+                dots.style.display = "inline";
+                btnText.innerHTML = "Read more"; 
+                moreText.style.display = "none";
+            } else {
+                dots.style.display = "none";
+                btnText.innerHTML = "Read less"; 
+                moreText.style.display = "inline";
+            }
+        }
+  },
+
 }
+
 
 
 </script>
 
 <style scoped>
+        .album{
+            margin-top: 50px;
+        }
+
         body{
             color:white;
         }
@@ -168,11 +173,16 @@ export default {
         }
 
         #chatButton{
-            width: 320px;
+            width: 250px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+
+            
         }
 
         #readmoreButton{
-            width: 150px;
+            width: 120px;
         }
 
         #more {display: none;}
