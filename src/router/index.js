@@ -5,6 +5,7 @@ import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import Music from '@/views/Music.vue'
 import Chat from '@/views/Chat.vue'
+import Profile from '@/views/Profile.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [
     name: 'Chat',
     component: Chat,
     props: true
+  },
+  {
+    path: '/account/profile',
+    name: 'Profile',
+    component: Profile
   },
 
   /* showcase pages */
