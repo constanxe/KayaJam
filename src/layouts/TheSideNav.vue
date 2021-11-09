@@ -5,7 +5,7 @@
         <div class="nav" id="sidebarNav">
           <!-- customise here -->
           <div class="sb-sidenav-menu-heading">Discover</div>
-          <SideNavMenu heading="Music" icon-class="bi-book-fill">
+          <SideNavMenu heading="Music" icon-class="bi-music-note-list">
             <SideNavItem route="/music" exact>All</SideNavItem>
             <SideNavItem route="/music/album">Albums</SideNavItem>
             <SideNavItem route="/music/artist">Artists</SideNavItem>

@@ -2,7 +2,7 @@
   <!-- package used: https://github.com/nicolasbeauvais/vue-social-sharing -->
   <ShareNetwork :network="network" :url="url" :title="title">
     <ButtonSocial :network="network">
-      &nbsp;Share to {{ capitalizeFirstLetter(network) }}
+      &nbsp;Share on {{ capitalizeFirstLetter(network) }}
     </ButtonSocial>
   </ShareNetwork>
 </template>

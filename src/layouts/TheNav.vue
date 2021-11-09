@@ -43,7 +43,8 @@ export default {
   }
 
   &_content {
-    min-width: auto !important;  /* for unrealistically small widths */
+    /* meant for unrealistically small widths, but doesn't allow scroll for chat filter buttons */
+    // min-width: auto !important;
 
     main {
       height: 100%;

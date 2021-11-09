@@ -8,7 +8,7 @@
       loader="bars"
     />
 
-    <h1>Artist {{ artistId }}</h1>
+    <h1>Artist: {{ artistName }}</h1>
 
     <h4>Albums</h4>
     <!-- Data -->
@@ -20,13 +20,13 @@
         v-for="page in Math.min(dataPages, 5)" :key="page"
         :class="{ 'active': dataActivePage == page }"
         @click="handlePaginate(page)"
-        role="button"
+        role="button" v-tooltip="'Page '+page"
       />
     </nav>
     <hr>
 
     <h4>Artist</h4>
-    <router-link :to="'/chat/artist:'+artistId"><Button>Chat</Button></router-link><br>
+    <router-link :to="'/chat/artist:'+artistName"><Button v-tooltip="'Chat with others about this artist'">Discussion</Button></router-link><br>
     <!-- [Spotify widgets] reference: https://developer.spotify.com/documentation/widgets -->
     <!-- Follow: Detail view -->
     <iframe :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=detail&theme='+theme"
@@ -66,14 +66,16 @@ export default {
   data() {
     return {
       /* can customise */
-      activeAlbum: "5Ay88ZVN61blW8QYUpofy6",  /* temporary fallback */
       dataLimit: 12,
       /* will be updated automatically */
       dataOffset: 0,
       dataLoading: true,
       dataItems: [],
       dataPages: 0,
-      dataActivePage: 1
+      dataActivePage: 1,
+      /* temporary fallbacks */
+      artistName: 'name',
+      activeAlbum: "5Ay88ZVN61blW8QYUpofy6",
     }
   },
   methods: {
@@ -89,7 +91,8 @@ export default {
           this.dataLoading = false
           this.$refs["errorArtistAlbums"].innerText = ""
 
-          /* for player (temporary) */
+          /* temporary info for widgets */
+          this.artistName = this.dataItems[0].artists[0].name
           this.activeAlbum = this.dataItems[0].id
         })
         .catch((error) => {

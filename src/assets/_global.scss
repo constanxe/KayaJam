@@ -113,3 +113,17 @@ a {
     background-color: map-get($colors-brands, spotify);
   }
 }
+
+/* reference: https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp */
+::-webkit-scrollbar {
+  width: 5px;
+
+  /* Handle */
+  &-thumb {
+    background: #888;
+
+    &:hover {
+      background: #555;
+    }
+  }
+}

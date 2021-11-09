@@ -9,7 +9,7 @@
       v-bind:text="historyMsg.text"
     />
     <message-bubble
-      v-for="msg in vueChatMsg"
+      v-for="msg in newChatMsgs"
       v-bind:key="msg.id"
       v-bind:uuid="msg.message.uuid"
       v-bind:text="msg.message.text"
@@ -36,15 +36,11 @@ export default {
   },
   data() {
     return {
-      /*
-       * $pnGetMessage will listen to a channel subscribed to and start to
-       * display messages as soon as they are received.
-      */
-      vueChatMsg: this.$pnGetMessage(this.channel),
+      newChatMsgs: [],
     }
   },
   watch: {
-    vueChatMsg: function(){
+    newChatMsgs: function() {
       this.$nextTick(scrollBottom);
     }
   },
@@ -53,16 +49,17 @@ export default {
       history: 'getHistoryMsgs',
     }),
   },
+  mounted() {
+    /*
+      * prevent duplicate from on remount
+      reference: https://www.pubnub.com/docs/sdks/javascript/vue#cleaning-and-releasing
+    */
+    this.$pnClean(this.channel);
+    /*
+      * $pnGetMessage will listen to a channel subscribed to and start to
+      * display messages as soon as they are received.
+    */
+    this.newChatMsgs = this.$pnGetMessage(this.channel)
+  }
 };
 </script>
-
-<style scoped lang="scss">
-.chat-log {
-  height: calc(100vh - 186px);  /* minus topnav, filter buttons & messageinput */
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-</style>

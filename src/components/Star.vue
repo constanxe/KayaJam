@@ -58,6 +58,11 @@ export default {
 .hide-desc {
   display: inline-block;
 
+  .star {
+    margin: 0 !important;
+    color: #f3d23e;
+  }
+
   .nostar_desc {
     display: none !important;
   }
