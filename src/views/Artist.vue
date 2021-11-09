@@ -1,6 +1,19 @@
 <template>
+    <!-- documentation: https://github.com/ankurk91/vue-loading-overlay -->
+<div>
+  <div><li v-for="item in dataItems" :key="item">{{ item.name }}</li></div>
   <div class="album">
+
+   
+
+        <loading
+        :active="dataLoading"
+        :background-color="theme == 'light' ? 'white' : 'black'"
+        color="green"
+        loader="bars"
+        />
          <div class="container">
+
 
         <div class="row">
             <!--Empty Col-->
@@ -72,23 +85,44 @@
 
 
     </div>
-    
+</div> 
 </template>
 
 <script>
 //import Star from '@/components/Star.vue'
-// import Button from '@/components/Btn.vue'
-import SpotifyArtistAlbums from '@/components/SpotifyArtistAlbums.vue'
-
+import Button from '@/components/Btn.vue'
+import SpotifyApi from '@/services/spotify-auth'
+//import SpotifyArtistAlbums from '@/components/SpotifyArtistAlbums.vue'
+import Loading from 'vue-loading-overlay'
 
 export default {
   name: 'Home',
    components: {
     //Star,
-    //Button,
+    Loading,
+    Button,
     // SpotifyArtistAlbums
   },
-  props: ['dataItems'],
+  props: {
+  //artistId: "3FodFdWfVWIiER6Cv6YVVQ"
+  },
+  data() {
+    return {
+      /* can customise */
+      artistId: "3FodFdWfVWIiER6Cv6YVVQ",
+      dataLimit: 12,
+      /* will be updated automatically */
+      dataOffset: 0,
+      dataLoading: true,
+      dataItems: [],
+      dataPages: 0,
+      dataActivePage: 1,
+      /* temporary fallbacks */
+      dataArtistIds: [],
+      artistName: 'name',
+      activeAlbum: "5Ay88ZVN61blW8QYUpofy6",
+    }
+  },
   mounted() {
           setTimeout(() => console.log(this.$refs.test.dataItems), 900)
         
@@ -109,8 +143,45 @@ export default {
                 btnText.innerHTML = "Read less"; 
                 moreText.style.display = "inline";
             }
-        }
+        },
+      getArtistAlbums() {
+      /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getartistalbums */
+      SpotifyApi
+        .getArtistAlbums(this.artistId, { limit: this.dataLimit, offset: this.dataOffset })
+        .then((data) => {
+          console.log(data)
+          this.dataItems = data.items
+          this.dataPages = Math.ceil(data.total / this.dataLimit)
+          //this.dataArtistIds = 
+
+          this.dataLoading = false
+          this.$refs["errorArtistAlbums"].innerText = ""
+
+          /* temporary info for widgets */
+          this.artistName = this.dataItems[0].artists[0].name
+          this.activeAlbum = this.dataItems[0].id
+        })
+        .catch((error) => {
+          // console.log(error.responseText)
+          this.dataLoading = false
+          this.$refs["errorArtistAlbums"].innerText = "Error occurred. Please try again."
+        })
+    },
+    handlePaginate(page) {
+      this.dataOffset = (page - 1) * this.dataLimit
+      this.getArtistAlbums()
+      this.dataActivePage = page
+    }
   },
+    created() {
+    /* give time to set access token in spotify-auth.js */
+    setTimeout(() => this.getArtistAlbums(), 800)
+  },
+    computed: {
+    theme() {
+      return this.$store.getters.getTheme
+    }
+  }
 
 }
 
