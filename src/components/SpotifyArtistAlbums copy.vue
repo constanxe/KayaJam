@@ -7,11 +7,45 @@
       color="green"
       loader="bars"
     />
-  <div><li v-for="item in dataItems" :key="item.id">{{ item.name }}</li></div>
 
+    <h1>Artist: {{ artistName }}</h1>
 
+    <h4>Albums</h4>
+    <!-- Data -->
+    <div><li v-for="item in dataItems" :key="item.id">{{ item.name }}</li></div>
+    <div ref="errorArtistAlbums"/>
+    <!-- Paginator -->
+    <nav class="pagination">
+      <a
+        v-for="page in Math.min(dataPages, 5)" :key="page"
+        :class="{ 'active': dataActivePage == page }"
+        @click="handlePaginate(page)"
+        role="button" v-tooltip="'Page '+page"
+      />
+    </nav>
+    <hr>
 
- 
+    <h4>Artist</h4>
+    <router-link :to="'/chat/artist:'+artistName"><Button v-tooltip="'Chat with others about this artist'">Discussion</Button></router-link><br>
+    <!-- [Spotify widgets] reference: https://developer.spotify.com/documentation/widgets -->
+    <!-- Follow: Detail view -->
+    <iframe :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=detail&theme='+theme"
+            width="210" height="56" scrolling="no" frameborder="0" allowtransparency="true"/>
+    <iframe :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=detail&theme='+theme+'&show-count=0'"
+            width="168" height="56" scrolling="no" frameborder="0" allowtransparency="true"/>
+    <!-- Follow: Basic View -->
+    <iframe :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=basic&theme='+theme+'&show-count=0'"
+            width="100" height="27" scrolling="no" frameborder="0" allowtransparency="true"/>
+    <iframe :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=basic&theme='+theme"
+            width="150" height="27" scrolling="no" frameborder="0" allowtransparency="true"/>
+    <hr>
+    <h4>Album</h4>
+    <!-- Player: Large view (customisable height) -->
+    <iframe :src="'https://open.spotify.com/embed/album/'+activeAlbum"
+            width="300" height="240" frameborder="0" allowtransparency="true" allow="encrypted-media"/>
+    <!-- Player: Compact view -->
+    <iframe :src="'https://open.spotify.com/embed/album/'+activeAlbum"
+            width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"/>
   </div>
 </template>
 
@@ -20,12 +54,11 @@ import Button from '@/components/Btn.vue'
 import SpotifyApi from '@/services/spotify-auth'
 import Loading from 'vue-loading-overlay'
 
-
 export default {
   name: 'SpotifyArtistAlbums',
   components: {
     Loading,
-    //Button
+    Button
   },
   props: {
     artistId: String

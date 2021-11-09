@@ -4,7 +4,10 @@ import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import Music from '@/views/Music.vue'
+import Album from '@/views/Album.vue'
 import Chat from '@/views/Chat.vue'
+import Artist from '@/views/Artist.vue'
+
 
 Vue.use(VueRouter)
 
@@ -22,6 +25,16 @@ const routes = [
     path: '/music*',
     name: 'Music',
     component: Music
+  },
+  {
+    path: '/album/CharlieLim',
+    name: 'Album',
+    component: Album
+  },
+  {
+    path: '/artist/CharlieLim',
+    name: 'Artist',
+    component: Artist
   },
   {
     path: '/chat/:channel?',
