@@ -6,7 +6,7 @@
   <div>{{ artistData.name }}</div>
   <div>{{ artistData.type }}</div>
   <div>{{ artistData.images[0].url }}</div>
-    <div>{{ artistData.genres }}</div>
+  <div>{{ artistData.genres }}</div>
 
   <!--END OF REFERENCE - Can delete when not needed-->
 
@@ -34,6 +34,9 @@
                 <h1>{{ artistData.name }}</h1>
                 <!-- Type Name from Spotify API-->
                 <h4>{{ this.capitaliseFirstLetter(artistType) }}</h4>
+
+                <!-- Genre/Genres from Spotify API-->
+                <h4>Genres: {{ this.storeArrayAsString(artistData.genres) }}</h4>
 
                 <!-- Spotify Player (not API) -->
                 <iframe :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=basic&theme='+theme"
@@ -140,8 +143,15 @@ export default {
           //setTimeout(() => console.log(this.$refs.test.artistData), 900)
     },
     methods: {
-      
-      capitaliseFirstLetter(passedstring) { //This function is used for Type and Genres
+      storeArrayAsString: function(genres) {
+          var str = '';
+          for (var i = 0; i < genres.length; i++) {
+                str += this.capitaliseFirstLetter(genres[i]) + ', ';                 
+              }
+          var newStr = str.substring(0, str.length - 2);
+          return newStr;
+        },
+      capitaliseFirstLetter: function(passedstring) { //This function is used for Type and Genres
         const arr = passedstring.split(" ");
         for (var i = 0; i < arr.length; i++) {
                 arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
@@ -224,7 +234,6 @@ export default {
 
   },
     computed: {
- 
     theme() {
       return this.$store.getters.getTheme
     }
