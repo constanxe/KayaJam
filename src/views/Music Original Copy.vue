@@ -1,6 +1,13 @@
 <template>
   <div class="music">
- 
+    <div>{{ artistData.name }}</div>
+  <div>{{ artistData.type }}</div>
+  <div>{{ artistData.genres }}</div>
+   <div class="row" v-for='artist in artistData.artists' :key="artist.name">
+        <div>{{ artist.name }}</div>
+  </div>
+
+  
     <!-- Top Bar-->
     <div class="container-jumbotron">
       <!-- Header-->
@@ -34,37 +41,24 @@
     </nav>
 
     <!-- Albums/Artists Cards-->
-    <!-- Code only works for Albums right now-->
     <div class="container">
-       <div class="row">
-           <div b-card-group class="music-card col-xxl-3 col-lg-4 col-md-6 col-sm-12 mt-5"  v-for='item in dataItems' :key="item.id" ref="musicCards">
-            <router-link :to="'/music/'+item.type">
-            <div class="card-img">
-              <img :src="item.images[0].url" alt="Card image">
-            </div>
-            <div class="card-body">
-              <h4 class="card-title tag">
-                {{ item.name }}
-              </h4>
-              <!-- for album typed cards -->
-              <!-- Need to reroute. Might be better to use artist ID as link instead-->
-              <p class="card-text" v-if="item.type">
-                by <router-link to="/music/artist" class="tag">{{ item.artists[0].name }}</router-link>
-              </p>
-              </div>
-         </router-link>
-        </div>
-       </div>
+      <div class="row" ref="musicCards">
+        <MusicCard data-type="album" type="album" artist-tag-name="Charlie Lim" title="Time/Space" imgSrc="https://f4.bcbits.com/img/a3424343514_10.jpg"/>
+        <MusicCard data-type="album" type="album" artist-tag-name="Subsonic Eye" title="Strawberry Feels" imgSrc="https://f4.bcbits.com/img/a3424343514_10.jpg"/>
+        <MusicCard data-type="album" type="album" artist-tag-name="Inch" title="Letters To Ubin" imgSrc="https://images.squarespace-cdn.com/content/v1/561f70f2e4b05c4e86dede19/1591256499796-J3CM6FL7W3W71PT8FJM2/1frontcover.jpg?format=2500w"/>
+        <MusicCard data-type="album" type="album" artist-tag-name="James Blake" title="Friends" imgSrc="https://media.pitchfork.com/photos/60f9880e4a319e50a860a52e/1:1/w_600/James-Blake.jpg"/>
 
-
-       
+        <MusicCard data-type="artist" type="artist" title="Gentle Bones" img-src="https://cdn.filestackcontent.com/eLeq7DuSsKWq57U1mC1t/convert?cache=true&crop=0%2C146%2C1920%2C960&crop_first=true&quality=90&w=1920"/>
+        <MusicCard data-type="artist" type="artist" title="Benjamin Kheng" img-src="http://pilerats.com/assets/Uploads/benjamin-kheng-find-me-introducing.jpg"/>
+        <MusicCard data-type="artist" type="artist" title="Linying" img-src="https://www.nme.com/wp-content/uploads/2021/07/linying-credit-jovian-lim@2000x1270.jpg"/>
+        <MusicCard data-type="artist" type="artist" title="Yung Raja" img-src="https://www.augustman.com/my/wp-content/uploads/sites/3/2021/04/Yung_Raja_Thumb-scaled.jpg"/>      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Button from '@/components/Btn.vue'
-//import MusicCard from '@/components/MusicCard'
+import MusicCard from '@/components/MusicCard'
 import SpotifyApi from '@/services/spotify-auth'
 import { gsap } from "gsap";
 
@@ -73,12 +67,12 @@ export default {
   name: "Music",
   components: {
     Button,
-    //MusicCard
+    MusicCard
   },
   data() {
     return {
     /* can customise */
-    artistId: ["3FodFdWfVWIiER6Cv6YVVQ"],  //This is the string of all artists
+    artistId: ["3FodFdWfVWIiER6Cv6YVVQ"],
     dataLimit: 12,
     /* will be updated automatically */
     dataOffset: 0,
@@ -220,36 +214,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.music-card {
-  //display: none; /* Default state for albums/artists is invisible */
-  text-align: center;
-  text-align: -webkit-center;
-
-  a,
-  a:hover {
-    color: var(--color-text);
-  }
-}
-
-.card-img {
-  width: 230px;
-  height: 230px;
-  display: flex;
-  overflow: hidden;
-  position: relative;
-  justify-content: center;
-  border: 2px solid var(--color-text);
-
-  img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    object-position: center;
-    justify-content: center;
-  }
-}
-
 form {
   width: 450px;
   height: 44px;
