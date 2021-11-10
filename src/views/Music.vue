@@ -1,5 +1,7 @@
 <template>
   <div class="music">
+  
+
     <!-- Top Bar-->
     <div class="container-jumbotron">
       <!-- Header-->
@@ -51,7 +53,9 @@
 <script>
 import Button from '@/components/Btn.vue'
 import MusicCard from '@/components/MusicCard'
+import SpotifyApi from '@/services/spotify-auth'
 import { gsap } from "gsap";
+
 
 export default {
   name: "Music",
@@ -59,7 +63,73 @@ export default {
     Button,
     MusicCard
   },
+  data() {
+    return {
+    /* can customise */
+    artistId: "3FodFdWfVWIiER6Cv6YVVQ",
+    dataLimit: 12,
+    /* will be updated automatically */
+    dataOffset: 0,
+    dataLoading: true,
+    dataItems: [],
+    artistData: [],
+    dataPages: 0,
+    dataActivePage: 1,
+    artistType: '',
+    /* temporary fallbacks */
+    dataArtistIds: [],
+    artistName: 'name',
+    activeAlbum: "5Ay88ZVN61blW8QYUpofy6",
+    }
+   },
   methods: {
+        getArtistAlbums() {
+      /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getartistalbums */
+      SpotifyApi
+        .getArtistAlbums(this.artistId, { limit: this.dataLimit, offset: this.dataOffset })
+        .then((data) => {
+          console.log(data)
+          console.log(22)
+          this.albumData = data
+          this.dataItems = data.items
+          this.dataPages = Math.ceil(data.total / this.dataLimit)
+          //this.dataArtistIds = 
+
+          this.dataLoading = false
+          this.$refs["errorArtistAlbums"].innerText = ""
+
+          /* temporary info for widgets */
+          this.artistName = this.dataItems[0].artists[0].name
+          this.activeAlbum = this.dataItems[0].id
+        })
+        .catch((error) => {
+          // console.log(error.responseText)
+          this.dataLoading = false
+          this.$refs["errorArtistAlbums"].innerText = "Error occurred. Please try again."
+        })
+        },
+    getArtist() {
+      /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getartistalbums */
+      SpotifyApi
+        .getArtist(this.artistId, { limit: this.dataLimit, offset: this.dataOffset })
+        .then((data) => {
+          this.artistData = data
+          this.artistType = this.artistData.type
+          console.log(data)
+          console.log("test")
+          this.dataLoading = false
+          this.$refs["errorArtistAlbums"].innerText = ""
+
+          /* temporary info for widgets */
+          this.artistName = this.artistData[0].artists[0].name
+          this.activeAlbum = this.artistData[0].id
+        })
+        .catch((error) => {
+          // console.log(error.responseText)
+          this.dataLoading = false
+          this.$refs["errorArtistAlbums"].innerText = "Error occurred. Please try again."
+        })
+        },
     filterSelection(selection) {
       var cardBoxes = this.$refs.musicCards.children;
       for (let i = 0; i < cardBoxes.length; i++) {
@@ -128,7 +198,12 @@ export default {
         this.className += " active";
       });
     }
-  }
+  },
+  created() {
+    /* give time to set access token in spotify-auth.js */
+    setTimeout(() => this.getArtistAlbums(), 800)
+    setTimeout(() => this.getArtist(), 800)
+  },
 };
 </script>
 
