@@ -68,9 +68,11 @@ export default {
         })
     },
     handlePaginate(page) {
-      this.dataOffset = (page - 1) * this.dataLimit
-      this.getArtistAlbums()
-      this.dataActivePage = page
+      if (page != this.dataActivePage) {
+        this.dataOffset = (page - 1) * this.dataLimit
+        this.getArtistAlbums()
+        this.dataActivePage = page
+      }
     }
   },
   created() {

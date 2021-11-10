@@ -32,7 +32,7 @@ const routes = [
   },
 
   {
-    path: '/chat/:channel?',
+    path: '/chat/:activeChannel?',
     name: 'Chat',
     component: Chat,
     props: true
@@ -52,21 +52,21 @@ const routes = [
   },
   {
     path: '/demo/components',
-    name: 'Components',
+    name: 'DemoComponents',
     component: function () {
       return import('@/views/demo/DemoComponents.vue')
     }
   },
   {
     path: '/demo/spotify/api',
-    name: 'Spotify',
+    name: 'DemoSpotifyApi',
     component: function () {
       return import('@/views/demo/DemoSpotifyApi.vue')
     }
   },
   {
     path: '/demo/spotify/widgets',
-    name: 'Spotify',
+    name: 'DemoSpotifyWidgets',
     component: function () {
       return import('@/views/demo/DemoSpotifyWidgets.vue')
     }
