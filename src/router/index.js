@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Home from '@/views/Home.vue'
-import Login from '@/views/Login.vue'
 import Music from '@/views/Music.vue'
 import Album from '@/views/Album.vue'
+import Artist from '@/views/Artist.vue'
 import Chat from '@/views/Chat.vue'
 import Profile from '@/views/Profile.vue'
-import Artist from '@/views/Artist.vue'
+import Login from '@/views/Login.vue'
 
 Vue.use(VueRouter)
 
@@ -15,11 +14,6 @@ const routes = [
   {
     path: '/',
     redirect: '/music'
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login
   },
   {
     path: '/music*',
@@ -36,32 +30,45 @@ const routes = [
     name: 'Artist',
     component: Artist
   },
+
   {
     path: '/chat/:channel?',
     name: 'Chat',
     component: Chat,
     props: true
   },
+
   {
     path: '/account/profile',
     name: 'Profile',
     component: Profile
   },
 
-  /* showcase pages */
+  /* deprecated pages */
   {
-    path: '/demo/home',
-    name: 'Home',
-    component: Home
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
   {
-    path: '/demo/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    path: '/demo/components',
+    name: 'Components',
     component: function () {
-      return import(/* webpackChunkName: "about" */ '@/views/About.vue')
+      return import('@/views/demo/DemoComponents.vue')
+    }
+  },
+  {
+    path: '/demo/spotify/api',
+    name: 'Spotify',
+    component: function () {
+      return import('@/views/demo/DemoSpotifyApi.vue')
+    }
+  },
+  {
+    path: '/demo/spotify/widgets',
+    name: 'Spotify',
+    component: function () {
+      return import('@/views/demo/DemoSpotifyWidgets.vue')
     }
   }
 ]

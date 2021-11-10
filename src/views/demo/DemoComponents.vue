@@ -1,5 +1,5 @@
 <template>
-  <div class="about p-4">
+  <div class="p-4">
     <h1>Components</h1>
 
     <h4>Star</h4>

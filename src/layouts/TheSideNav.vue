@@ -17,9 +17,10 @@
           <SideNavItem route="/account/profile" icon-class="bi-person-fill">Profile</SideNavItem>
           <SideNavItem route="/account/settings" icon-class="bi-gear-fill">Settings</SideNavItem>
           <!-- showcase pages -->
-          <div class="sb-sidenav-menu-heading">Core</div>
-          <SideNavItem route="/demo/home" icon-class="bi-house-door-fill">Home</SideNavItem>
-          <SideNavItem route="/demo/about" icon-class="bi-question-circle-fill">About</SideNavItem>
+          <div class="sb-sidenav-menu-heading">Demo</div>
+          <SideNavItem route="/demo/components" icon-class="bi-house-door-fill">Components</SideNavItem>
+          <SideNavItem route="/demo/spotify/api" icon-class="bi-spotify">Spotify API</SideNavItem>
+          <SideNavItem route="/demo/spotify/widgets" icon-class="bi-spotify">Spotify Widgets</SideNavItem>
         </div>
       </div>
     </custom-scrollbar>
