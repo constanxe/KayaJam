@@ -104,7 +104,6 @@ a .material-icons {
 
 .fixed-top {
 	position: fixed;
-	z-index: 1030;
 	left: 0;
 	right: 0;
 }
@@ -118,7 +117,7 @@ a .material-icons {
 .page-header {
 	height: 30vh;
 	background-size: cover;
-	background-color: var(--color-default); /*2a313a*/
+	background-color: var(--color-supporting); /*2a313a*/
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -135,7 +134,6 @@ a .material-icons {
 .main {
 	background: var(--color-supporting); /*3C4858*/
 	position: relative;
-	z-index: 3;
 }
 
 .profile-page .profile {

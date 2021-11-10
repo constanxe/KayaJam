@@ -166,7 +166,7 @@ export default {
   .fixed-height {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 135px);  /* minus topnav & messageinput */
+    height: calc(100vh - 215px);  /* minus topnav & bottom */
 
     & > * {
       margin-bottom: 0.5rem;

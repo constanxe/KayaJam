@@ -127,3 +127,7 @@ a {
     }
   }
 }
+
+body::-webkit-scrollbar-track {
+  margin-bottom: 80px; /* bottom player */
+}
