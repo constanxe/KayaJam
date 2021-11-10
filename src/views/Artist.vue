@@ -1,8 +1,16 @@
 <template>
     <!-- documentation: https://github.com/ankurk91/vue-loading-overlay -->
 <div>
-  <div><li v-for="item in dataItems" :key="item">{{ item.name }}</li></div>
-  <div><li v-for="item1 in artistData" :key="item1">{{ item1 }}</li></div>
+  <!--FOR REFERENCE - Can delete when not needed-->
+  REFERENCE
+  <div>{{ artistData.name }}</div>
+  <div>{{ artistData.type }}</div>
+  <div>{{ artistData.images[0].url }}</div>
+    <div>{{ artistData.genres }}</div>
+
+  <!--END OF REFERENCE - Can delete when not needed-->
+
+
 
   <div class="album">
         <loading
@@ -18,15 +26,20 @@
 
             <!--Album Picture-->
             <div class="col-xl-5 col-lg-12" >
-                <img class="img1 rounded center-block" src="https://www.esplanade.com/-/media/offstage-microsite/know-the-artists/now-hear-this-charlie-lim/nht_charlie_lim_1000x1000.jpg?mw=640" alt="Card image">
+                <img class="img1 rounded center-block" :src='artistData.images[0].url' alt="Card image">
             </div>
             <!--Album Writeup + Info-->
             <div class="writeup col-xl-7 col-lg-12 ">
-                <h1>Charlie Lim</h1>
-                <h4>Artist</h4>
-    <iframe :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=basic&theme='+theme"
-            width="150" height="27" scrolling="no" frameborder="0" allowtransparency="true"/>
+                <!-- Name from Spotify API-->
+                <h1>{{ artistData.name }}</h1>
+                <!-- Type Name from Spotify API-->
+                <h4>{{ this.capitaliseFirstLetter(artistType) }}</h4>
 
+                <!-- Spotify Player (not API) -->
+                <iframe :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=basic&theme='+theme"
+                width="150" height="27" scrolling="no" frameborder="0" allowtransparency="true"/>
+
+                <!-- Artist Writeup - Not avaliable in Spotify API so we might want to consider removing -->
                 <p style="color:white ;">Classically trained pianist Charlie Lim had an early start in music, sowing the seeds of ambition in church choirs and school bands since he was 14 years old. 2011’s self-titled debut EP kickstarted his journey into songwriting, blending neo-soul, electronic pop, R&B, folk and velvety vocals into a bright, breezy and groove-laden sound. <span id="dots">...</span><span id="more"> Released in 2015, Lim’s breakout double EP TIME / SPACE swept the charts and soundtracked festivals that year with its head-bobbing, electronica-tinged pop that fluently evoked a mix of moods. Lim continues to be an inspirational force on the Southeast Asian music scene, boldly pushing his musicality into exciting new places like 2018’s fresh-sounding effort, CHECK-HOOK, which slaloms between R&B and smart electronics. Lim draws lyrical inspiration from the reality of daily life, allowing a younger generation of music fans to find affinity in his universal observations.</span></p>
                 
                 <button class="btn btn-secondary" v-on:click="readMoreLess" id="readmoreButton">Read more</button>
@@ -97,7 +110,11 @@ export default {
     // SpotifyArtistAlbums
   },
   props: {
-  //artistId: "3FodFdWfVWIiER6Cv6YVVQ"
+  //artistId: {   
+         //   type: String,
+         //   required: true
+    //    }
+
   },
     data() {
         return {
@@ -111,6 +128,7 @@ export default {
         artistData: [],
         dataPages: 0,
         dataActivePage: 1,
+        artistType: '',
         /* temporary fallbacks */
         dataArtistIds: [],
         artistName: 'name',
@@ -118,12 +136,21 @@ export default {
         }
     },
     mounted() {
-          setTimeout(() => console.log(this.$refs.test.dataItems), 900)
-          setTimeout(() => console.log(this.$refs.test.artistData), 900)
+          //setTimeout(() => console.log(this.$refs.test.dataItems), 900)
+          //setTimeout(() => console.log(this.$refs.test.artistData), 900)
     },
     methods: {
-      readMoreLess: function() {
-            console.log("test");
+      
+      capitaliseFirstLetter(passedstring) { //This function is used for Type and Genres
+        const arr = passedstring.split(" ");
+        for (var i = 0; i < arr.length; i++) {
+                arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+        }
+        const str2 = arr.join(" ");
+        return str2;
+      },
+      readMoreLess: function() { //This function is used for the Read More/Less Button
+            //console.log("test");
             var dots = document.getElementById("dots");
             var moreText = document.getElementById("more");
             var btnText = document.getElementById("readmoreButton");
@@ -166,8 +193,10 @@ export default {
       SpotifyApi
         .getArtist(this.artistId, { limit: this.dataLimit, offset: this.dataOffset })
         .then((data) => {
-          this.artistData = data.items
-          console.log(data.items)
+          this.artistData = data
+          this.artistType = this.artistData.type
+          console.log(data)
+          console.log("test")
           this.dataLoading = false
           this.$refs["errorArtistAlbums"].innerText = ""
 
@@ -195,6 +224,7 @@ export default {
 
   },
     computed: {
+ 
     theme() {
       return this.$store.getters.getTheme
     }
