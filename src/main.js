@@ -6,6 +6,7 @@ import 'startbootstrap-sb-admin/dist/js/scripts';
 
 import VueSocialSharing from 'vue-social-sharing';
 import VTooltip from 'v-tooltip';
+import Toasted from 'vue-toasted';
 
 import store from './store';
 import PubNubVue from 'pubnub-vue';
@@ -17,6 +18,7 @@ import router from './router'
 Vue.config.productionTip = false
 Vue.use(VueSocialSharing)
 Vue.use(VTooltip)
+Vue.use(Toasted)
 
 const publish_Key = process.env.VUE_APP_PUBNUB_PUB_KEY;
 const subscribe_Key = process.env.VUE_APP_PUBNUB_SUB_KEY;

@@ -139,13 +139,29 @@ export default {
       channels: [this.activeChannel],
     });
     this.$nextTick(this.fetchHistory(this.$store));
+
+    if (this.hasChannelType(this.activeChannel) & ["","undefined"].includes(this.activeChannel.split(":")[1])) {
+      this.$router.push("/chat");
+      /* documentation: https://github.com/shakee93/vue-toasted */
+      this.$toasted.error("Invalid chat group", {
+        position: 'bottom-right',
+        duration: '3000',
+        keepOnHover: true,
+        action : {
+          text : 'Cancel',
+          onClick : (e, toastObject) => {
+            toastObject.goAway(0);
+          }
+        },
+      })
+    }
   },
 };
 </script>
 
 <style scoped lang="scss">
 .chat {
-  padding: 20px 30px 0 30px;
+  padding: 20px 28px 0 28px;
 
   .fixed-height {
     display: flex;
