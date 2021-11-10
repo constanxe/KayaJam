@@ -7,6 +7,7 @@ import Music from '@/views/Music.vue'
 import Album from '@/views/Album.vue'
 import Chat from '@/views/Chat.vue'
 import Profile from '@/views/Profile.vue'
+import Artist from '@/views/Artist.vue'
 
 Vue.use(VueRouter)
 
