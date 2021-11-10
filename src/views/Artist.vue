@@ -50,7 +50,7 @@
 
                 <!--Discussion Button-->
                 <div class="row text-center mt-5">
-            <router-link :to="'/chat/artist:'+artistName"><Button class="btn btn-success" id="chatButton" v-tooltip="'Chat with others about this artist'">Connect with fans</Button></router-link><br>
+            <router-link :to="'/chat/artist:'+artistName"><Button class="btn btn-success" id="chatButton" v-tooltip="'Chat with others about this artist'">Connect with fans of {{ artistData.name }}</Button></router-link><br>
                 </div> 
             </div>
      
@@ -63,7 +63,7 @@
 
         <div class="container-fluid bg-success text-white">
         <div class="row pt-3 text-center mt-5">
-            <h3>Works by Charlie Lim</h3>
+            <h3>Works by {{ artistData.name }}</h3>
         </div>
         <!--Other Albums - Photos & Links-->
         <div class="row justify-content-center">
@@ -301,10 +301,13 @@ export default {
 
         #chatButton{
             width: 250px;
+            min-width: fit-content;
             text-align: center;
             margin-left: auto;
             margin-right: auto;
-
+            align-items: center;
+            text-align: center;
+            display: inline-block;
             
         }
 
