@@ -1,15 +1,19 @@
 <template>
     <!-- documentation: https://github.com/ankurk91/vue-loading-overlay -->
 <div>
-  <!--FOR REFERENCE - Can delete when not needed-->
-  REFERENCE
+  <!--FOR REFERENCE FOR getArtist - Can delete when not needed-->
+  FOR ANYONE'S REFERENCE - Can delete when not needed
   <div>{{ artistData.name }}</div>
   <div>{{ artistData.type }}</div>
-  <div>{{ artistData.images[0].url }}</div>
   <div>{{ artistData.genres }}</div>
 
-  <!--END OF REFERENCE - Can delete when not needed-->
+  <!--FOR REFERENCE FOR getArtistAlbums - Can delete when not needed-->
+  <!--So far, I'm just extracting first three albums under the assumption that there are at least 3 albums per artist. Would be good to show all albums but I'm not sure how to code it-->
+  <div>{{ albumData.items[0].name }}</div>
 
+
+
+  <!--END OF REFERENCE - Can delete when not needed-->
 
 
   <div class="album">
@@ -28,6 +32,8 @@
             <div class="col-xl-5 col-lg-12" >
                 <img class="img1 rounded center-block" :src='artistData.images[0].url' alt="Card image">
             </div>
+            <br>
+
             <!--Album Writeup + Info-->
             <div class="writeup col-xl-7 col-lg-12 ">
                 <!-- Name from Spotify API-->
@@ -36,7 +42,7 @@
                 <h4>{{ this.capitaliseFirstLetter(artistType) }}</h4>
 
                 <!-- Genre/Genres from Spotify API-->
-                <h4>Genres: {{ this.storeArrayAsString(artistData.genres) }}</h4>
+                <h4>{{ this.storeArrayAsString(artistData.genres) }}</h4>
 
                 <!-- Spotify Player (not API) -->
                 <iframe :src="'https://open.spotify.com/follow/1/?uri=spotify:artist:'+artistId+'&size=basic&theme='+theme"
@@ -54,8 +60,16 @@
                 </div> 
             </div>
      
+            <br>
+            <br>
+            <div class="socialshare col-12 ">
+            <!-- Share post to social media platforms -->
+            <ButtonSocialShare network="facebook" url="facebook.com"/>
+            <ButtonSocialShare network="twitter" title="test"/>
+            <ButtonSocialShare network="telegram"/>
+            </div>
 
-            
+
         </div>
         </div>
 
@@ -68,22 +82,23 @@
         <!--Other Albums - Photos & Links-->
         <div class="row justify-content-center">
             <div class="col-lg-3 p-2 text-center">
+                <!--Not sure what to put for a href!-->
                 <a href="Charlie_CheckHook.html">
-                    <img class="img2" src="https://f4.bcbits.com/img/a0682376044_10.jpg">
-                    <h4>Check-Hook</h4>
+                    <img class="img2" :src="albumData.items[0].images[0].url">
+                    <h4>{{ albumData.items[0].name }}</h4>
                 </a>
             </div>
             <div class="col-lg-3 mt-2 text-center">
                 <a href="Charlie_TimeSpace">
-                    <img class="img2" src="https://f4.bcbits.com/img/a2407592093_10.jpg">
+                    <img class="img2" :src="albumData.items[1].images[0].url">
                 </a>
-                <h4>Time/Space</h4>
+                <h4>{{ albumData.items[1].name }}</h4>
 
             </div>
             <div class="col-lg-3 mt-2 text-center">
                 <a href="Charlie_Self.html">
-                    <img class="img2" src="https://f4.bcbits.com/img/a2453397251_10.jpg">
-                    <h4>Charlie Lim</h4>
+                    <img class="img2" :src="albumData.items[2].images[0].url">
+                <h4>{{ albumData.items[2].name }}</h4>
                 </a>
 
 
@@ -102,6 +117,7 @@
 import Button from '@/components/Btn.vue'
 import SpotifyApi from '@/services/spotify-auth'
 //import SpotifyArtistAlbums from '@/components/SpotifyArtistAlbums.vue'
+import ButtonSocialShare from '@/components/BtnSocialShare.vue'
 import Loading from 'vue-loading-overlay'
 
 export default {
@@ -111,6 +127,7 @@ export default {
     Loading,
     Button,
     // SpotifyArtistAlbums
+    ButtonSocialShare,
   },
   props: {
   //artistId: {   
@@ -145,11 +162,17 @@ export default {
     methods: {
       storeArrayAsString: function(genres) {
           var str = '';
+
           for (var i = 0; i < genres.length; i++) {
                 str += this.capitaliseFirstLetter(genres[i]) + ', ';                 
               }
-          var newStr = str.substring(0, str.length - 2);
-          return newStr;
+          if(genres.length == 1 ){
+                str = "Genre: " + str.substring(0, str.length - 2);
+          }
+          else{
+                str = "Genres: " + str.substring(0, str.length - 2);
+          }
+          return str;
         },
       capitaliseFirstLetter: function(passedstring) { //This function is used for Type and Genres
         const arr = passedstring.split(" ");
@@ -180,7 +203,9 @@ export default {
       SpotifyApi
         .getArtistAlbums(this.artistId, { limit: this.dataLimit, offset: this.dataOffset })
         .then((data) => {
-          //console.log(data)
+          console.log(data)
+          console.log(22)
+          this.albumData = data
           this.dataItems = data.items
           this.dataPages = Math.ceil(data.total / this.dataLimit)
           //this.dataArtistIds = 
@@ -249,6 +274,15 @@ export default {
         .album{
             margin-top: 50px;
         }
+
+        .socialshare{
+            justify-content: center;
+            display: flex;
+            margin-top: 50px;
+            padding: 20px;
+         
+        }
+    
 
         body{
             color:white;
