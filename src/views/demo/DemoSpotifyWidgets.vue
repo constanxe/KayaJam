@@ -28,7 +28,7 @@
           <Button v-tooltip="'Chat with others about this album'">Discussion</Button>
         </router-link>
         &nbsp;
-        <Button v-tooltip="'Set player to this album'" @click.native="setPlayerAlbum">Play Album</Button>
+        <Button v-tooltip="'Set player to this album'" @click.native="setPlayerAlbum(albumId)">Play Album</Button>
         <hr>
         <!-- Player: Large view (customisable height) -->
         <iframe :src="'https://open.spotify.com/embed/album/'+albumId"
@@ -43,6 +43,7 @@
 
 <script>
 import Button from '@/components/Btn.vue'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'SpotifyWidgets',
@@ -58,15 +59,11 @@ export default {
       albumId: "5Ay88ZVN61blW8QYUpofy6"
     }
   },
-  methods: {
-    setPlayerAlbum() {
-      this.$store.commit('setPlayerAlbum', this.albumId)
-    }
-  },
   computed: {
-    theme() {
-      return this.$store.getters.getTheme
-    }
+    ...mapState(['theme'])
+  },
+  methods: {
+    ...mapMutations(['setPlayerAlbum']),
   }
 }
 </script>

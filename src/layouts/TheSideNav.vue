@@ -32,6 +32,7 @@ import SideNavItem from './SideNavItem.vue'
 import SideNavMenu from './SideNavMenu.vue'
 import CustomScrollbar from 'vue-custom-scrollbar'
 import 'vue-custom-scrollbar/dist/vueScrollbar.css'
+import { mapState } from 'vuex'
 
 export default {
   name: 'TheSideNav',
@@ -51,10 +52,8 @@ export default {
     }
   },
   computed: {
-    theme() {
-      return this.$store.getters.getTheme
-    }
-  }
+    ...mapState(['theme'])
+  },
 }
 </script>
 
