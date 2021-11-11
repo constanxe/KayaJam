@@ -5,13 +5,8 @@ import Music from '@/views/Music.vue'
 import Album from '@/views/Album.vue'
 import Artist from '@/views/Artist.vue'
 import Chat from '@/views/Chat.vue'
-<<<<<<< Updated upstream
 import Profile from '@/views/Profile.vue'
 import Login from '@/views/Login.vue'
-=======
-import UserSettings from '@/views/UserSettings.vue'
-import ChatContainer from '@/components/chat/ChatContainer.vue'
->>>>>>> Stashed changes
 
 Vue.use(VueRouter)
 
@@ -41,11 +36,6 @@ const routes = [
     name: 'Chat',
     component: Chat,
     props: true
-  },
-  {
-    path: '/account/settings',
-    name: 'Settings',
-    component: UserSettings
   },
 
   {
