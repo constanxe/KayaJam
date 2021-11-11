@@ -1,12 +1,12 @@
 <template>
   <div class="music-card col-xxl-3 col-lg-4 col-md-6 col-sm-12 mt-5">
-    <router-link :to="'/music/'+type">
-      <div class="card-img"><img :src="imgSrc" alt="Card image"></div>
+    <router-link :to="`/${item.type}/${item.id}`">
+      <div class="card-img"><img :src="item.images[0].url" alt="Card image"></div>
       <div class="card-body">
-        <h4 class="card-title tag">{{ title }}</h4>
+        <h4 class="card-title tag">{{ item.name }}</h4>
         <!-- for album typed cards -->
-        <p class="card-text" v-if="artistTagName">
-          by <router-link to="/music/artist" class="tag">{{ artistTagName }}</router-link>
+        <p class="card-text" v-if="item.type == 'album'">
+          by <router-link :to="'/artist/'+artistTag.id" class="tag">{{ artistTag.name }}</router-link>
         </p>
       </div>
     </router-link>
@@ -17,17 +17,14 @@
 export default {
   name: 'MusicCard',
   props: {
-    type: String,
-    title: String,
-    imgSrc: String,
-    artistTagName: { type: String, required: false }
+    item: Object,
+    artistTag: { type: String, required: false }
   }
 }
 </script>
 
 <style scoped lang="scss">
 .music-card {
-  display: none; /* Default state for albums/artists is invisible */
   text-align: center;
   text-align: -webkit-center;
 

@@ -56,7 +56,7 @@ import ButtonSocialShare from '@/components/BtnSocialShare.vue'
 import { capitalizeFirstLetter } from '@/utils'
 
 export default {
-  name: 'About',
+  name: 'Components',
   components: {
     Star,
     Modal,

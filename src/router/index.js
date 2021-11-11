@@ -21,12 +21,12 @@ const routes = [
     component: Music
   },
   {
-    path: '/album/CharlieLim',
+    path: '/album/:id',
     name: 'Album',
     component: Album
   },
   {
-    path: '/artist/CharlieLim',
+    path: '/artist/:id',
     name: 'Artist',
     component: Artist
   },

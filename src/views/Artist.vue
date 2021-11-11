@@ -119,6 +119,7 @@ import SpotifyApi from '@/services/spotify-auth'
 //import SpotifyArtistAlbums from '@/components/SpotifyArtistAlbums.vue'
 import ButtonSocialShare from '@/components/BtnSocialShare.vue'
 import Loading from 'vue-loading-overlay'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
@@ -254,11 +255,9 @@ export default {
     setTimeout(() => this.getArtist(), 800)
 
   },
-    computed: {
-    theme() {
-      return this.$store.getters.getTheme
-    }
-  }
+  computed: {
+    ...mapState(['theme'])
+  },
 
 }
 
