@@ -7,7 +7,6 @@ import VueLogger from 'vuejs-logger';
 import VueSocialSharing from 'vue-social-sharing';
 import VTooltip from 'v-tooltip';
 
-import store from './store';
 import PubNubVue from 'pubnub-vue';
 
 import Keycloak from 'keycloak-js'
@@ -84,7 +83,6 @@ keycloak.init({onLoad: keycloakInitOptions.onLoad}).then((auth) => {
     }
     if (keycloak.token && keycloak.idToken && keycloak.token != '' && keycloak.idToken != '') {
       store.commit("login", payload);
-      console.log("User has logged in: " + keycloak.subject)
     } else {
       /* reference:  & https://suedbroecker.net/2021/05/18/simply-logout-from-keycloak/ */
       payload = {
