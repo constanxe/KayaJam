@@ -34,22 +34,22 @@
     </nav>
 
     <!-- Albums/Artists Cards-->
-    <!-- Code only works for Albums right now-->
+    <!-- Code only works for Artists right now-->
     <div class="container">
        <div class="row">
-           <div b-card-group class="music-card col-xxl-3 col-lg-4 col-md-6 col-sm-12 mt-5"  v-for='item in dataItems' :key="item.id" ref="musicCards">
-            <router-link :to="'/music/'+item.type">
+           <div b-card-group class="music-card col-xxl-3 col-lg-4 col-md-6 col-sm-12 mt-5"  v-for='artist in artistData' :key="artist.id" ref="musicCards">
+            <router-link :to="'/music/'+artist.type">
             <div class="card-img">
-              <img :src="item.images[0].url" alt="Card image">
+              <img :src="artist.images[0].url" alt="Card image">
             </div>
             <div class="card-body">
               <h4 class="card-title tag">
-                {{ item.name }}
+               <router-link :to="'/music/'+artist.id">{{ artist.name }} </router-link>
               </h4>
               <!-- for album typed cards -->
               <!-- Need to reroute. Might be better to use artist ID as link instead-->
-              <p class="card-text" v-if="item.type">
-                by <router-link to="/music/artist" class="tag">{{ item.artists[0].name }}</router-link>
+              <p class="card-text" v-if="artist.type!=='artist'">
+                by <router-link to="/music/artist" class="tag">{{ artist.name }}</router-link>
               </p>
               </div>
          </router-link>
@@ -78,7 +78,7 @@ export default {
   data() {
     return {
     /* can customise */
-    artistId: ["3FodFdWfVWIiER6Cv6YVVQ"],  //This is the string of all artists
+    artistId: ["3FodFdWfVWIiER6Cv6YVVQ", "5IIP34JBy1d8kBYlAGnRaW", "2HXfSr5CfTPZbcqS2gyGYm", "53GouHDfCfsBJIn1OjYmPO", "4v3jejyuqIBVx8nKiCSDym"],  //This is the array of all artists
     dataLimit: 12,
     /* will be updated automatically */
     dataOffset: 0,
@@ -100,7 +100,7 @@ export default {
       SpotifyApi
         .getArtistAlbums(this.artistId, { limit: this.dataLimit, offset: this.dataOffset })
         .then((data) => {
-          console.log(data)
+          //console.log(data)
           console.log(22)
           this.albumData = data
           this.dataItems = data.items
@@ -123,7 +123,8 @@ export default {
       SpotifyApi
         .getArtists(this.artistId, { limit: this.dataLimit, offset: this.dataOffset })
         .then((data) => {
-          this.artistData = data
+          console.log(data)
+          this.artistData = data.artists
           this.artistType = this.artistData.type
           console.log(data)
           console.log("test")
