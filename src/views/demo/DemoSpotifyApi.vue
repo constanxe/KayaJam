@@ -10,11 +10,9 @@
 
     <!-- Spotify API -->
     <!-- documentation: https://github.com/ankurk91/vue-loading-overlay -->
-    <loading
-      :active="dataLoading"
+    <Loading
+      :active="dataLoading" color="green" loader="bars"
       :background-color="theme == 'light' ? 'white' : 'black'"
-      color="green"
-      loader="bars"
     />
     <!-- Data -->
     <div><li v-for="item in dataItems" :key="item.id">{{ item.name }}</li></div>
@@ -72,8 +70,8 @@ export default {
           this.artistName = this.dataItems[0].artists[0].name
         })
         .catch((error) => {
-          // console.log(error.responseText)
           this.dataLoading = false
+          // console.log(error.responseText)
           this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
           this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
         })

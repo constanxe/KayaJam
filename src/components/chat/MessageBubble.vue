@@ -2,7 +2,9 @@
 
 <template>
   <div class="message-bubble" :class="me">
-    <span class="from" :class="me">{{ uuid }}</span>
+    <router-link :to="'/profile/'+uuid" v-tooltip="'Click to view user\'s profile'">
+      <span class="from" :class="me">{{ uuid }}</span>
+    </router-link>
     <br :class="me">
     <span class="message-text">{{ text }}</span>
   </div>

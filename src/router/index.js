@@ -39,7 +39,7 @@ const routes = [
   },
 
   {
-    path: '/account/profile',
+    path: '/profile/:uuid?',
     name: 'Profile',
     component: Profile
   },

@@ -18,7 +18,7 @@ export default {
   name: 'MusicCard',
   props: {
     item: Object,
-    artistTag: { type: String, required: false }
+    artistTag: { type: Object, required: false }
   }
 }
 </script>

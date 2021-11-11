@@ -10,7 +10,7 @@
 								<img src="https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png"/>
 							</div>
 
-							<Star :star="starValue" :maxstars="1" starsize="M" />
+							<Star :star="starValue" :maxstars="1"/>
 
 							<div class="name">
 								<h3 class="title">JohnPeter09</h3>
@@ -21,7 +21,7 @@
 								<p>Hi, I'm John. My favourite artist is Elvis Presley and my favourite song is Blue Suede Shoes. </p>
 							</div>
 
-							<div class="socialbuttons">
+							<div class="social-buttons">
 								<ButtonSocial network="facebook"></ButtonSocial>
 								<ButtonSocial network="twitter"></ButtonSocial>
 								<ButtonSocial network="telegram"></ButtonSocial>
@@ -35,20 +35,19 @@
 							<ul class="nav nav-pills nav-pills-icons justify-content-center">
 								<li class="nav-item">
 									<a class="nav-link active" role="tab" data-toggle="tab">
-										<i class="bi bi-person-video2"></i>
+										<i class="bi bi-person-video2"/>
 										Artists
 									</a>
-									<!-- <router-link to="/music"><Button btn-class="btn__toggle btn--radio" @click="filterSelection('')">All</Button></router-link> -->
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" role="tab" data-toggle="tab">
-										<i class="bi bi-book-fill"></i>
+										<i class="bi bi-book-fill"/>
 										Albums
 									</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" role="tab" data-toggle="tab">
-										<i class="bi bi-file-earmark-music-fill"></i>
+										<i class="bi bi-file-earmark-music-fill"/>
 										Songs
 									</a>
 								</li>
@@ -59,14 +58,8 @@
 			</div>
 			<div class="row">
 				<div class="col-md-3 ml-auto">
-					<img
-						src="https://images.unsplash.com/photo-1524498250077-390f9e378fc0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=83079913579babb9d2c94a5941b2e69d&auto=format&fit=crop&w=751&q=80"
-						class="rounded"
-					/>
-					<img
-						src="https://images.unsplash.com/photo-1528249227670-9ba48616014f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=66b8e7db17b83084f16fdeadfc93b95b&auto=format&fit=crop&w=357&q=80"
-						class="rounded"
-					/>
+					<img class="rounded" src="https://images.unsplash.com/photo-1524498250077-390f9e378fc0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=83079913579babb9d2c94a5941b2e69d&auto=format&fit=crop&w=751&q=80"/>
+					<img class="rounded" src="https://images.unsplash.com/photo-1528249227670-9ba48616014f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=66b8e7db17b83084f16fdeadfc93b95b&auto=format&fit=crop&w=357&q=80"/>
 				</div>
 			</div>
 		</div>
@@ -77,35 +70,29 @@
 import ButtonSocial from "@/components/BtnSocial.vue";
 // import Button from '@/components/Btn.vue'
 import Star from "@/components/Star.vue";
-import { gsap } from "gsap";
+import { mapGetters } from 'vuex'
 
 export default {
 	name: "About",
 	components: {
 		ButtonSocial,
+		// Button,
 		Star,
 	},
-
-	methods: {
-    filterSelection(selection) {
-      var cardBoxes = this.$refs.musicCards.children;
-      for (let i = 0; i < cardBoxes.length; i++) {
-        // Hide elements that are not selected by removing the "show" class (display:block)
-        this.RemoveClass(cardBoxes[i], "show");
-        // Show filtered elements by adding the "show" class (display:block)
-        if (cardBoxes[i].getAttribute("data-type").includes(selection)) this.AddClass(cardBoxes[i], "show");
-      }
-      /* [animation] documentation: https://greensock.com/get-started/ */
-      gsap.timeline()
-        .to(cardBoxes, { duration: 0, opacity: 0, ease: 'expo.out' })
-        .to(cardBoxes, { duration: 0.9, opacity: 1, ease: 'back.out' })
-    },
-	}
+	data() {
+		return {
+			starValue: 0
+		}
+	},
+  computed: {
+    ...mapGetters({
+			myUuid: 'getMyUuid'
+		})
+  }
 };
 </script>
 
 <style scoped lang="scss">
-.h6,
 h6 {
 	font-size: 0.75rem !important;
 	font-weight: 700;
@@ -117,16 +104,6 @@ h6 {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	font-weight: 700;
-}
-
-a .material-icons {
-	vertical-align: middle;
-}
-
-.fixed-top {
-	position: fixed;
-	left: 0;
-	right: 0;
 }
 
 .profile-page {
@@ -214,7 +191,7 @@ p {
 	align-content: center;
 }
 
-.socialbuttons {
+.social-buttons {
 	margin: 10px;
 }
 
