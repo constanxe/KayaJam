@@ -13,12 +13,12 @@
 							<Star :star="starValue" :maxstars="1" starsize="M" />
 
 							<div class="name">
-								<h3 class="title">John123</h3>
+								<h3 class="title">JohnPeter09</h3>
 								<h6>Singapore</h6>
 							</div>
 
-							<div class="description text-center border	border-color:#1DB954 rounded">
-								<p>Hi, I'm John. I like music</p>
+							<div class="description text-center border rounded">
+								<p>Hi, I'm John. My favourite artist is Elvis Presley and my favourite song is Blue Suede Shoes. </p>
 							</div>
 
 							<div class="socialbuttons">
@@ -29,6 +29,7 @@
 						</div>
 					</div>
 
+					<!-- Filter Buttons-->
 					<div class="col-xl-l-md-s-xs-6 ml-auto mr-auto">
 						<div class="profile-tabs">
 							<ul class="nav nav-pills nav-pills-icons justify-content-center">
@@ -37,6 +38,7 @@
 										<i class="bi bi-person-video2"></i>
 										Artists
 									</a>
+									<!-- <router-link to="/music"><Button btn-class="btn__toggle btn--radio" @click="filterSelection('')">All</Button></router-link> -->
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" role="tab" data-toggle="tab">
@@ -73,13 +75,32 @@
 
 <script>
 import ButtonSocial from "@/components/BtnSocial.vue";
+// import Button from '@/components/Btn.vue'
 import Star from "@/components/Star.vue";
+import { gsap } from "gsap";
+
 export default {
 	name: "About",
 	components: {
 		ButtonSocial,
 		Star,
 	},
+
+	methods: {
+    filterSelection(selection) {
+      var cardBoxes = this.$refs.musicCards.children;
+      for (let i = 0; i < cardBoxes.length; i++) {
+        // Hide elements that are not selected by removing the "show" class (display:block)
+        this.RemoveClass(cardBoxes[i], "show");
+        // Show filtered elements by adding the "show" class (display:block)
+        if (cardBoxes[i].getAttribute("data-type").includes(selection)) this.AddClass(cardBoxes[i], "show");
+      }
+      /* [animation] documentation: https://greensock.com/get-started/ */
+      gsap.timeline()
+        .to(cardBoxes, { duration: 0, opacity: 0, ease: 'expo.out' })
+        .to(cardBoxes, { duration: 0.9, opacity: 1, ease: 'back.out' })
+    },
+	}
 };
 </script>
 
@@ -117,7 +138,7 @@ a .material-icons {
 .page-header {
 	height: 30vh;
 	background-size: cover;
-	background-color: var(--color-supporting); /*2a313a*/
+	background-color: #1DB954; /*2a313a*/
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -132,7 +153,7 @@ a .material-icons {
 }
 
 .main {
-	background: var(--color-supporting); /*3C4858*/
+	background: var(--color-default); /*3C4858*/
 	position: relative;
 }
 
@@ -177,12 +198,15 @@ a .material-icons {
 	margin: auto;
 	max-width: 600px;
 	font-weight: 300;
+	border-color: var(--color-text);
 }
 
 p {
 	font-size: 14px;
 	margin-top: 15px;
 	margin-bottom: 15px;
+	margin-left: 15px;
+	margin-right: 15px;
 }
 
 .profile-page .profile-tabs {
@@ -224,6 +248,7 @@ p {
 	font-weight: 500;
 	min-width: 100px;
 	color: #fff;
+	background-color: #3C4858;
 	transition: all 0.3s;
 	border-radius: 30px;
 	padding: 10px 15px;
@@ -231,7 +256,7 @@ p {
 }
 
 .nav-pills .nav-item .nav-link:not(.active):hover {
-	background-color: rgba(200, 200, 200, 0.2);
+	background-color: #1db954 /*rgba(200, 200, 200, 0.2)*/;
 }
 
 .nav-pills .nav-item i {
