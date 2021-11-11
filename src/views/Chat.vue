@@ -13,16 +13,16 @@
         </router-link>
         <!-- Saved chats -->
         <router-link :to="'/chat/'+savedChannel" v-for="savedChannel of savedChannels" :key="savedChannel">
-          <Button btn-class="btn__toggle btn--radio" :class="{'active': activeChannel == savedChannel}">
+          <Button btn-class="btn__toggle btn--radio" :class="{'active': activeChannel == savedChannel}" v-tooltip="channelTooltip(savedChannel)">
             <i
-              v-if="hasChannelType(savedChannel)"
+              v-if="channelType(savedChannel)"
               class="bi" :class="channelIconClass(savedChannel)"
               v-tooltip="capitalizeFirstLetter(channelType(savedChannel))"
             />
             {{ channelBtnText(savedChannel) }}
             <Star :star="1" @click.native="handleSavedChatChannels($event, savedChannel)"
                   :maxstars="1" starsize="xs" v-tooltip="'Star this chat for future viewing'"/>
-            <router-link :to="'/music/'+savedChannel" v-if="hasChannelType(savedChannel)" v-tooltip="'Visit this '+channelType(savedChannel)+'\'s page'">
+            <router-link :to="'/music/'+savedChannel" v-if="channelType(savedChannel)" v-tooltip="'Visit this '+channelType(savedChannel)+'\'s page'">
               <i class="bi bi-link-45deg go-icon"/>
             </router-link>
           </Button>
@@ -30,16 +30,16 @@
         <!-- Active chat -->
         <template v-if="!generalChannels.includes(activeChannel) && !savedChannels.includes(activeChannel)">
           <router-link :to="'/chat/'+activeChannel">
-            <Button btn-class="btn__toggle btn--radio active">
+            <Button btn-class="btn__toggle btn--radio active" v-tooltip="channelTooltip(activeChannel)">
               <i
-                v-if="hasChannelType(activeChannel)"
+                v-if="channelType(activeChannel)"
                 class="bi" :class="channelIconClass(activeChannel)"
                 v-tooltip="capitalizeFirstLetter(channelType(activeChannel))"
               />
               {{ channelBtnText(activeChannel) }}
               <Star :star="0" @click.native="handleSavedChatChannels($event, activeChannel)"
                     :maxstars="1" starsize="xs" v-tooltip="'Star this chat for future viewing'"/>
-              <router-link :to="'/music/'+activeChannel" v-if="hasChannelType(activeChannel)" v-tooltip="'Visit this '+channelType(activeChannel)+'\'s page'">
+              <router-link :to="'/music/'+activeChannel" v-if="channelType(activeChannel)" v-tooltip="'Visit this '+channelType(activeChannel)+'\'s page'">
                 <i class="bi bi-link-45deg go-icon"/>
               </router-link>
             </Button>
@@ -61,7 +61,7 @@ import ChatLog from '@/components/chat/ChatLog';
 import MessageInput from '@/components/chat/MessageInput';
 import Button from '@/components/Btn.vue'
 import Star from '@/components/Star.vue'
-import { capitalizeFirstLetter } from '@/utils'
+import { capitalizeFirstLetter, toastedOptions } from '@/utils'
 import {mapGetters} from 'vuex';
 import PubNubVue from 'pubnub-vue';
 
@@ -93,16 +93,21 @@ export default {
       return capitalizeFirstLetter(string)
     },
 
-    hasChannelType(channel) {
-      return this.channelTypes.includes(channel.split(":")[0])
-    },
     channelType(channel) {
-      return this.hasChannelType(channel) ? channel.split(':')[0] : ""
+      return this.channelTypes.includes(channel.split(":")[0]) ? channel.split(':')[0] : ""
+    },
+    channelLabel(channel) {
+      return capitalizeFirstLetter(
+        this.channelType(channel) ? channel.split(':').slice(1).join(":") : channel
+      )
     },
     channelBtnText(channel) {
-      return capitalizeFirstLetter(
-        this.hasChannelType(channel) ? channel.split(':').slice(1).join(":") : channel
-      )
+      const channelLabel = this.channelLabel(channel)
+      return channelLabel.length > 20 ? channelLabel.slice(0,20) + "..." : channelLabel
+    },
+    channelTooltip(channel) {
+      const channelLabel = this.channelLabel(channel)
+      return channelLabel.length > 20 ? channelLabel : ""
     },
     channelIconClass(channel) {
       const channelType = this.channelType(channel)
@@ -140,20 +145,10 @@ export default {
     });
     this.$nextTick(this.fetchHistory(this.$store));
 
-    if (this.hasChannelType(this.activeChannel) & ["","undefined"].includes(this.activeChannel.split(":")[1])) {
+    if (this.channelType(this.activeChannel) & ["","undefined"].includes(this.activeChannel.split(":")[1])) {
       this.$router.push("/chat");
-      /* documentation: https://github.com/shakee93/vue-toasted */
-      this.$toasted.error("Invalid chat group", {
-        position: 'bottom-right',
-        duration: '3000',
-        keepOnHover: true,
-        action : {
-          text : 'Cancel',
-          onClick : (e, toastObject) => {
-            toastObject.goAway(0);
-          }
-        },
-      })
+      this.$toasted.error("Invalid chat group", toastedOptions)
+      this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
     }
   },
 };

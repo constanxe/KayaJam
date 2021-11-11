@@ -11,7 +11,6 @@
     <h4>Elvis Presley's Albums</h4>
     <!-- Data -->
     <div><li v-for="item in dataItems" :key="item.id">{{ item.name }}</li></div>
-    <div ref="errorArtistAlbums"/>
     <!-- Paginator -->
     <nav class="pagination">
       <a
@@ -27,6 +26,7 @@
 <script>
 import SpotifyApi from '@/services/spotify-auth'
 import Loading from 'vue-loading-overlay'
+import { toastedOptions } from '@/utils'
 
 export default {
   name: 'SpotifyArtistAlbums',
@@ -59,12 +59,12 @@ export default {
           this.dataPages = Math.ceil(data.total / this.dataLimit)
 
           this.dataLoading = false
-          this.$refs["errorArtistAlbums"].innerText = ""
         })
         .catch((error) => {
           // console.log(error.responseText)
           this.dataLoading = false
-          this.$refs["errorArtistAlbums"].innerText = "Error occurred. Please try again."
+          this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
+          this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
         })
     },
     handlePaginate(page) {

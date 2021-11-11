@@ -1,4 +1,4 @@
-import styles from './assets/_config.scss';
+import styles from '@/assets/_config.scss';
 
 /* reference: https://www.pubnub.com/blog/vuejs-group-chat-app-tutorial/ */
 

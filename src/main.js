@@ -8,12 +8,12 @@ import VueSocialSharing from 'vue-social-sharing';
 import VTooltip from 'v-tooltip';
 import Toasted from 'vue-toasted';
 
-import store from './store';
 import PubNubVue from 'pubnub-vue';
 
 import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
+import App from '@/App.vue'
+import store from '@/store';
+import router from '@/router'
 
 Vue.config.productionTip = false
 Vue.use(VueSocialSharing)

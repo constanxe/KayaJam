@@ -211,7 +211,6 @@ export default {
           //this.dataArtistIds = 
 
           this.dataLoading = false
-          this.$refs["errorArtistAlbums"].innerText = ""
 
           /* temporary info for widgets */
           this.artistName = this.dataItems[0].artists[0].name
@@ -220,7 +219,6 @@ export default {
         .catch((error) => {
           // console.log(error.responseText)
           this.dataLoading = false
-          this.$refs["errorArtistAlbums"].innerText = "Error occurred. Please try again."
         })
         },
     getArtist() {
@@ -233,7 +231,6 @@ export default {
           console.log(data)
           console.log("test")
           this.dataLoading = false
-          this.$refs["errorArtistAlbums"].innerText = ""
 
           /* temporary info for widgets */
           this.artistName = this.artistData[0].artists[0].name
@@ -242,7 +239,6 @@ export default {
         .catch((error) => {
           // console.log(error.responseText)
           this.dataLoading = false
-          this.$refs["errorArtistAlbums"].innerText = "Error occurred. Please try again."
         })
         },
     handlePaginate(page) {

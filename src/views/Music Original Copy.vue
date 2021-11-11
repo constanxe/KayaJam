@@ -1,13 +1,5 @@
 <template>
   <div class="music">
-    <div>{{ artistData.name }}</div>
-  <div>{{ artistData.type }}</div>
-  <div>{{ artistData.genres }}</div>
-   <div class="row" v-for='artist in artistData.artists' :key="artist.name">
-        <div>{{ artist.name }}</div>
-  </div>
-
-  
     <!-- Top Bar-->
     <div class="container-jumbotron">
       <!-- Header-->
@@ -43,10 +35,10 @@
     <!-- Albums/Artists Cards-->
     <div class="container">
       <div class="row" ref="musicCards">
-        <MusicCard data-type="album" type="album" artist-tag-name="Charlie Lim" title="Time/Space" imgSrc="https://f4.bcbits.com/img/a3424343514_10.jpg"/>
-        <MusicCard data-type="album" type="album" artist-tag-name="Subsonic Eye" title="Strawberry Feels" imgSrc="https://f4.bcbits.com/img/a3424343514_10.jpg"/>
-        <MusicCard data-type="album" type="album" artist-tag-name="Inch" title="Letters To Ubin" imgSrc="https://images.squarespace-cdn.com/content/v1/561f70f2e4b05c4e86dede19/1591256499796-J3CM6FL7W3W71PT8FJM2/1frontcover.jpg?format=2500w"/>
-        <MusicCard data-type="album" type="album" artist-tag-name="James Blake" title="Friends" imgSrc="https://media.pitchfork.com/photos/60f9880e4a319e50a860a52e/1:1/w_600/James-Blake.jpg"/>
+        <MusicCard data-type="album" type="album" artist-tag-name="Charlie Lim" title="Time/Space" img-src="https://f4.bcbits.com/img/a2407592093_10.jpg"/>
+        <MusicCard data-type="album" type="album" artist-tag-name="Subsonic Eye" title="Strawberry Feels" img-src="https://f4.bcbits.com/img/a3424343514_10.jpg"/>
+        <MusicCard data-type="album" type="album" artist-tag-name="Inch" title="Letters To Ubin" img-src="https://images.squarespace-cdn.com/content/v1/561f70f2e4b05c4e86dede19/1591256499796-J3CM6FL7W3W71PT8FJM2/1frontcover.jpg?format=2500w"/>
+        <MusicCard data-type="album" type="album" artist-tag-name="James Blake" title="Friends" img-src="https://media.pitchfork.com/photos/60f9880e4a319e50a860a52e/1:1/w_600/James-Blake.jpg"/>
 
         <MusicCard data-type="artist" type="artist" title="Gentle Bones" img-src="https://cdn.filestackcontent.com/eLeq7DuSsKWq57U1mC1t/convert?cache=true&crop=0%2C146%2C1920%2C960&crop_first=true&quality=90&w=1920"/>
         <MusicCard data-type="artist" type="artist" title="Benjamin Kheng" img-src="http://pilerats.com/assets/Uploads/benjamin-kheng-find-me-introducing.jpg"/>
@@ -59,9 +51,7 @@
 <script>
 import Button from '@/components/Btn.vue'
 import MusicCard from '@/components/MusicCard'
-import SpotifyApi from '@/services/spotify-auth'
 import { gsap } from "gsap";
-
 
 export default {
   name: "Music",
@@ -69,73 +59,7 @@ export default {
     Button,
     MusicCard
   },
-  data() {
-    return {
-    /* can customise */
-    artistId: ["3FodFdWfVWIiER6Cv6YVVQ"],
-    dataLimit: 12,
-    /* will be updated automatically */
-    dataOffset: 0,
-    dataLoading: true,
-    dataItems: [],
-    artistData: [],
-    dataPages: 0,
-    dataActivePage: 1,
-    artistType: '',
-    /* temporary fallbacks */
-    dataArtistIds: [],
-    artistName: 'name',
-    activeAlbum: "5Ay88ZVN61blW8QYUpofy6",
-    }
-   },
   methods: {
-        getArtistAlbums() {
-      /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getartistalbums */
-      SpotifyApi
-        .getArtistAlbums(this.artistId, { limit: this.dataLimit, offset: this.dataOffset })
-        .then((data) => {
-          console.log(data)
-          console.log(22)
-          this.albumData = data
-          this.dataItems = data.items
-          this.dataPages = Math.ceil(data.total / this.dataLimit)
-          //this.dataArtistIds = 
-
-          this.dataLoading = false
-          this.$refs["errorArtistAlbums"].innerText = ""
-
-          /* temporary info for widgets */
-          this.artistName = this.dataItems[0].artists[0].name
-          this.activeAlbum = this.dataItems[0].id
-        })
-        .catch((error) => {
-          // console.log(error.responseText)
-          this.dataLoading = false
-          this.$refs["errorArtistAlbums"].innerText = "Error occurred. Please try again."
-        })
-        },
-    getArtists() {
-      /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getartistalbums */
-      SpotifyApi
-        .getArtists(this.artistId, { limit: this.dataLimit, offset: this.dataOffset })
-        .then((data) => {
-          this.artistData = data
-          this.artistType = this.artistData.type
-          console.log(data)
-          console.log("test")
-          this.dataLoading = false
-          this.$refs["errorArtistAlbums"].innerText = ""
-
-          /* temporary info for widgets */
-          this.artistName = this.artistData[0].artists[0].name
-          this.activeAlbum = this.artistData[0].id
-        })
-        .catch((error) => {
-          // console.log(error.responseText)
-          this.dataLoading = false
-          this.$refs["errorArtistAlbums"].innerText = "Error occurred. Please try again."
-        })
-        },
     filterSelection(selection) {
       var cardBoxes = this.$refs.musicCards.children;
       for (let i = 0; i < cardBoxes.length; i++) {
@@ -204,12 +128,7 @@ export default {
         this.className += " active";
       });
     }
-  },
-  created() {
-    /* give time to set access token in spotify-auth.js */
-    setTimeout(() => this.getArtistAlbums(), 800)
-    setTimeout(() => this.getArtists(), 800)
-  },
+  }
 };
 </script>
 
