@@ -7,7 +7,7 @@
       <div id="layoutSidenav_content" @click="closeSidenavIfOverlay">
         <main>
           <router-view :key="$route.fullPath"/> <!-- key to trigger rerender of components (esp when toggling chats)-->
-          <iframe :src="'https://open.spotify.com/embed/album/'+activeAlbum" class="player"
+          <iframe :src="'https://open.spotify.com/embed/album/'+playerAlbum" class="player"
                   width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"/>
         </main>
       </div>
@@ -18,17 +18,13 @@
 <script>
 import TheTopNav from './TheTopNav.vue'
 import TheSideNav from './TheSideNav.vue'
+import {mapGetters} from 'vuex';
 
 export default {
   name: 'TheNav',
   components: {
     TheTopNav,
     TheSideNav
-  },
-  data() {
-    return {
-      activeAlbum: "5Ay88ZVN61blW8QYUpofy6"
-    }
   },
   methods: {
     closeSidenavIfOverlay(event) {
@@ -41,7 +37,12 @@ export default {
         if (bodyClasses.contains(toggledClass)) bodyClasses.remove(toggledClass)
       }
     }
-  }
+  },
+  computed: {
+    ...mapGetters({
+      playerAlbum: 'getPlayerAlbum',
+    }),
+  },
 }
 </script>
 

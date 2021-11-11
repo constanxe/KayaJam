@@ -9,14 +9,19 @@ Vue.use(Vuex);
 
 const state = {
   theme: styles.defaultTheme,
+  playerAlbum: "1DFixLWuPkv3KT3TnV35m3", /* temporary fallback for player */
   me: {},
+  /* chat */
   history: [],
-  savedChatChannels: []
+  savedChatChannels: [],
 };
 
 const mutations = {
   setTheme(state, theme) {
     state.theme = theme;
+  },
+  setPlayerAlbum(state, playerAlbum) {
+    state.playerAlbum = playerAlbum;
   },
   setMe(state, {me}) {
     state.me = me;
@@ -39,6 +44,7 @@ const mutations = {
 
 const getters = {
   getTheme: (state) => state.theme,
+  getPlayerAlbum: (state) => state.playerAlbum,
   getMyUuid: (state) => state.me.uuid,
   getHistoryMsgs: (state) => state.history,
   getSavedChatChannels: (state) => state.savedChatChannels,
