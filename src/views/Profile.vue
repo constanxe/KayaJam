@@ -30,7 +30,7 @@
 					</div>
 
 					<!-- Filter Buttons-->
-					<div class="col-xl-l-md-s-xs-6 ml-auto mr-auto">
+					<div class="col-xl-l-md-s-xs-6 ml-auto mr-auto" ref="filterButtons">
 						<div class="profile-tabs">
 							<ul class="nav nav-pills nav-pills-icons justify-content-center">
 								<li class="nav-item">
@@ -38,7 +38,7 @@
 										<i class="bi bi-person-video2"></i>
 										Artists
 									</a>
-									<!-- <router-link to="/music"><Button btn-class="btn__toggle btn--radio" @click="filterSelection('')">All</Button></router-link> -->
+
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" role="tab" data-toggle="tab">
@@ -58,7 +58,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-3 ml-auto">
+				<div class="col-md-3 ml-auto" ref='ProfileCards'>
 					<img
 						src="https://images.unsplash.com/photo-1524498250077-390f9e378fc0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=83079913579babb9d2c94a5941b2e69d&auto=format&fit=crop&w=751&q=80"
 						class="rounded"
@@ -88,7 +88,7 @@ export default {
 
 	methods: {
     filterSelection(selection) {
-      var cardBoxes = this.$refs.musicCards.children;
+      var cardBoxes = this.$refs.ProfileCards.children;
       for (let i = 0; i < cardBoxes.length; i++) {
         // Hide elements that are not selected by removing the "show" class (display:block)
         this.RemoveClass(cardBoxes[i], "show");
