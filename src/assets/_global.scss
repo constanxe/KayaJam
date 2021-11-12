@@ -103,8 +103,12 @@ a {
 }
 
 /* if <a> color not brand */
-.tag:hover {
-  color: map-get($colors-brands, spotify) !important;
+.tag {
+  color: white;
+
+  &:hover {
+    color: map-get($colors-brands, spotify) !important;
+  }
 }
 
 .dropdown-item {

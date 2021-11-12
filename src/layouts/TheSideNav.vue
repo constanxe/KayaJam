@@ -14,8 +14,8 @@
             <SideNavItem route="/chat">Chat</SideNavItem>
           </SideNavMenu>
           <div class="sb-sidenav-menu-heading">Account</div>
-          <SideNavItem route="/account/profile" icon-class="bi-person-fill">Profile</SideNavItem>
-          <SideNavItem route="/account/settings" icon-class="bi-gear-fill">Settings</SideNavItem>
+          <SideNavItem route="/profile" icon-class="bi-person-fill">Profile</SideNavItem>
+          <SideNavItem route="/settings" icon-class="bi-gear-fill">Settings</SideNavItem>
           <!-- showcase pages -->
           <div class="sb-sidenav-menu-heading">Demo</div>
           <SideNavItem route="/demo/components" icon-class="bi-house-door-fill">Components</SideNavItem>

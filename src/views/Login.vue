@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-lg-3 col-md-2"></div>
       <div class="col-lg-6 col-md-8 login-box">
-        <div class="col-lg-12 login-box_title">Spotify WebApp</div>
+        <div class="col-lg-12 login-box_title">KayaJam</div>
         <div class="col-lg-12 login-box_form">
           <div class="form-group">
             <label for="givenUsername">Username</label>

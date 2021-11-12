@@ -7,7 +7,7 @@
       <div id="layoutSidenav_content" @click="closeSidenavIfOverlay">
         <main>
           <router-view :key="$route.fullPath"/> <!-- key to trigger rerender of components (esp when toggling chats)-->
-          <iframe :src="'https://open.spotify.com/embed/album/'+playerAlbum" class="player"
+          <iframe :src="`https://open.spotify.com/embed/album/${playerAlbum}`" class="player"
                   width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"/>
         </main>
       </div>
