@@ -8,14 +8,11 @@
     </router-link>&nbsp;
     <Button v-tooltip="'Set player to a random album by this artist'" @click.native="setPlayerAlbum(getRandomAlbum().id)">Play Random Album</Button>
 
-    <!-- Spotify API -->
     <!-- documentation: https://github.com/ankurk91/vue-loading-overlay -->
     <Loading
       :active="dataLoading" color="green" loader="bars"
       :background-color="theme == 'light' ? 'white' : 'black'"
     />
-    <!-- Data -->
-    <div><li v-for="item in dataItems" :key="item.id">{{ item.name }}</li></div>
     <!-- Paginator -->
     <nav class="pagination">
       <a
@@ -24,6 +21,8 @@
         @click="handlePaginate(page)" role="button"
       />
     </nav>
+    <!-- Spotify API Data -->
+    <div><li v-for="item in dataItems" :key="item.id">{{ item.name }}</li></div>
   </div>
 </template>
 

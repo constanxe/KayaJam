@@ -18,7 +18,9 @@
 				<div class="writeup col-xl-7 col-lg-12 p-3">
 					<!-- Name from Spotify API-->
 					<h1 class="display-4 text-center">{{ albumData.name }}</h1>
-					<h4 class="text-center">{{ this.capitaliseFirstLetter(albumData.album_type) }} by {{ artistName }}</h4>
+					<h4 class="text-center">
+						{{ this.capitaliseFirstLetter(albumData.album_type) }} by <router-link :to="`/artist/${artistId}`" class="tag">{{ artistName }}</router-link>
+					</h4>
 					<br>
 
 					<!--Play Random Album-->
@@ -47,12 +49,20 @@
 
 		<!--Other Albums-->
 		<div class="container-fluid bg-success text-white mt-5">
-			<div class="row pt-3 text-center">
+			<div class="row pt-4 pb-1 text-center">
 				<h3>Other works by {{ artistName }}</h3>
 			</div>
+			<!-- Paginator -->
+			<nav class="pagination">
+				<a
+					v-for="page in Math.min(dataPages, 5)" :key="page"
+					:class="{'active': dataActivePage == page}"
+					@click="handlePaginate(page)" role="button"
+				/>
+			</nav>
 			<!--Other Albums - Photos & Links-->
-			<div class="row p-2 justify-content-center">
-				<div class="col-lg-4 p-2 text-center" v-for="item of albumDataItems" :key="item.id">
+			<div class="row pb-2">
+				<div class="p-2 text-center col-md-4 col-sm-6 mt-3" v-for="item of albumDataItems" :key="item.id">
 					<router-link :to="`/album/${item.id}`" class="tag">
 						<img class="img2" :src="item.images[0].url" />
 						<h4>{{ item.name }}</h4>
@@ -103,6 +113,7 @@ export default {
 			albumDataItems: [],
 			albumData: {images:[{url:''}]},	/* prevent error when haven't set */
 			artistName: "",
+			artistId: ""
 		};
 	},
 	methods: {
@@ -148,9 +159,9 @@ export default {
 		// 	}
     // },
 
-		getArtistAlbums(artistId) {
+		getArtistAlbums() {
 			/* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getartistalbums */
-			SpotifyApi.getArtistAlbums(artistId, { limit: this.dataLimit, offset: this.dataOffset })
+			SpotifyApi.getArtistAlbums(this.artistId, { limit: this.dataLimit, offset: this.dataOffset })
 				.then((data) => {
 					this.dataLoading = false;
 					// console.log(data);
@@ -171,8 +182,9 @@ export default {
 					this.dataLoading = false;
 					// console.log(data);
 					this.albumData = data;
-					this.getArtistAlbums(this.albumData.artists[0].id)
 					this.artistName = this.albumData.artists[0].name
+					this.artistId = this.albumData.artists[0].id
+					this.getArtistAlbums()
 				})
 				.catch((error) => {
 					this.dataLoading = false;
@@ -184,7 +196,7 @@ export default {
 
 		handlePaginate(page) {
 			this.dataOffset = (page - 1) * this.dataLimit;
-			// this.getArtistAlbums();
+			this.getArtistAlbums(this.artistId);
 			this.dataActivePage = page;
 		},
 	},

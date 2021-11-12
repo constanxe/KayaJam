@@ -19,12 +19,12 @@ export default {
 -->
 
 <template>
-	<div class="user-settings p-4">
+	<div class="user-settings">
 		<div class="container header">
 			<div class="row" style="background-color: #1db954">Profile Settings</div>
 		</div>
 		<!-- Search Bar-->
-		<div id="user_setting_app" class="container form">
+		<div id="user_setting_app" class="container form p-4">
 			<img
 				class="profile_pic"
 				v-bind:src="getObjFromUser('Jack').profile_pic"

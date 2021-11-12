@@ -25,17 +25,18 @@
 
     <!-- SPOTIFY API -->
 
-    <!-- Loading -->
-    <!-- [TODO] reference DemoSpotifyApi ln13+import to add -->
-
+    <!-- documentation: https://github.com/ankurk91/vue-loading-overlay -->
+    <Loading
+      :active="dataLoading" color="green" loader="bars"
+      :background-color="theme == 'light' ? 'white' : 'black'"
+    />
     <!-- Paginator -->
-    <!-- [TODO] reference DemoSpotifyApi ln22,81+import to add -->
     <nav class="pagination">
-      <a role="button" class="active"/>
-      <a role="button"/>
-      <a role="button"/>
-      <a role="button"/>
-      <a role="button"/>
+      <a
+        v-for="page in Math.min(dataPages, 5)" :key="page"
+        :class="{'active': dataActivePage == page}"
+        @click="handlePaginate(page)" role="button"
+      />
     </nav>
 
     <!-- Albums/Artists Cards-->
@@ -56,17 +57,20 @@
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
 import Button from '@/components/Btn.vue'
 import MusicCard from '@/components/MusicCard'
 import SpotifyApi from '@/services/spotify-auth'
 import { toastedOptions } from '@/utils'
+import { mapState } from 'vuex'
 // import { gsap } from "gsap";
 
 export default {
   name: "Music",
   components: {
     Button,
-    MusicCard
+    MusicCard,
+    Loading
   },
   data() {
     return {
@@ -128,6 +132,13 @@ export default {
           this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
         })
     },
+    handlePaginate(page) {
+      if (page != this.dataActivePage) {
+        this.dataOffset = (page - 1) * this.dataLimit
+        this.getArtists()
+        this.dataActivePage = page
+      }
+    },
 
     // animateChangeSelection() {
     //   var cardBoxes = this.$refs.musicCards;
@@ -152,6 +163,7 @@ export default {
     },
   },
   computed: {
+    ...mapState(['theme']),
     currentSelection() {
       return this.$route.params.pathMatch.slice(1);
     }
@@ -232,17 +244,12 @@ input {
   margin-bottom: 5px;
 }
 
-.row {
-  justify-content: center;
-}
-
-/* The "show" class is added to the filtered elements */
-.show {
-  display: block;
-}
-
 .filter-buttons * {
   height: 44px;
   width: 70px;
+}
+
+.pagination {
+  padding-top: 30px;
 }
 </style>

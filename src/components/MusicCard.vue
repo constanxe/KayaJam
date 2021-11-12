@@ -1,5 +1,5 @@
 <template>
-  <div class="music-card mt-5">
+  <div class="music-card col-xxl-3 col-lg-4 col-md-6 col-sm-12 mt-5">
     <router-link :to="`/${item.type}/${item.id}`">
       <div class="card-img"><img :src="item.images[0].url" alt="Card image"></div>
       <div class="card-body">
@@ -27,7 +27,6 @@ export default {
 .music-card {
   text-align: center;
   text-align: -webkit-center;
-  max-width: 270px !important;
 
   a,
   a:hover {

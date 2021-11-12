@@ -54,12 +54,20 @@
 
     <!--Other Albums-->
     <div class="container-fluid bg-success text-white mt-5">
-      <div class="row pt-3 text-center">
+      <div class="row pt-4 pb-1 text-center">
         <h3>Works by {{ artistData.name }}</h3>
       </div>
+			<!-- Paginator -->
+			<nav class="pagination">
+				<a
+					v-for="page in Math.min(dataPages, 5)" :key="page"
+					:class="{'active': dataActivePage == page}"
+					@click="handlePaginate(page)" role="button"
+				/>
+			</nav>
       <!--Other Albums - Photos & Links-->
-      <div class="row p-2 justify-content-center">
-        <div class="col-lg-3 p-2 text-center" v-for="item of albumDataItems" :key="item.id">
+      <div class="row pb-2">
+        <div class="p-2 text-center col-md-4 col-sm-6 mt-3" v-for="item of albumDataItems" :key="item.id">
           <router-link :to="`/album/${item.id}`" class="tag">
             <img class="img2" :src="item.images[0].url" />
             <h4>{{ item.name }}</h4>
@@ -197,8 +205,8 @@ export default {
 	created() {
 		/* give time to set access token in spotify-auth.js */
 		setTimeout(() => {
-      this.getArtistAlbums()
 			this.getArtist()
+      this.getArtistAlbums()
     }, 800)
 	},
 	computed: {
