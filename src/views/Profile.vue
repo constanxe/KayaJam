@@ -106,6 +106,7 @@ import ButtonSocial from "@/components/BtnSocial.vue";
 import { mapGetters } from 'vuex';
 import { gsap } from "gsap";
 
+
 export default {
 	name: "About",
 	components: {
@@ -164,6 +165,17 @@ export default {
       var newBtn = btns[possibleSelections.indexOf(currentSelection)];
       newBtn.className += " active";
     },
+	
+
+//  geocodeLatLng(geocoder) {
+//   const input = document.getElementById("latlng").value;
+//   const latlngStr = input.split(",", 2);
+//   const latlng = {
+//     lat: parseFloat(latlngStr[0]),
+//     lng: parseFloat(latlngStr[1]),
+//   };
+
+
     },
 
 
@@ -179,6 +191,8 @@ export default {
 		
   }
 };
+
+
 </script>
 
 <style scoped lang="scss">
