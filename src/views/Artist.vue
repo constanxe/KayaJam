@@ -36,14 +36,14 @@
   
 						<!--Play Random Album-->
 						<div class="row text-center mt-3">
-            <Button class="btn-lg bg-white text-dark" id="chatButton" v-tooltip="'Set Spotify player to a random album by this artist'" @click.native="setPlayerAlbum(getRandomAlbum().id)">Play music by {{ artistData.name }}</Button>
+            <Button class="btn-lg bg-white text-dark" id="chatButton" v-tooltip="'Set Spotify player to a random album by this artist'" @click.native="setPlayerAlbum(getRandomAlbum().id)">Preview {{ artistData.name }}'s music</Button>
 						</div>
 
 						<!--Discussion Button-->
 						<div class="row text-center mt-4">
 							<router-link :to="'/chat/artist:' + artistName">
-                <Button class="btn-lg bg-danger" v-tooltip="'Chat with others about this artist'">
-                  Share your love ❤️
+                <Button class="btn-lg bg-danger" v-tooltip="'Chat with fans or write a message of support'">
+                  Chat with fans ❤️
                 </Button></router-link>
 						</div>
             </div>
