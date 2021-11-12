@@ -232,6 +232,10 @@ input {
   margin-bottom: 5px;
 }
 
+.row {
+  justify-content: center;
+}
+
 /* The "show" class is added to the filtered elements */
 .show {
   display: block;
