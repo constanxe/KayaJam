@@ -1,79 +1,79 @@
 <template>
-		<div class="album">
-			<!-- documentation: https://github.com/ankurk91/vue-loading-overlay -->
-			<Loading
-				:active="dataLoading" color="green" loader="bars"
-				:background-color="theme == 'light' ? 'white' : 'black'"
-			/>
+	<div class="album">
+		<!-- documentation: https://github.com/ankurk91/vue-loading-overlay -->
+		<Loading
+			:active="dataLoading" color="green" loader="bars"
+			:background-color="theme == 'light' ? 'white' : 'black'"
+		/>
 
-			<div class="container">
-				<div class="row">
-					<!--Album Picture-->
-					<div class="col-xl-5 col-lg-12">
-						<img class="img1 rounded center-block" :src="albumData.images[0].url" alt="Card image"/>
+		<div class="container">
+			<div class="row">
+				<!--Album Picture-->
+				<div class="col-xl-5 col-lg-12">
+					<img class="img1 rounded center-block" :src="albumData.images[0].url" alt="Card image"/>
+				</div>
+				<br />
+
+				<!--Album Writeup + Info-->
+				<div class="writeup col-xl-7 col-lg-12 p-3">
+					<!-- Name from Spotify API-->
+					<h1 class="display-4 text-center">{{ albumData.name }}</h1>
+					<h4 class="text-center">{{ this.capitaliseFirstLetter(albumData.album_type) }} by {{ artistName }}</h4>
+					<br>
+
+					<!--Play Random Album-->
+					<div class="row text-center mt-3">
+						<Button
+							class="btn-lg bg-white text-dark"
+							id="chatButton"
+							v-tooltip="'Play on Spotify'"
+							@click.native="setPlayerAlbum(albumData.id)"
+						>Preview this {{ this.albumData.album_type }}</Button>
 					</div>
-					<br />
 
-					<!--Album Writeup + Info-->
-					<div class="writeup col-xl-7 col-lg-12 p-3">
-						<!-- Name from Spotify API-->
-						<h1 class="display-4 text-center">{{ albumData.name }}</h1>
-						<h4 class="text-center">{{ this.capitaliseFirstLetter(albumData.album_type) }} by {{ artistName }}</h4>
-						<br>
-
-						<!--Play Random Album-->
-						<div class="row text-center mt-3">
-							<Button
-								class="btn-lg bg-white text-dark"
-								id="chatButton"
-								v-tooltip="'Play on Spotify'"
-								@click.native="setPlayerAlbum(albumData.id)"
-							>Preview this {{ this.albumData.album_type }}</Button>
-						</div>
-
-						<!--Discussion Button-->
-						<div class="row text-center mt-4">
-							<router-link :to="`/chat/artist:${artistName}`">
-								<Button class="btn-lg bg-danger" v-tooltip="'Chat with fans or write a message of support'">
-									Chat with fans ❤️
-								</Button>
-							</router-link>
-						</div>
-						</div>
-					<br />
-					<br />
-				</div>
-			</div>
-
-			<!--Other Albums-->
-			<div class="container-fluid bg-success text-white mt-5">
-				<div class="row pt-3 text-center">
-					<h3>Other works by {{ artistName }}</h3>
-				</div>
-				<!--Other Albums - Photos & Links-->
-				<div class="row p-2 justify-content-center">
-					<div class="col-lg-4 p-2 text-center" v-for="item of albumDataItems" :key="item.id">
-						<router-link :to="`/album/${item.id}`" class="tag">
-							<img class="img2" :src="item.images[0].url" />
-							<h4>{{ item.name }}</h4>
+					<!--Discussion Button-->
+					<div class="row text-center mt-4">
+						<router-link :to="`/chat/artist:${artistName}`">
+							<Button class="btn-lg bg-danger" v-tooltip="'Chat with fans or write a message of support'">
+								Chat with fans ❤️
+							</Button>
 						</router-link>
 					</div>
-				</div>
+					</div>
+				<br />
+				<br />
 			</div>
+		</div>
 
-			<!--Social Sharing-->
-			<div class="container-fluid text-black bg-light col-12">
-				<div class="row pt-3 text-center">
-					<h3>Share with friends and family</h3>
-				</div>
-				<div class="socialshare justify-content-center">
-				<!-- Share post to social media platforms -->
-					<ButtonSocialShare network="facebook" url="facebook.com" />
-					<ButtonSocialShare network="twitter" title="test" />
-					<ButtonSocialShare network="telegram" />
+		<!--Other Albums-->
+		<div class="container-fluid bg-success text-white mt-5">
+			<div class="row pt-3 text-center">
+				<h3>Other works by {{ artistName }}</h3>
+			</div>
+			<!--Other Albums - Photos & Links-->
+			<div class="row p-2 justify-content-center">
+				<div class="col-lg-4 p-2 text-center" v-for="item of albumDataItems" :key="item.id">
+					<router-link :to="`/album/${item.id}`" class="tag">
+						<img class="img2" :src="item.images[0].url" />
+						<h4>{{ item.name }}</h4>
+					</router-link>
 				</div>
 			</div>
 		</div>
+
+		<!--Social Sharing-->
+		<div class="container-fluid text-black bg-light col-12">
+			<div class="row pt-3 text-center">
+				<h3>Share with friends and family</h3>
+			</div>
+			<div class="socialshare justify-content-center">
+			<!-- Share post to social media platforms -->
+				<ButtonSocialShare network="facebook" :url="`https://open.spotify.com/album/${id}`"/>
+				<ButtonSocialShare network="twitter" :url="`https://open.spotify.com/album/${id}`"/>
+				<ButtonSocialShare network="telegram" :url="`https://open.spotify.com/album/${id}`"/>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>

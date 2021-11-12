@@ -23,8 +23,8 @@
     <br>
     <!-- Share post to social media platforms -->
     <ButtonSocialShare network="facebook" url="facebook.com"/>
-    <ButtonSocialShare network="twitter" title="test"/>
-    <ButtonSocialShare network="telegram"/>
+    <ButtonSocialShare network="twitter" title="twt" url="twitter.com"/>
+    <ButtonSocialShare network="telegram" title="tg" url="telegram.com"/>
     <hr>
 
     <h4>Standard Buttons</h4>

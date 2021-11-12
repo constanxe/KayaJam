@@ -18,8 +18,8 @@ export default {
   },
   props: {
     network: String,
-    url: { type: String, default: "http://spotify.com/" },  /* facebook needs a valid URL */
-    title: { type: String, default: "sick!! check this out" }
+    url: String,
+    title: { type: String, default: "Check this out!" }
   },
   methods: {
     capitalizeFirstLetter(string) {

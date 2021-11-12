@@ -1,83 +1,86 @@
 <template>
-		<!-- documentation: https://github.com/ankurk91/vue-loading-overlay -->
-		<div class="album">
-			<Loading
-				:active="dataLoading" color="green" loader="bars"
-				:background-color="theme == 'light' ? 'white' : 'black'"
-			/>
+  <!-- documentation: https://github.com/ankurk91/vue-loading-overlay -->
+  <div class="album">
+    <Loading
+      :active="dataLoading" color="green" loader="bars"
+      :background-color="theme == 'light' ? 'white' : 'black'"
+    />
 
-			<div class="container">
-				<div class="row">
-					<!--Album Picture-->
-					<div class="col-xl-5 col-lg-12">
-						<img class="img1 rounded center-block" :src="artistData.images[0].url" alt="Card image"/>
-					</div>
-					<br />
-
-					<!--Album Writeup + Info-->
-					<div class="writeup col-xl-7 col-lg-12 p-3">
-						<!-- Name from Spotify API-->
-						<h1 class="display-4 text-center">Meet {{ artistData.name }} 🇸🇬</h1>
-						<!-- Type Name from Spotify API-->
-						<h4 class="text-center">Local {{ this.capitaliseFirstLetter(artistData.type) }}</h4>
-						<!-- Genre/Genres from Spotify API-->
-						<h4 class="text-center">{{ this.storeArrayAsString(artistData.genres) }}</h4>
-
-						<!-- Spotify Player (not API) -->
-            <div class="d-flex justify-content-center mt-5">
-							<iframe :src="`https://open.spotify.com/follow/1/?uri=spotify:artist:${id}&size=basic&theme=${theme}`" width="150" height="30" scrolling="no" frameborder="0" allowtransparency="true"/>
-            </div>
-            <br>
-
-						<!--Play Random Album-->
-						<div class="row text-center mt-3">
-              <Button class="btn-lg bg-white text-dark" id="chatButton" v-tooltip="'Set Spotify player to a random album by this artist'" @click.native="setPlayerAlbum(getRandomAlbum().id)">Preview {{ artistData.name }}'s music</Button>
-						</div>
-
-						<!--Discussion Button-->
-						<div class="row text-center mt-4">
-							<router-link :to="'/chat/artist:' + artistData.name">
-                <Button class="btn-lg bg-danger" v-tooltip="'Chat with fans or write a message of support'">
-                  Chat with fans ❤️
-                </Button>
-							</router-link>
-							</div>
-            </div>
-					<br />
-					<br />
-				</div>
-			</div>
-
-
-			<!--Other Albums-->
-			<div class="container-fluid bg-success text-white mt-5">
-				<div class="row pt-3 text-center">
-					<h3>Works by {{ artistData.name }}</h3>
-				</div>
-				<!--Other Albums - Photos & Links-->
-				<div class="row p-2 justify-content-center">
-					<div class="col-lg-3 p-2 text-center" v-for="item of albumDataItems" :key="item.id">
-						<router-link :to="`/album/${item.id}`" class="tag">
-							<img class="img2" :src="item.images[0].url" />
-							<h4>{{ item.name }}</h4>
-						</router-link>
-					</div>
-				</div>
-			</div>
-
-      <!--Social Sharing-->
-      <div class="container-fluid text-black bg-light col-12">
-        <div class="row pt-3 text-center">
-          <h3>Share with your friends and family</h3>
+    <div class="container">
+      <div class="row">
+        <!--Album Picture-->
+        <div class="col-xl-5 col-lg-12">
+          <img class="img1 rounded center-block" :src="artistData.images[0].url" alt="Card image"/>
         </div>
-        <div class="socialshare justify-content-center">
-        <!-- Share post to social media platforms -->
-          <ButtonSocialShare network="facebook" url="facebook.com" />
-          <ButtonSocialShare network="twitter" title="test" />
-          <ButtonSocialShare network="telegram" />
+        <br />
+
+        <!--Album Writeup + Info-->
+        <div class="writeup col-xl-7 col-lg-12 p-3">
+
+          <!-- [TODO] check if SG i.e. hardcoded value -->
+          <!-- Name from Spotify API-->
+          <h1 class="display-4 text-center">Meet {{ artistData.name }} 🇸🇬</h1>
+          <!-- Type Name from Spotify API-->
+          <h4 class="text-center">Local {{ this.capitaliseFirstLetter(artistData.type) }}</h4>
+
+          <!-- Genre/Genres from Spotify API-->
+          <h4 class="text-center">{{ this.storeArrayAsString(artistData.genres) }}</h4>
+
+          <!-- Spotify Player (not API) -->
+          <div class="d-flex justify-content-center mt-5">
+            <iframe :src="`https://open.spotify.com/follow/1/?uri=spotify:artist:${id}&size=basic&theme=${theme}`" width="150" height="30" scrolling="no" frameborder="0" allowtransparency="true"/>
+          </div>
+          <br>
+
+          <!--Play Random Album-->
+          <div class="row text-center mt-3">
+            <Button class="btn-lg bg-white text-dark" id="chatButton" v-tooltip="'Set Spotify player to a random album by this artist'" @click.native="setPlayerAlbum(getRandomAlbum().id)">Preview {{ artistData.name }}'s music</Button>
+          </div>
+
+          <!--Discussion Button-->
+          <div class="row text-center mt-4">
+            <router-link :to="'/chat/artist:' + artistData.name">
+              <Button class="btn-lg bg-danger" v-tooltip="'Chat with fans or write a message of support'">
+                Chat with fans ❤️
+              </Button>
+            </router-link>
+            </div>
+          </div>
+        <br />
+        <br />
+      </div>
+    </div>
+
+
+    <!--Other Albums-->
+    <div class="container-fluid bg-success text-white mt-5">
+      <div class="row pt-3 text-center">
+        <h3>Works by {{ artistData.name }}</h3>
+      </div>
+      <!--Other Albums - Photos & Links-->
+      <div class="row p-2 justify-content-center">
+        <div class="col-lg-3 p-2 text-center" v-for="item of albumDataItems" :key="item.id">
+          <router-link :to="`/album/${item.id}`" class="tag">
+            <img class="img2" :src="item.images[0].url" />
+            <h4>{{ item.name }}</h4>
+          </router-link>
         </div>
-			</div>
-		</div>
+      </div>
+    </div>
+
+    <!--Social Sharing-->
+    <div class="container-fluid text-black bg-light col-12">
+      <div class="row pt-3 text-center">
+        <h3>Share with your friends and family</h3>
+      </div>
+      <div class="socialshare justify-content-center">
+      <!-- Share post to social media platforms -->
+        <ButtonSocialShare network="facebook" :url="`https://open.spotify.com/artist/${id}`"/>
+        <ButtonSocialShare network="twitter" :url="`https://open.spotify.com/artist/${id}`"/>
+        <ButtonSocialShare network="telegram" :url="`https://open.spotify.com/artist/${id}`"/>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
