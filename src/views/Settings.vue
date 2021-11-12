@@ -2,7 +2,9 @@
 1. Every time a new user is created from the login page, add a new object to user_data based on first entry template.
 Set things which the user entered in account creation: username (must be unique), first name, last name.<template>
 
-2. List of favourites
+2. List of favourites for albums/artists starts empty. Clicking favourite will add it to list, clicking again will remove it.
+
+3. All instances of 'Jack' in this file should refer to the current user's username.
 </template>
 
 <script>
@@ -247,10 +249,11 @@ export default {
 				if (obj === targetObj) {
 					var item_index = obj.feat_albums.indexOf(image);
 					if (item_index > -1) {
-						obj.feat_albums.splice(item_index);
+						obj.feat_albums.splice(item_index, 1);
 					} else {
 						obj.feat_albums.push(image);
 					}
+                    console.log(obj.feat_albums)
 				}
 			}
 		},
@@ -260,10 +263,11 @@ export default {
 				if (obj === targetObj) {
 					var item_index = obj.feat_artists.indexOf(image);
 					if (item_index > -1) {
-						obj.feat_artists.splice(item_index);
+						obj.feat_artists.splice(item_index, 1);
 					} else {
 						obj.feat_artists.push(image);
 					}
+                    console.log(obj.feat_artists)
 				}
 			}
 		},

@@ -81,6 +81,14 @@ export default {
       this.$router.push("/");
     },
   },
+  created() {
+    window.addEventListener('keydown', (e) => {
+        // Validate username and password on pressing Enter; credit https://stackoverflow.com/a/50395988
+        if (e.key == 'Enter') {
+            this.validate()
+        }
+    });
+  }
 };
 </script>
 
