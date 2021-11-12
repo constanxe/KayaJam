@@ -13,7 +13,7 @@
 							<Star :star="starValue" :maxstars="1"/>
 
 							<div class="name">
-								<h3 class="title">JohnPeter09</h3>
+								<h3 class="title">{{ myUuid }}</h3>
 								<h6>Singapore</h6>
 							</div>
 

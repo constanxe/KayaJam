@@ -77,7 +77,7 @@ export default {
 
                 </div>
                 <div class="col-9">
-                    <img v-for="image of getObjFromUser('Jack').fav_albums" :key="image" class="album_pic" :src="image" @click="updateImageSelect;updateFeatAlbums('Jack', image);">
+                    <img v-for="image of getObjFromUser('Jack').fav_albums" :key="image" class="album_pic" :src="image" @click="updateImageSelect();updateFeatAlbums('Jack', image);">
                 </div>
 
             </div>
@@ -89,7 +89,7 @@ export default {
 
                 </div>
                 <div class="col-9">
-                    <img v-for="image of getObjFromUser('Jack').fav_artists" :key="image" class="artist_pic" :src="image" @click="updateImageSelect">
+                    <img v-for="image of getObjFromUser('Jack').fav_artists" :key="image" class="artist_pic" :src="image" @click="updateImageSelect();updateFeatArtists('Jack', image);">
                 </div>
 
             </div>
@@ -135,7 +135,7 @@ export default {
   name: 'UserSettings',
     data(){
         return {
-            user_data, 
+            user_data,
             update_pfps: 0
         };
     },
@@ -169,7 +169,7 @@ export default {
                 }
             }
         },
-        
+
         changeLastName(user){
             event.preventDefault()
             var last_name = document.querySelector("input[name=last_name]").value
@@ -181,18 +181,16 @@ export default {
                 }
             }
         },
-        updateImageSelect(ele){
-            console.log("hi")
-            console.log(ele)
-            if(ele.target.style.border == ""){
-                ele.target.style.border = "5px solid cyan"
+        updateImageSelect(){
+            var eleStyle = event.target.style
+            if(eleStyle.border == ""){
+                eleStyle.border = "5px solid cyan"
             }
             else{
-                ele.target.style.border = ""
+                eleStyle.border = ""
             }
         },
         updateFeatAlbums(user, image){
-            console.log("hello")
             var targetObj = this.getObjFromUser(user)
             for(var obj of user_data){
                 if (obj === targetObj){
@@ -224,7 +222,7 @@ export default {
             navigator.geolocation.getCurrentPosition(
                 function( position ){ // success cb
                     console.log( position );
-                    
+
                     var lat = position.coords.latitude;
                     var lng = position.coords.longitude;
                     alert(`Location shared.\nLatitude: ${lat}\nLongtitude: ${lng}`)
@@ -232,14 +230,13 @@ export default {
                         if (obj.username === user){
                             obj.location = [lat, lng]
                             console.log(obj.location)
-                        } 
+                        }
                     }
                 },
                 function(){ // fail cb
                     alert("Error in getting your location. Did you enable location sharing?")
                 }
             );
-        
         }
     }
 }
@@ -257,7 +254,7 @@ export default {
           padding-right: 20px;
           margin-left: 5px;
           margin-right: 5px;
-          margin-bottom: 10px; 
+          margin-bottom: 10px;
       }
       input {
           all: unset;
@@ -268,7 +265,7 @@ export default {
       }
       ::placeholder {
           color:black;
-          opacity: 0.7; 
+          opacity: 0.7;
       }
       button {
           all: unset;
@@ -290,7 +287,6 @@ export default {
           margin-right: auto;
           text-align: center;
           padding-top: 5px;
-          
       }
       .btn {
           border: none;
