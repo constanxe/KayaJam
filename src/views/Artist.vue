@@ -15,16 +15,14 @@
         <br />
 
         <!--Album Writeup + Info-->
-        <div class="writeup col-xl-7 col-lg-12 p-3">
+        <div class="writeup col-xl-7 col-lg-12 p-3 text-center">
 
-          <!-- [TODO] check if SG i.e. hardcoded value -->
           <!-- Name from Spotify API-->
-          <h1 class="display-4 text-center">Meet {{ artistData.name }} 🇸🇬</h1>
-          <!-- Type Name from Spotify API-->
-          <h4 class="text-center">Local {{ this.capitaliseFirstLetter(artistData.type) }}</h4>
+          <h1 class="display-4">Meet {{ artistData.name }}</h1>
 
           <!-- Genre/Genres from Spotify API-->
-          <h4 class="text-center">{{ this.storeArrayAsString(artistData.genres) }}</h4>
+          <h4 v-html="storeArrayAsString(artistData.genres)"/>
+          <i>Popularity:</i> <Star :star="Math.ceil(artistData.popularity/20)" :maxstars="5" hasdescription isdisabled class="d-inline-block" :key="artistData.popularity"/>
 
           <!-- Spotify Player (not API) -->
           <div class="d-flex justify-content-center mt-5">
@@ -93,8 +91,9 @@
 
 <script>
 import SpotifyApi from "@/services/spotify-auth";
-import ButtonSocialShare from "@/components/BtnSocialShare.vue";
+import Star from '@/components/Star.vue'
 import Button from "@/components/Btn.vue";
+import ButtonSocialShare from "@/components/BtnSocialShare.vue";
 import Loading from "vue-loading-overlay";
 import { toastedOptions } from '@/utils'
 import { mapState, mapMutations } from 'vuex'
@@ -102,8 +101,9 @@ import { mapState, mapMutations } from 'vuex'
 export default {
 	name: "Artist",
 	components: {
-    ButtonSocialShare,
+    Star,
 		Button,
+    ButtonSocialShare,
 		Loading,
 	},
 	data() {
@@ -132,9 +132,9 @@ export default {
 				str += this.capitaliseFirstLetter(genres[i]) + ", ";
 			}
 			if (genres.length == 1) {
-				str = "Genre: " + str.substring(0, str.length - 2);
+				str = "<i>Genre:</i> " + str.substring(0, str.length - 2);
 			} else {
-				str = "Genres: " + str.substring(0, str.length - 2);
+				str = "<i>Genres:</i> " + str.substring(0, str.length - 2);
 			}
 			return str;
 		},

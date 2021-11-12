@@ -50,7 +50,7 @@
 		<!--Other Albums-->
 		<div class="container-fluid bg-success text-white mt-5">
 			<div class="row pt-4 pb-1 text-center">
-				<h3>Other works by {{ artistName }}</h3>
+				<h3>Works by {{ artistName }}</h3>
 			</div>
 			<!-- Paginator -->
 			<nav class="pagination">
@@ -63,7 +63,7 @@
 			<!--Other Albums - Photos & Links-->
 			<div class="row pb-2">
 				<div class="p-2 text-center col-md-4 col-sm-6 mt-3" v-for="item of albumDataItems" :key="item.id">
-					<router-link :to="`/album/${item.id}`" class="tag">
+					<router-link :to="`/album/${item.id}`" :class="{'tag': id != item.id}">
 						<img class="img2" :src="item.images[0].url" />
 						<h4>{{ item.name }}</h4>
 					</router-link>
@@ -88,8 +88,8 @@
 
 <script>
 import SpotifyApi from "@/services/spotify-auth";
-import ButtonSocialShare from "@/components/BtnSocialShare.vue";
 import Button from "@/components/Btn.vue";
+import ButtonSocialShare from "@/components/BtnSocialShare.vue";
 import Loading from "vue-loading-overlay";
 import { toastedOptions } from '@/utils'
 import { mapState, mapMutations } from 'vuex'
@@ -97,8 +97,8 @@ import { mapState, mapMutations } from 'vuex'
 export default {
 	name: "Album",
 	components: {
-    ButtonSocialShare,
 		Button,
+    ButtonSocialShare,
 		Loading,
 	},
 	data() {
@@ -119,19 +119,6 @@ export default {
 	methods: {
 		...mapMutations(['setPlayerAlbum']),
 
-		storeArrayAsString: function (genres) {
-      if (!genres) return ""
-			var str = "";
-			for (var i = 0; i < genres.length; i++) {
-				str += this.capitaliseFirstLetter(genres[i]) + ", ";
-			}
-			if (genres.length == 1) {
-				str = "Genre: " + str.substring(0, str.length - 2);
-			} else {
-				str = "Genres: " + str.substring(0, str.length - 2);
-			}
-			return str;
-		},
 		capitaliseFirstLetter: function (passedstring) {
       if (!passedstring) return ""
 			//This function is used for Type and Genres
@@ -141,23 +128,6 @@ export default {
 			}
 			return arr.join(" ");
 		},
-		// readMoreLess: function () {
-		// 	//This function is used for the Read More/Less Button
-		// 	//console.log("test");
-		// 	var dots = document.getElementById("dots");
-		// 	var moreText = document.getElementById("more");
-		// 	var btnText = document.getElementById("readmoreButton");
-
-		// 	if (dots.style.display === "none") {
-		// 		dots.style.display = "inline";
-		// 		btnText.innerHTML = "Read more";
-		// 		moreText.style.display = "none";
-		// 	} else {
-		// 		dots.style.display = "none";
-		// 		btnText.innerHTML = "Read less";
-		// 		moreText.style.display = "inline";
-		// 	}
-    // },
 
 		getArtistAlbums() {
 			/* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getartistalbums */
@@ -166,6 +136,7 @@ export default {
 					this.dataLoading = false;
 					// console.log(data);
 					this.albumDataItems = data.items;
+					// this.albumDataItems = this.albumDataItems.filter(item => item.id != this.id)
 					this.dataPages = Math.ceil(data.total / this.dataLimit);
 				})
 				.catch((error) => {
@@ -264,14 +235,5 @@ export default {
 	align-items: center;
 	text-align: center;
 	display: inline-block;
-}
-
-
-#readmoreButton {
-	width: 120px;
-}
-
-#more {
-	display: none;
 }
 </style>
