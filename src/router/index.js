@@ -6,6 +6,7 @@ import Album from '@/views/Album.vue'
 import Artist from '@/views/Artist.vue'
 import Chat from '@/views/Chat.vue'
 import Profile from '@/views/Profile.vue'
+import Settings from '@/views/Settings.vue'
 import Login from '@/views/Login.vue'
 
 Vue.use(VueRouter)
@@ -42,6 +43,11 @@ const routes = [
     path: '/profile/:uuid?',
     name: 'Profile',
     component: Profile
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: Settings
   },
 
   /* deprecated pages */
