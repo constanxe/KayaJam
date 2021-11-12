@@ -1,17 +1,8 @@
 <template>
 	<!-- documentation: https://github.com/ankurk91/vue-loading-overlay -->
 	<div>
-		<!--FOR REFERENCE FOR getArtist - Can delete when not needed-->
-		FOR ANYONE'S REFERENCE - Can delete when not needed
-		<div>{{ artistData.name }}</div>
-		<div>{{ artistData.type }}</div>
-		<div>{{ artistData.genres }}</div>
 
-		<!--FOR REFERENCE FOR getArtistAlbums - Can delete when not needed-->
-		<!--So far, I'm just extracting first three albums under the assumption that there are at least 3 albums per artist. Would be good to show all albums but I'm not sure how to code it-->
-		<div>{{ albumData.items[0].name }}</div>
 
-		<!--END OF REFERENCE - Can delete when not needed-->
 
 		<div class="album">
 			<Loading
@@ -28,74 +19,49 @@
 					<br />
 
 					<!--Album Writeup + Info-->
-					<div class="writeup col-xl-7 col-lg-12">
+					<div class="writeup col-xl-7 col-lg-12 p-3">
 						<!-- Name from Spotify API-->
-						<h1>{{ artistData.name }}</h1>
+						<h1 class="display-4 text-center">Meet {{ artistData.name }} 🇸🇬</h1>
 						<!-- Type Name from Spotify API-->
-						<h4>{{ this.capitaliseFirstLetter(artistType) }}</h4>
+						<h4 class="text-center">Local {{ this.capitaliseFirstLetter(artistType) }}</h4>
 
 						<!-- Genre/Genres from Spotify API-->
-						<h4>{{ this.storeArrayAsString(artistData.genres) }}</h4>
+						<h4 class="text-center">{{ this.storeArrayAsString(artistData.genres) }}</h4>
 
 						<!-- Spotify Player (not API) -->
-						<iframe :src="`https://open.spotify.com/follow/1/?uri=spotify:artist:${artistId}&size=basic&theme=${theme}`"
-                    width="150" height="27" scrolling="no" frameborder="0" allowtransparency="true"
-						/>
-
-						<!-- Artist Writeup - Not avaliable in Spotify API so we might want to consider removing -->
-						<p>
-							Classically trained pianist Charlie Lim had an early start in
-							music, sowing the seeds of ambition in church choirs and school
-							bands since he was 14 years old. 2011’s self-titled debut EP
-							kickstarted his journey into songwriting, blending neo-soul,
-							electronic pop, R&B, folk and velvety vocals into a bright, breezy
-							and groove-laden sound. <span id="dots">...</span>
-              <span id="more">
-								Released in 2015, Lim’s breakout double EP TIME / SPACE swept
-								the charts and soundtracked festivals that year with its
-								head-bobbing, electronica-tinged pop that fluently evoked a mix
-								of moods. Lim continues to be an inspirational force on the
-								Southeast Asian music scene, boldly pushing his musicality into
-								exciting new places like 2018’s fresh-sounding effort,
-								CHECK-HOOK, which slaloms between R&B and smart electronics. Lim
-								draws lyrical inspiration from the reality of daily life,
-								allowing a younger generation of music fans to find affinity in
-								his universal observations.
-              </span>
-						</p>
-
-						<Button class="btn-secondary" @click.native="readMoreLess" id="readmoreButton">
-							Read more
-						</Button>
+            <div class="d-flex justify-content-center mt-5">
+						<iframe :src="`https://open.spotify.com/follow/1/?uri=spotify:artist:${artistId}&size=basic&theme=${theme}`" width="150" height="30" scrolling="no" frameborder="0" allowtransparency="true"/>
+            </div>
+            <br>
+  
+						<!--Play Random Album-->
+						<div class="row text-center mt-3">
+            <Button class="btn-lg bg-white text-dark" id="chatButton" v-tooltip="'Set Spotify player to a random album by this artist'" @click.native="setPlayerAlbum(getRandomAlbum().id)">Play music by {{ artistData.name }}</Button>
+						</div>
 
 						<!--Discussion Button-->
-						<div class="row text-center mt-5">
+						<div class="row text-center mt-4">
 							<router-link :to="'/chat/artist:' + artistName">
-                <Button id="chatButton" v-tooltip="'Chat with others about this artist'">
-                  Connect with fans of {{ artistData.name }}
+                <Button class="btn-lg bg-danger" v-tooltip="'Chat with others about this artist'">
+                  Share your love ❤️
                 </Button></router-link>
 						</div>
-					</div>
-
+            </div>
 					<br />
 					<br />
-					<div class="socialshare col-12">
-						<!-- Share post to social media platforms -->
-						<ButtonSocialShare network="facebook" url="facebook.com" />
-						<ButtonSocialShare network="twitter" title="test" />
-						<ButtonSocialShare network="telegram" />
-					</div>
 				</div>
 			</div>
 
+
 			<!--Other Albums-->
 
-			<div class="container-fluid bg-success text-white">
-				<div class="row pt-3 text-center mt-5">
+			<div class="container-fluid bg-success text-white mt-5">
+				<div class="row pt-3 text-center">
 					<h3>Works by {{ artistData.name }}</h3>
 				</div>
 				<!--Other Albums - Photos & Links-->
-				<div class="row justify-content-center">
+				<div class="row p-2 justify-content-center">
+          
 					<div class="col-lg-3 p-2 text-center">
 						<!--Not sure what to put for a href!-->
 						<a href="Charlie_CheckHook.html" class="tag">
@@ -117,6 +83,19 @@
 					</div>
 				</div>
 			</div>
+
+      <!--Social Sharing-->
+      <div class="container-fluid text-black bg-light col-12">
+            <div class="row pt-3 text-center">
+              <h3>Share with your friends and family</h3>
+            </div>
+            <div class="socialshare justify-content-center">
+						<!-- Share post to social media platforms -->
+              <ButtonSocialShare network="facebook" url="facebook.com" />
+              <ButtonSocialShare network="twitter" title="test" />
+              <ButtonSocialShare network="telegram" />
+            </div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -128,7 +107,8 @@ import SpotifyApi from "@/services/spotify-auth";
 //import SpotifyArtistAlbums from '@/components/SpotifyArtistAlbums.vue'
 import ButtonSocialShare from "@/components/BtnSocialShare.vue";
 import Loading from "vue-loading-overlay";
-import { mapState } from "vuex";
+import { mapState, mapMutations } from 'vuex'
+
 
 export default {
 	name: "Home",
@@ -137,7 +117,8 @@ export default {
 		Loading,
 		Button,
 		// SpotifyArtistAlbums
-		ButtonSocialShare,
+    ButtonSocialShare,
+    
 	},
 	props: {
 		//artistId: {
@@ -169,6 +150,11 @@ export default {
 		//setTimeout(() => console.log(this.$refs.test.artistData), 900)
 	},
 	methods: {
+     ...mapMutations(['setPlayerAlbum']),
+
+    getRandomAlbum() {
+      return this.dataItems[Math.floor(Math.random() * this.dataLimit)]
+    },
 		storeArrayAsString: function (genres) {
 			var str = "";
 
@@ -280,9 +266,9 @@ export default {
 
 .socialshare {
 	justify-content: center;
-	display: flex;
-	margin-top: 50px;
-	padding: 20px;
+  display: flex;
+  padding-top: 5px;
+	padding-bottom: 20px;
 }
 
 .img1 {
@@ -315,8 +301,8 @@ export default {
 	margin-bottom: 5px;
 }
 
-#chatButton {
-	width: 250px;
+.btn-lg {
+	width: 400px;
 	min-width: fit-content;
 	text-align: center;
 	margin-left: auto;
@@ -325,6 +311,7 @@ export default {
 	text-align: center;
 	display: inline-block;
 }
+
 
 #readmoreButton {
 	width: 120px;
