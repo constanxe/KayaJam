@@ -7,8 +7,8 @@
           <div class="sb-sidenav-menu-heading">Discover</div>
           <SideNavMenu heading="Music" icon-class="bi-music-note-list">
             <SideNavItem route="/music" exact>All</SideNavItem>
-            <SideNavItem route="/music/album">Albums</SideNavItem>
-            <SideNavItem route="/music/artist">Artists</SideNavItem>
+            <SideNavItem route="/music/album" partial-match="album">Albums</SideNavItem>
+            <SideNavItem route="/music/artist" partial-match="artist">Artists</SideNavItem>
           </SideNavMenu>
           <SideNavMenu heading="Users" icon-class="bi-people-fill">
             <SideNavItem route="/chat">Chat</SideNavItem>
@@ -28,10 +28,10 @@
 </template>
 
 <script>
+import 'vue-custom-scrollbar/dist/vueScrollbar.css'
+import CustomScrollbar from 'vue-custom-scrollbar'
 import SideNavItem from './SideNavItem.vue'
 import SideNavMenu from './SideNavMenu.vue'
-import CustomScrollbar from 'vue-custom-scrollbar'
-import 'vue-custom-scrollbar/dist/vueScrollbar.css'
 import { mapState } from 'vuex'
 
 export default {
@@ -58,7 +58,11 @@ export default {
 </script>
 
 <style lang="scss">
-#sidebarNav a.router-link-active {
+#sidebarNav .router-link-active {
   color: map-get($colors-brands, spotify);
+}
+
+.router-link-active-partial {
+  color: map-get($colors-brands, spotify) !important;
 }
 </style>
