@@ -7,7 +7,7 @@
 
       <!-- Search Bar-->
       <div class="container form">
-        <input v-model="query" @keyup.enter="search" type="search" placeholder="Search for your favourite artists or albums" aria-label="Search through site content">
+        <input v-model="query" @keyup.enter="search" type="search" :placeholder="`Search for your favourite ${currentSelection ? currentSelection+'s' : 'artists or albums'}`" :key="currentSelection" aria-label="Search through site content">
         <Button btn-class="btn__search" @click.native="search">Search</Button>
       </div>
 
@@ -80,7 +80,7 @@ export default {
       dataPages: 0,
       dataActivePage: 1,
       dataOffset: 0,
-      currentFunction: "",
+      isSearch: false,
     // data
       dataLoading: true,
       albumData: [],
@@ -90,28 +90,31 @@ export default {
     }
   },
   methods: {
+    setDataPages(){
+      this.dataPages = Math.ceil(this.artistIds.length/this.getCurrentDataLimit())
+      if (this.currentSelection == "album") {
+        while (this.dataPages != 1 && this.dataPages * this.getCurrentDataLimit() > this.albumData.length) this.dataPages--
+      }
+    },
+    getCurrentDataLimit() {
+      if (!this.currentSelection) return Math.ceil(this.dataLimit/2)  /* all */
+      return this.dataLimit
+    },
+
     search() {
       if (!this.query) return
 
-      var types, dataLimit
-      if (this.currentSelection) {
-        types = [this.currentSelection]
-        dataLimit = this.dataLimit
-      } else {
-        types = ['artist','album']
-        dataLimit = Math.ceil(this.dataLimit/2)
-      }
-
+      const types = this.currentSelection ? [this.currentSelection] : ['artist','album']
       /* documentation: https://jmperezperez.com/spotify-web-api-js/?q=search#src-spotify-web-api.js-constr.prototype.search */
       SpotifyApi
-        .search(this.query, types, { limit: dataLimit, offset: this.dataOffset })
+        .search(this.query, types, { limit: this.getCurrentDataLimit(), offset: this.dataOffset })
         .then((data) => {
-          this.currentFunction = "search"
+          this.isSearch = true
           this.dataLoading = false
           // console.log(data)
           this.artistData = data.artists ? data.artists.items : []
           this.albumData = data.albums ? data.albums.items : []
-          this.dataPages = Math.ceil((data.artists ? data.artists.total : 0 + data.albums ? data.albums.total : 0) / this.dataLimit)
+          this.dataPages = Math.ceil(Math.max(data.artists ? data.artists.total : 0, data.albums ? data.albums.total : 0) / this.getCurrentDataLimit())
         })
         .catch((error) => {
           this.dataLoading = false
@@ -126,7 +129,6 @@ export default {
       SpotifyApi
         .getAlbums(this.albumIds)
         .then((data) => {
-          this.currentFunction = "getAlbums"
           this.dataLoading = false
           // console.log(data)
           this.albumData = data.albums
@@ -139,11 +141,11 @@ export default {
         })
     },
     getArtists() {
+      const currentArtistIds = this.artistIds.slice(this.dataOffset, this.dataOffset+this.getCurrentDataLimit())
       /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getartists */
       SpotifyApi
-        .getArtists(this.artistIds)
+        .getArtists(currentArtistIds)
         .then((data) => {
-          this.currentFunction = "getArtists"
           this.dataLoading = false
           // console.log(data)
           this.artistData = data.artists
@@ -157,12 +159,16 @@ export default {
     },
     handlePaginate(page) {
       if (page != this.dataActivePage) {
-        this.dataOffset = (page - 1) * this.dataLimit
+        this.dataOffset = (page - 1) * this.getCurrentDataLimit()
 
-        if (this.currentFunction) this[this.currentFunction]()
-        else {
-          this.getArtists()
+        if (this.isSearch) this.search()
+        else if (!this.currentSelection) {  /* all & not search */
           this.getAlbums()
+          this.getArtists()
+        } else if (this.currentSelection == "album") {
+          this.getAlbums()
+        } else if (this.currentSelection == "artist") {
+          this.getArtists()
         }
 
         this.dataActivePage = page
@@ -197,14 +203,16 @@ export default {
       return this.$route.params.pathMatch.slice(1);
     }
   },
-  /* reference: https://stackoverflow.com/questions/52468088/vue-router-call-function-after-route-has-loaded */
-  watch: {
-    $route() {
-      this.$nextTick(this.getActiveBtn());
-    }
-  },
+  /* depreceated due to use of key in nav */
+  // /* reference: https://stackoverflow.com/questions/52468088/vue-router-call-function-after-route-has-loaded */
+  // watch: {
+  //   $route() {
+  //     this.$nextTick(this.getActiveBtn());
+  //   }
+  // },
   mounted() {
-    this.$router.onReady(() => this.getActiveBtn());
+    this.getActiveBtn()
+    this.setDataPages()
   },
   created() {
     /* give time to set access token in spotify-auth.js */

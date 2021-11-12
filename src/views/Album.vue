@@ -19,7 +19,7 @@
 					<!-- Name from Spotify API-->
 					<h1 class="display-4 text-center">{{ albumData.name }}</h1>
 					<h4 class="text-center">
-						{{ this.capitaliseFirstLetter(albumData.album_type) }} by <router-link :to="`/artist/${artistId}`" class="tag">{{ artistName }}</router-link>
+						{{ capitaliseFirstLetter(albumData.album_type) }} by <router-link :to="`/artist/${artistId}`" class="tag">{{ artistName }}</router-link>
 					</h4>
 					<br>
 
@@ -30,7 +30,7 @@
 							id="chatButton"
 							v-tooltip="'Play on Spotify'"
 							@click.native="setPlayerAlbum(albumData.id)"
-						>Preview this {{ this.albumData.album_type }}</Button>
+						>Preview this {{ albumData.album_type }}</Button>
 					</div>
 
 					<!--Discussion Button-->

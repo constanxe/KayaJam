@@ -37,7 +37,7 @@
 
           <!--Discussion Button-->
           <div class="row text-center mt-4">
-            <router-link :to="'/chat/artist:' + artistData.name">
+            <router-link :to="`/chat/artist:${artistData.name}`">
               <Button class="btn-lg bg-danger" v-tooltip="'Chat with fans or write a message of support'">
                 Chat with fans ❤️
               </Button>
