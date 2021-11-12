@@ -397,3 +397,21 @@ img.rounded {
 	display: block;
 }
 </style>
+<!--Map API example from Week 1 Exercise 4: Start
+        
+    <script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrTi43G7eqOr4x8cDR6EsH1bJIBvWBW28&callback=initMap">
+    
+        // Initialize and add the map
+        function initMap() {
+          // The location of the user (default: SMU)
+          var location = {lat: 111, lng: 111};//get these numbers from user database
+          // The map, centered at location
+          var map = new google.maps.Map(
+              document.getElementById('map'), {zoom: 4, center: location});
+          // The marker, positioned at location
+          var marker = new google.maps.Marker({position: location, map: map});
+        }
+    </script>
+    
+    Map API example from Week 1 Exercise 4: End-->
