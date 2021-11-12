@@ -70,6 +70,7 @@ export default {
         })
         .catch((error) => {
           this.dataLoading = false
+          // console.log(error)
           // console.log(error.responseText)
           this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
           this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)

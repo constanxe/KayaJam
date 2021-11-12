@@ -7,12 +7,8 @@
 
       <!-- Search Bar-->
       <div class="container form">
-        <form id="form" role="search">
-          <input type="search" id="query" name="q" autocomplete="off"
-            placeholder="Search for your favourite artists or albums"
-            aria-label="Search through site content">
-          <Button btn-class="btn__search" @click.native="search">Search</Button>
-        </form>
+        <input v-model="query" @keyup.enter="search" type="search" placeholder="Search for your favourite artists or albums" aria-label="Search through site content">
+        <Button btn-class="btn__search" @click.native="search">Search</Button>
       </div>
 
       <!-- Filter Buttons-->
@@ -40,8 +36,8 @@
     </nav>
 
     <!-- Albums/Artists Cards-->
-    <div class="container">
-      <div class="row" ref="musicCards">
+    <div class="container ps-4 pe-4">
+      <div class="row">
         <template v-if="currentSelection != 'artist'">
           <MusicCard
             v-for="item of albumData" :key="item.id" :item="item"
@@ -84,20 +80,45 @@ export default {
       dataPages: 0,
       dataActivePage: 1,
       dataOffset: 0,
+      currentFunction: "",
     // data
       dataLoading: true,
-      // dataItems: [],
-      artistData: [],
       albumData: [],
+      artistData: [],
+    // other
+      query: "",
     }
   },
   methods: {
-    /* [TODO] (1) search btn behaviour (2) dynamic fetching instead of hardcoded */
     search() {
+      if (!this.query) return
+
+      var types, dataLimit
+      if (this.currentSelection) {
+        types = [this.currentSelection]
+        dataLimit = this.dataLimit
+      } else {
+        types = ['artist','album']
+        dataLimit = Math.ceil(this.dataLimit/2)
+      }
+
       /* documentation: https://jmperezperez.com/spotify-web-api-js/?q=search#src-spotify-web-api.js-constr.prototype.search */
-      console.log("===search===")
-      // this.dataPages = Math.ceil(data.total / this.dataLimit)
-      // this.dataArtistIds =
+      SpotifyApi
+        .search(this.query, types, { limit: dataLimit, offset: this.dataOffset })
+        .then((data) => {
+          this.currentFunction = "search"
+          this.dataLoading = false
+          // console.log(data)
+          this.artistData = data.artists ? data.artists.items : []
+          this.albumData = data.albums ? data.albums.items : []
+          this.dataPages = Math.ceil((data.artists ? data.artists.total : 0 + data.albums ? data.albums.total : 0) / this.dataLimit)
+        })
+        .catch((error) => {
+          this.dataLoading = false
+          // console.log(error.responseText)
+          this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
+          this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
+        })
     },
 
     getAlbums() {
@@ -105,6 +126,7 @@ export default {
       SpotifyApi
         .getAlbums(this.albumIds)
         .then((data) => {
+          this.currentFunction = "getAlbums"
           this.dataLoading = false
           // console.log(data)
           this.albumData = data.albums
@@ -121,6 +143,7 @@ export default {
       SpotifyApi
         .getArtists(this.artistIds)
         .then((data) => {
+          this.currentFunction = "getArtists"
           this.dataLoading = false
           // console.log(data)
           this.artistData = data.artists
@@ -135,7 +158,13 @@ export default {
     handlePaginate(page) {
       if (page != this.dataActivePage) {
         this.dataOffset = (page - 1) * this.dataLimit
-        this.getArtists()
+
+        if (this.currentFunction) this[this.currentFunction]()
+        else {
+          this.getArtists()
+          this.getAlbums()
+        }
+
         this.dataActivePage = page
       }
     },
@@ -188,20 +217,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-form {
-  width: 450px;
-  height: 44px;
-  border-radius: 50px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: white;
-  padding-left: 5px;
-  padding-right: 20px;
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
 input {
   all: unset;
   color: black;
@@ -213,10 +228,14 @@ input {
 ::placeholder {
   color: black;
   opacity: 0.7;
+  text-align: left;
 }
 
 .container-jumbotron {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   background-color: map-get($colors-brands, spotify);
 
@@ -232,8 +251,18 @@ input {
   }
 
   .form {
+    max-width: 100%;
+    width: 450px;
+    height: 44px;
+    border-radius: 50px;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    padding-left: 10px;
+    padding-right: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
     margin-top: 10px;
     margin-bottom: 10px;
   }
