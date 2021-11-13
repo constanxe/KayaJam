@@ -5,7 +5,7 @@
         <div class="nav" id="sidebarNav">
           <!-- customise here -->
           <div class="sb-sidenav-menu-heading">Core</div>
-          <SideNavItem route="/" icon-class="bi-house-door-fill">Home</SideNavItem>
+          <SideNavItem route="/home" icon-class="bi-house-door-fill">Home</SideNavItem>
           <div class="sb-sidenav-menu-heading">Account</div>
           <SideNavItem route="/profile" icon-class="bi-person-fill">Profile</SideNavItem>
           <SideNavItem route="/settings" icon-class="bi-gear-fill">Settings</SideNavItem>

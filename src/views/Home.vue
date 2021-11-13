@@ -7,7 +7,7 @@
 					<h3>Discover local artists and connect with fellow music lovers</h3>
 				</div>
 				<div class="row mt-3">
-					<a href="./music">
+					<a href="./#/music">
 						<button type="button" class="btn text-dark btn-light">
 							Fall in love with 🇸🇬 music
 						</button>
