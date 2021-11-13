@@ -150,7 +150,7 @@ export default {
 
 <script>
 import axios from 'axios'
-const usersDB = `http://localhost:3000/users`
+const usersDB = `${process.env.VUE_APP_JSONSERVER_URL}/users`
 /*
 var users = [
 	{
