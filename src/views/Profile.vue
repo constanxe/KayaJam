@@ -7,9 +7,7 @@
           <div class="col-xl-l-md-s-xs-6 ml-auto mr-auto">
             <div class="profile">
               <div class="avatar">
-                <img
-                  src="https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png"
-                />
+                <img :src="profile_pic"/>
               </div>
 
               <div class="name">
@@ -25,21 +23,29 @@
               </div>
 
               <div class="social-buttons">
-                <a :href="'facebook.com/'+facebookUn" target="_blank" role="button">
+                <a
+                  :href="'facebook.com/' + facebookUn"
+                  target="_blank"
+                  role="button"
+                >
                   <ButtonSocial
                     network="facebook"
                     class="justify-content-center"
                   ></ButtonSocial
                 ></a>
-                <a :href="'twitter.com/'+twitterUn" target="_blank" role="button">
+                <a
+                  :href="'twitter.com/' + twitterUn"
+                  target="_blank"
+                  role="button"
+                >
                   <ButtonSocial
                     network="twitter"
                     class="justify-content-center"
                   ></ButtonSocial
                 ></a>
-                <a :href="'t.me/'+telegramUn" target="_blank" role="button">
+                <a :href="'t.me/' + telegramUn" target="_blank" role="button">
                   <ButtonSocial
-                    network="telegram" 
+                    network="telegram"
                     class="justify-content-center"
                   ></ButtonSocial
                 ></a>
@@ -50,19 +56,28 @@
           <!-- Filter Buttons-->
           <div class="col-xl-l-md-s-xs-6 ml-auto mr-auto">
             <div class="profile-tabs">
-              <ul class="nav nav-pills nav-pills-icons justify-content-center" ref="filterButtons">
+              <ul
+                class="nav nav-pills nav-pills-icons justify-content-center"
+                ref="filterButtons"
+              >
                 <li class="nav-item">
                   <a
-                    class="nav-link" :class="{'active': currentSelection == 'artist'}"
-                    @click="currentSelection = 'artist'" role="button">
+                    class="nav-link"
+                    :class="{ active: currentSelection == 'artist' }"
+                    @click="currentSelection = 'artist'"
+                    role="button"
+                  >
                     <i class="bi bi-person-video2" />
                     Artists
                   </a>
                 </li>
                 <li class="nav-item">
                   <a
-                    class="nav-link" :class="{'active': currentSelection == 'album'} "
-                    @click="currentSelection = 'album'" role="button">
+                    class="nav-link"
+                    :class="{ active: currentSelection == 'album' }"
+                    @click="currentSelection = 'album'"
+                    role="button"
+                  >
                     <i class="bi bi-book-fill" />
                     Albums
                   </a>
@@ -75,7 +90,7 @@
             <div class="row">
               <template v-if="currentSelection == ''">
                 <MusicCard
-                   v-for="item of artistData"
+                  v-for="item of artistData"
                   :key="item.id"
                   :item="item"
                 />
@@ -99,7 +114,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -114,9 +128,10 @@ import { mapGetters } from "vuex";
 import SpotifyApi from "@/services/spotify-auth";
 import { toastedOptions } from "@/utils";
 // import { gsap } from "gsap";
+// import axios from "axios";
 
 export default {
-  name: "About",
+  name: "Profile",
   components: {
     ButtonSocial,
     MusicCard,
@@ -182,9 +197,17 @@ export default {
       artistData: [],
       // other
       query: "",
-      currentSelection: 'artist',
+      currentSelection: "artist",
     };
   },
+  // 	async created(){
+  // 	try {
+  // 		const res = await axios.get(usersDB)
+  // 		this.users = res.data
+  // 	} catch(e){
+  // 		console.error(e)
+  // 	}
+  // },
 
   methods: {
     setDataPages() {
@@ -282,7 +305,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      myUuid: "getMyUuid",
+      myUuid: "getUserUuid",
     }),
     // currentSelection() {
     //   return this.$route.params.pathMatch.slice(1);
@@ -298,6 +321,13 @@ export default {
       this.getArtistAlbums();
       this.getArtists();
     }, 800);
+
+    // try {
+    //   const res = await axios.get(usersDB);
+    //   this.users = res.data;
+    // } catch (e) {
+    //   console.error(e);
+    // }
   },
 };
 </script>
