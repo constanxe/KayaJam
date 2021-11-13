@@ -268,7 +268,7 @@ export default {
 					} else {
 						obj.feat_albums.push(image);
 					}
-                    console.log(obj.feat_albums)
+				console.log(obj.feat_albums)
 				}
 			}
 		},
@@ -282,7 +282,7 @@ export default {
 					} else {
 						obj.feat_artists.push(image);
 					}
-                    console.log(obj.feat_artists)
+					console.log(obj.feat_artists)
 				}
 			}
 		},

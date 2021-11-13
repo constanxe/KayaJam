@@ -55,7 +55,7 @@
 			<!-- Paginator -->
 			<nav class="pagination">
 				<a
-					v-for="page in Math.min(dataPages, 5)" :key="page"
+					v-for="page in Math.min(dataPages, 7)" :key="page"
 					:class="{'active': dataActivePage == page}"
 					@click="handlePaginate(page)" role="button"
 				/>
