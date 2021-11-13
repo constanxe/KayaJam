@@ -222,7 +222,6 @@ export default {
 			//usernames are unique
 			for (var obj of this.users) {
 				if (obj.username === this.username) {
-					console.log("good")
 					return obj;
 				}
 			}
