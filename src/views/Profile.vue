@@ -7,8 +7,7 @@
           <div class="col-xl-l-md-s-xs-6 ml-auto mr-auto">
             <div class="profile">
               <div class="avatar">
-								<!-- <img :src="getObjFromUser().profile_pic"/> -->
-                <img src="https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png"/>
+								<img :src="getObjFromUser().profile_pic"/>
               </div>
 
               <div class="name">
@@ -18,14 +17,13 @@
 
               <div class="description text-center border rounded">
                 <p>
-                  Hi, I'm John. My favourite artist is Elvis Presley and my
-                  favourite song is Blue Suede Shoes.
+                  {{ getObjFromUser().description }}
                 </p>
               </div>
 
               <div class="social-buttons">
                 <a
-                  :href="'facebook.com/' + facebookUn"
+                  :href="'facebook.com/' + getObjFromUser().facebook_un"
                   target="_blank"
                   role="button"
                 >
@@ -35,7 +33,7 @@
                   ></ButtonSocial
                 ></a>
                 <a
-                  :href="'twitter.com/' + twitterUn"
+                  :href="'twitter.com/' + getObjFromUser().twitter_un"
                   target="_blank"
                   role="button"
                 >
@@ -44,7 +42,7 @@
                     class="justify-content-center"
                   ></ButtonSocial
                 ></a>
-                <a :href="'t.me/' + telegramUn" target="_blank" role="button">
+                <a :href="'t.me/' + getObjFromUser().telegram_un" target="_blank" role="button">
                   <ButtonSocial
                     network="telegram"
                     class="justify-content-center"
@@ -128,6 +126,25 @@ import SpotifyApi from "@/services/spotify-auth";
 import { toastedOptions } from "@/utils";
 import axios from 'axios';
 const usersDB = `${process.env.VUE_APP_JSONSERVER_URL}/users`
+const defaultUser = {
+  "username": "",
+  "fav_albums": [],
+  "feat_albums": [],
+  "fav_artists": [],
+  "feat_artists": [],
+  "location": [
+    0,
+    0
+  ],
+  "profile_pic": "https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png",
+  "saved_chats": [],
+  "id": 0,
+  "facebook_un": "",
+  "twitter_un": "",
+  "telegram_un": "",
+  "theme": "dark",
+  "description": "Hi, I'm John. My favourite artist is Elvis Presley and my favourite song is Blue Suede Shoes."
+}
 
 export default {
   name: "Profile",
@@ -178,6 +195,7 @@ export default {
 					return obj;
 				}
 			}
+      return defaultUser
 		},
     getAlbums() {
       /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getalbums */
@@ -273,6 +291,7 @@ h6 {
 
 .main-raised {
   margin: -60px 30px 0;
+  padding-bottom: 100px;
   border-radius: 6px;
   box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),
     0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
@@ -438,4 +457,4 @@ img.rounded {
 .tab-content > .active {
   display: block;
 }
-</style> 
+</style>
