@@ -98,7 +98,7 @@ export default {
 				<div class="col-3">
 					<label class="label">Featured Albums</label>
 				</div>
-				<div class="col-9">
+				<div class="col-9" v-if="getObjFromUser('Jack').fav_albums.length > 0">
 					<img
 						v-for="image of getObjFromUser('Jack').fav_albums"
 						:key="image"
@@ -110,12 +110,15 @@ export default {
 						"
 					/>
 				</div>
+				<div class="col-9" v-else>
+					<label>No favourited albums.</label>
+				</div>
 			</div>
 			<div class="row">
 				<div class="col-3">
 					<label class="label">Featured Artists</label>
 				</div>
-				<div class="col-9">
+				<div class="col-9" v-if="getObjFromUser('Jack').fav_artists.length > 0">
 					<img
 						v-for="image of getObjFromUser('Jack').fav_artists"
 						:key="image"
@@ -126,6 +129,9 @@ export default {
 							updateFeatArtists('Jack', image);
 						"
 					/>
+				</div>
+				<div class="col-9" v-else>
+					<label>No favourited artists.</label>
 				</div>
 			</div>
 
