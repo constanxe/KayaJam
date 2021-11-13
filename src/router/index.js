@@ -8,6 +8,8 @@ import Chat from '@/views/Chat.vue'
 import Profile from '@/views/Profile.vue'
 import Settings from '@/views/Settings.vue'
 import Login from '@/views/Login.vue'
+import Home from '@/views/Home.vue'
+
 
 Vue.use(VueRouter)
 
@@ -30,6 +32,11 @@ const routes = [
     path: '/artist/:id',
     name: 'Artist',
     component: Artist
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home
   },
 
   {
