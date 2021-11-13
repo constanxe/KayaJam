@@ -74,7 +74,7 @@ export default {
     // temporary fallbacks
       artistIds: ["3FodFdWfVWIiER6Cv6YVVQ", "5IIP34JBy1d8kBYlAGnRaW", "2HXfSr5CfTPZbcqS2gyGYm", "53GouHDfCfsBJIn1OjYmPO", "4v3jejyuqIBVx8nKiCSDym", "1rya10vhugXdhuxVDPUwng","4iaSNWastd6eaTcxc5I5ZT","6tVhJDK05xM7fBVa6Jx2cU","0AbaYCVaRtwCSxFuRCZHjr","0OeveoyUBFrGziPEKxAP8S","2gj35CRyiuvuJ5VzjkX52i","4dDWr3bmcGdlbLsWofWail","31TM5zBknJ7ZInbxnR0rlX","1kjkddXmDG9vdt7P8lwYUd","5OCCRySomkXZXoE1JQ5Hkb","3GFO1X5LAHduvR314sXnqI","6t8lTIBY8GyKkICndpenVv","3bdade2XqS9F4378nhCNcl","0mXXLFHmd5bUHxkzaC9ujw","3wwPhsiYLk7w68ZEE36kZ5","7EY3xvBhvVnAGIN4hyGIUk","51sob9QZyfLff9XqvYluN5","0kXDB5aeESWj5BD9TCLkMu","07h1mcCInWa0LF0ZMzVQfa","6n8yGGsqYQhvH412YUbBsd","0rvCOUI3i3QNNYiAQaWvql","5OCCRySomkXZXoE1JQ5Hkb","0REOJnRmOSNn3yY7crGPi0","3risOBDAx6GGVaCcBuhswz","3HgrsNDURBPYS1KlN7LgnE","2a1ts2wPvq6Vif1x7KJV7a","4ONKKiZXVVuz5nAWCUnnjG","5mHPapKjRFXq1IdaFDnHW9","3vYlOrtxEjNzvUPhacOdoV","6k0tAEcYn1sa2M3EZhlEfw","4dDWr3bmcGdlbLsWofWail","51sob9QZyfLff9XqvYluN5","1bRzYcqon5jDsXrdzPz6cO","02Cz717BTulFiQXUuIXH6n","0xvPxLJDw3DPNZZkp8u2Tk","2pZzvphS66rCxKBiJCrO9y"],      // albumIds: ["5Ay88ZVN61blW8QYUpofy6"],  //This is the array of all albums
     // pagination
-      dataLimit: 6,
+      dataLimit: 12,
       /* will be updated automatically */
       dataPages: 0,
       dataActivePage: 1,
@@ -122,7 +122,6 @@ export default {
           this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
         })
     },
-
     // getAlbums() {
     //   /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getalbums */
     //   SpotifyApi
@@ -141,7 +140,7 @@ export default {
     // },
     getArtistAlbums() {
       this.albumData = [];
-      for (let i=0; i<this.getCurrentDataLimit(); i++) {
+      for (let i=this.dataOffset; i<(Math.min(this.dataOffset+this.getCurrentDataLimit(), this.artistIds.length)); i++) {
       /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getartistalbums */
         SpotifyApi
           .getArtistAlbums(this.artistIds[i])
