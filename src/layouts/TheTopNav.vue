@@ -37,8 +37,8 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
           <!-- customise here -->
-          <TopNavDropdownItem route="/account/profile">Profile</TopNavDropdownItem>
-          <TopNavDropdownItem route="/account/settings">Settings</TopNavDropdownItem>
+          <TopNavDropdownItem route="/profile">Profile</TopNavDropdownItem>
+          <TopNavDropdownItem route="/settings">Settings</TopNavDropdownItem>
           <li><hr class="dropdown-divider"/></li>
           <TopNavDropdownItem route="/login">Logout</TopNavDropdownItem>
         </ul>

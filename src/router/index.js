@@ -16,8 +16,14 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/music'
+    redirect: '/home'
   },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home
+  },
+
   {
     path: '/music*',
     name: 'Music',
@@ -33,11 +39,7 @@ const routes = [
     name: 'Artist',
     component: Artist
   },
-  {
-    path: '/home',
-    name: 'Home',
-    component: Home
-  },
+
 
   {
     path: '/chat/:activeChannel?',
