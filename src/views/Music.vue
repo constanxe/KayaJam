@@ -116,22 +116,6 @@ export default {
           this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
         })
     },
-    // getAlbums() {
-    //   /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getalbums */
-    //   SpotifyApi
-    //     .getAlbums(this.albumIds)
-    //     .then((data) => {
-    //       this.dataLoading = false
-    //       // console.log(data)
-    //       this.albumData = data.albums
-    //     })
-    //     .catch((error) => {
-    //       this.dataLoading = false
-    //       // console.log(error.responseText)
-    //       this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
-    //       this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
-    //     })
-    // },
     getArtistAlbums() {
       this.albumData = [];
       for (let i=this.dataOffset; i<(Math.min(this.dataOffset+this.getCurrentDataLimit(), this.artistIds.length)); i++) {
