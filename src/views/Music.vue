@@ -13,9 +13,9 @@
 
       <!-- Filter Buttons-->
       <div class="container filter-buttons" ref="filterButtons">
-        <router-link to="/music"><Button btn-class="btn__toggle btn--radio">All</Button></router-link>
-        <router-link to="/music/album"><Button btn-class="btn__toggle btn--radio">Albums</Button></router-link>
-        <router-link to="/music/artist"><Button btn-class="btn__toggle btn--radio">Artists</Button></router-link>
+        <router-link to="/music"><Button btn-class="btn__toggle btn--radio" @click.native="isSearch = false" v-tooltip="isSearch & currentSelection!='' ? 'Clicking this will reset your search' : ''">All</Button></router-link>
+        <router-link to="/music/album"><Button btn-class="btn__toggle btn--radio" @click.native="isSearch = false" v-tooltip="isSearch & currentSelection!='album' ? 'Clicking this will reset your search' : ''">Albums</Button></router-link>
+        <router-link to="/music/artist"><Button btn-class="btn__toggle btn--radio" @click.native="isSearch = false" v-tooltip="isSearch & currentSelection!='artist' ? 'Clicking this will reset your search' : ''">Artists</Button></router-link>
       </div>
     </div>
 
@@ -37,7 +37,7 @@
 
     <!-- Albums/Artists Cards-->
     <div class="container ps-4 pe-4">
-      <div class="row">
+      <div class="row" ref="musicCards">
         <template v-if="currentSelection != 'artist'">
           <MusicCard
             v-for="item of albumData" :key="item.id" :item="item"
@@ -59,7 +59,7 @@ import MusicCard from '@/components/MusicCard'
 import SpotifyApi from '@/services/spotify-auth'
 import { toastedOptions } from '@/utils'
 import { mapState } from 'vuex'
-// import { gsap } from "gsap";
+import { gsap } from "gsap";
 
 export default {
   name: "Music",
@@ -89,12 +89,6 @@ export default {
     }
   },
   methods: {
-    setDataPages(){
-      this.dataPages = Math.ceil(this.artistIds.length/this.getCurrentDataLimit())
-      if (this.currentSelection == "album") {
-        while (this.dataPages != 1 && this.dataPages * this.getCurrentDataLimit() > this.albumData.length) this.dataPages--
-      }
-    },
     getCurrentDataLimit() {
       if (!this.currentSelection) return Math.ceil(this.dataLimit/2)  /* all */
       return this.dataLimit
@@ -145,11 +139,11 @@ export default {
         SpotifyApi
           .getArtistAlbums(this.artistIds[i])
           .then((data) => {
+            this.isSearch = false
             this.dataLoading = false;
             // console.log(data);
             this.albumData.push(data.items[data.items.length-1]);
             // this.albumData = this.albumData.filter(item => item.id != this.id)
-            this.dataPages = Math.ceil(data.total / this.dataLimit);
           })
           .catch((error) => {
             this.dataLoading = false;
@@ -165,9 +159,11 @@ export default {
       SpotifyApi
         .getArtists(currentArtistIds)
         .then((data) => {
+          this.isSearch = false
           this.dataLoading = false
           // console.log(data)
           this.artistData = data.artists
+          this.dataPages = Math.ceil(this.artistIds.length / this.dataLimit);
         })
         .catch((error) => {
           this.dataLoading = false
@@ -178,7 +174,7 @@ export default {
     },
     handlePaginate(page) {
       if (page != this.dataActivePage) {
-        this.dataOffset = (page - 1) * this.getCurrentDataLimit()
+        this.dataOffset = (page - 1) * this.dataLimit
 
         if (this.isSearch) this.search()
         else if (!this.currentSelection) {  /* all & not search */
@@ -190,17 +186,18 @@ export default {
           this.getArtists()
         }
 
+        this.animateChangeSelection()
         this.dataActivePage = page
       }
     },
 
-    // animateChangeSelection() {
-    //   var cardBoxes = this.$refs.musicCards;
-    //   /* [animation] documentation: https://greensock.com/get-started/ */
-    //   gsap.timeline()
-    //     .to(cardBoxes, { duration: 0, opacity: 0, ease: 'expo.out' })
-    //     .to(cardBoxes, { duration: 0.4, opacity: 1, ease: 'back.out' })
-    // },
+    animateChangeSelection() {
+      var cardBoxes = this.$refs.musicCards;
+      /* [animation] documentation: https://greensock.com/get-started/ */
+      gsap.timeline()
+        .to(cardBoxes, { duration: 0, opacity: 0, ease: 'expo.out' })
+        .to(cardBoxes, { duration: 0.8, opacity: 1, ease: 'back.out' })
+    },
     ResetActiveClass(container) {
       var currentActive = container.getElementsByClassName("active");
       if (currentActive.length > 0) currentActive[0].classList.remove("active");
@@ -231,7 +228,6 @@ export default {
   // },
   mounted() {
     this.getActiveBtn()
-    this.setDataPages()
   },
   created() {
     /* give time to set access token in spotify-auth.js */
