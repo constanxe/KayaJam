@@ -1,44 +1,66 @@
 {
     "users":[
-    {
-        "id": 0,
-        "first_name": "",
-        "last_name": "",
-        "username": "",
-        "fav_albums": [],
-        "feat_albums": [],
-        "fav_artists": [],
-        "feat_artists": [],
-        "location": [0, 0],
-        "available_pics": [
-            "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
-            "https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
-            "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg"
-        ],
-        "profile_pic":
-            "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg"
-    },
-    {
-        "id": 1,
-        "first_name": "Jack",
-        "last_name": "Smith",
-        "username": "Jack",
-        "fav_albums": [],
-        "feat_albums": [],
-        "fav_artists": [
-            "https://cdn.filestackcontent.com/eLeq7DuSsKWq57U1mC1t",
-            "http://pilerats.com/assets/Uploads/benjamin-kheng-find-me-introducing.jpg",
-            "https://www.nme.com/wp-content/uploads/2021/07/linying-credit-jovian-lim@2000x1270.jpg"
-        ],
-        "feat_artists": [],
-        "location": [0, 0],
-        "available_pics": [
-            "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
-            "https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
-            "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg"
-        ],
-        "profile_pic":
-            "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg"
-    }
-]
+        {
+            "id": 0,
+            "first_name": "",
+            "last_name": "",
+            "username": "",
+            "fav_albums": [],
+            "feat_albums": [],
+            "fav_artists": [],
+            "feat_artists": [],
+            "location": [0, 0],
+            "available_pics": [
+                "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
+                "https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
+                "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg"
+            ],
+            "profile_pic":
+                "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg"
+        },
+        {
+            "id": 1,
+            "first_name": "Jack",
+            "last_name": "Smith",
+            "username": "jack",
+            "fav_albums": [],
+            "feat_albums": [],
+            "fav_artists": [
+                "https://cdn.filestackcontent.com/eLeq7DuSsKWq57U1mC1t",
+                "http://pilerats.com/assets/Uploads/benjamin-kheng-find-me-introducing.jpg",
+                "https://www.nme.com/wp-content/uploads/2021/07/linying-credit-jovian-lim@2000x1270.jpg"
+            ],
+            "feat_artists": [],
+            "location": [0, 0],
+            "available_pics": [
+                "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
+                "https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
+                "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg"
+            ],
+            "profile_pic":
+                "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg"
+        },
+        {
+            "id": 2,
+            "first_name": "Jing Min",
+            "last_name": "Neo",
+            "username": "jmneo",
+            "fav_albums": [],
+            "feat_albums": [],
+            "fav_artists": [
+                "https://cdn.filestackcontent.com/eLeq7DuSsKWq57U1mC1t",
+                "http://pilerats.com/assets/Uploads/benjamin-kheng-find-me-introducing.jpg",
+                "https://www.nme.com/wp-content/uploads/2021/07/linying-credit-jovian-lim@2000x1270.jpg"
+            ],
+            "feat_artists": [],
+            "location": [0, 0],
+            "available_pics": [
+                "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
+                "https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
+                "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg"
+            ],
+            "profile_pic":
+                "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg"
+        }
+    ]
 }

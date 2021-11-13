@@ -4,8 +4,6 @@ Set things which the user entered in account creation: username (must be unique)
 
 2. List of favourites for albums/artists starts empty. Clicking favourite will add it to list, clicking again will remove it.
 
-3. All instances of 'Jack' in this file should refer to the current user's username.
-
 <template>
 
 </template>
@@ -30,7 +28,7 @@ export default {
 		<div id="user_setting_app" class="container form p-4">
 			<img
 				class="profile_pic"
-				v-bind:src="getObjFromUser('Jack').profile_pic"
+				v-bind:src="getObjFromUser().profile_pic"
 			/>
 			<div class="row">
 				<div class="col-3">
@@ -38,9 +36,9 @@ export default {
 				</div>
 
 				<div class="col-9" :key="update_pfps">
-					<template v-for="pfp_image of getObjFromUser('Jack').available_pics">
+					<template v-for="pfp_image of getObjFromUser().available_pics">
 						<img
-							v-if="pfp_image === getObjFromUser('Jack').profile_pic"
+							v-if="pfp_image === getObjFromUser().profile_pic"
 							style="border: 5px solid cyan"
 							class="profile_pic"
 							:src="pfp_image"
@@ -51,7 +49,7 @@ export default {
 							class="profile_pic"
 							:src="pfp_image"
 							:key="pfp_image"
-							@click="changeProfilePic('Jack', pfp_image)"
+							@click="changeProfilePic(pfp_image)"
 						/>
 					</template>
 				</div>
@@ -66,9 +64,9 @@ export default {
 							type="text"
 							id="first_name"
 							name="first_name"
-							v-bind:value="getObjFromUser('Jack').first_name"
+							v-bind:value="getObjFromUser().first_name"
 						/>
-						<button @click="changeFirstName('Jack')" style="color: black">
+						<button @click="changeFirstName()" style="color: black">
 							Save
 						</button>
 					</form>
@@ -85,9 +83,9 @@ export default {
 							type="text"
 							id="last_name"
 							name="last_name"
-							v-bind:value="getObjFromUser('Jack').last_name"
+							v-bind:value="getObjFromUser().last_name"
 						/>
-						<button @click="changeLastName('Jack')" style="color: black">
+						<button @click="changeLastName()" style="color: black">
 							Save
 						</button>
 					</form>
@@ -98,15 +96,15 @@ export default {
 				<div class="col-3">
 					<label class="label">Featured Albums</label>
 				</div>
-				<div class="col-9" v-if="getObjFromUser('Jack').fav_albums.length > 0">
+				<div class="col-9" v-if="getObjFromUser().fav_albums.length > 0">
 					<img
-						v-for="image of getObjFromUser('Jack').fav_albums"
+						v-for="image of getObjFromUser().fav_albums"
 						:key="image"
 						class="album_pic"
 						:src="image"
 						@click="
 							updateImageSelect();
-							updateFeatAlbums('Jack', image);
+							updateFeatAlbums(image);
 						"
 					/>
 				</div>
@@ -118,15 +116,15 @@ export default {
 				<div class="col-3">
 					<label class="label">Featured Artists</label>
 				</div>
-				<div class="col-9" v-if="getObjFromUser('Jack').fav_artists.length > 0">
+				<div class="col-9" v-if="getObjFromUser().fav_artists.length > 0">
 					<img
-						v-for="image of getObjFromUser('Jack').fav_artists"
+						v-for="image of getObjFromUser().fav_artists"
 						:key="image"
 						class="artist_pic"
 						:src="image"
 						@click="
 							updateImageSelect();
-							updateFeatArtists('Jack', image);
+							updateFeatArtists(image);
 						"
 					/>
 				</div>
@@ -138,7 +136,7 @@ export default {
 			<button
 				class="btn"
 				style="margin-top: 10px"
-				@click="shareLocation('Jack')"
+				@click="shareLocation()"
 			>
 				Click to Share Location
 			</button>
@@ -150,6 +148,7 @@ export default {
 
 <script>
 import axios from 'axios'
+import { mapGetters } from 'vuex';
 const usersDB = `${process.env.VUE_APP_JSONSERVER_URL}/users`
 /*
 var users = [
@@ -213,44 +212,47 @@ export default {
 			console.error(e)
 		}
 	},
+	computed: {
+		...mapGetters({
+			username: 'getUserUuid'
+		}),
+	},
 	methods: {
-		getObjFromUser(user) {
+		getObjFromUser() {
 			//usernames are unique
 			for (var obj of this.users) {
-				if (obj.username === user) {
+				if (obj.username === this.username) {
+					console.log("good")
 					return obj;
 				}
 			}
 		},
-		changeProfilePic(user, image) {
+		changeProfilePic(image) {
 			var profile_pic = image;
-			var targetObj = this.getObjFromUser(user);
 			for (var obj of this.users) {
-				if (obj === targetObj) {
+				if (obj.username === this.username) {
 					obj.profile_pic = profile_pic;
 					console.log(obj.profile_pic);
 					this.update_pfps += 1;
 				}
 			}
 		},
-		changeFirstName(user) {
+		changeFirstName() {
 			event.preventDefault();
 			var first_name = document.querySelector("input[name=first_name]").value;
-			var targetObj = this.getObjFromUser(user);
 			for (var obj of this.users) {
-				if (obj === targetObj) {
+				if (obj.username === this.username) {
 					obj.first_name = first_name;
 					console.log(obj.first_name);
 				}
 			}
 		},
 
-		changeLastName(user) {
+		changeLastName() {
 			event.preventDefault();
 			var last_name = document.querySelector("input[name=last_name]").value;
-			var targetObj = this.getObjFromUser(user);
 			for (var obj of this.users) {
-				if (obj === targetObj) {
+				if (obj.username === this.username) {
 					obj.last_name = last_name;
 					console.log(obj.last_name);
 				}
@@ -264,10 +266,9 @@ export default {
 				eleStyle.border = "";
 			}
 		},
-		updateFeatAlbums(user, image) {
-			var targetObj = this.getObjFromUser(user);
+		updateFeatAlbums(image) {
 			for (var obj of this.users) {
-				if (obj === targetObj) {
+				if (obj.username === this.username) {
 					var item_index = obj.feat_albums.indexOf(image);
 					if (item_index > -1) {
 						obj.feat_albums.splice(item_index, 1);
@@ -278,10 +279,9 @@ export default {
 				}
 			}
 		},
-		updateFeatArtists(user, image) {
-			var targetObj = this.getObjFromUser(user);
+		updateFeatArtists(image) {
 			for (var obj of this.users) {
-				if (obj === targetObj) {
+				if (obj.username === this.username) {
 					var item_index = obj.feat_artists.indexOf(image);
 					if (item_index > -1) {
 						obj.feat_artists.splice(item_index, 1);
@@ -292,7 +292,7 @@ export default {
 				}
 			}
 		},
-		shareLocation(user) {
+		shareLocation() {
 			//Get current location, credit: https://shellcreeper.com/get-current-address-with-geolocation-and-google-maps-api/
 			navigator.geolocation.getCurrentPosition(
 				function (position) {
@@ -303,7 +303,7 @@ export default {
 					var lng = position.coords.longitude;
 					alert(`Location shared.\nLatitude: ${lat}\nLongtitude: ${lng}`);
 					for (var obj of this.users) {
-						if (obj.username === user) {
+						if (obj.username === this.username) {
 							obj.location = [lat, lng];
 							console.log(obj.location);
 						}
@@ -317,7 +317,7 @@ export default {
 				}
 			);
 		},
-	},
+	}
 };
 </script>
 
