@@ -77,7 +77,7 @@ body {
 .pagination {
   display: flex;
   justify-content: center;
-  padding-top: 30px;
+  padding-top: 5px;
 
   /* adapted from: https://codepen.io/RRoberts/pen/jVOWEQ */
   a {
@@ -103,8 +103,12 @@ a {
 }
 
 /* if <a> color not brand */
-.tag:hover {
-  color: map-get($colors-brands, spotify) !important;
+.tag {
+  color: white;
+
+  &:hover {
+    color: map-get($colors-brands, spotify) !important;
+  }
 }
 
 .dropdown-item {
@@ -126,4 +130,8 @@ a {
       background: #555;
     }
   }
+}
+
+body::-webkit-scrollbar-track {
+  margin-bottom: 80px; /* bottom player */
 }

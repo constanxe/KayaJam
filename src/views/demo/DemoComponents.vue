@@ -1,5 +1,5 @@
 <template>
-  <div class="about p-4">
+  <div class="p-4">
     <h1>Components</h1>
 
     <h4>Star</h4>
@@ -23,8 +23,8 @@
     <br>
     <!-- Share post to social media platforms -->
     <ButtonSocialShare network="facebook" url="facebook.com"/>
-    <ButtonSocialShare network="twitter" title="test"/>
-    <ButtonSocialShare network="telegram"/>
+    <ButtonSocialShare network="twitter" title="twt" url="twitter.com"/>
+    <ButtonSocialShare network="telegram" title="tg" url="telegram.com"/>
     <hr>
 
     <h4>Standard Buttons</h4>
@@ -56,7 +56,7 @@ import ButtonSocialShare from '@/components/BtnSocialShare.vue'
 import { capitalizeFirstLetter } from '@/utils'
 
 export default {
-  name: 'About',
+  name: 'Components',
   components: {
     Star,
     Modal,

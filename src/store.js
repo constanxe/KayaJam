@@ -1,4 +1,4 @@
-import styles from './assets/_config.scss';
+import styles from '@/assets/_config.scss';
 
 /* reference: https://www.pubnub.com/blog/vuejs-group-chat-app-tutorial/ */
 
@@ -10,8 +10,11 @@ Vue.use(Vuex);
 const state = {
   theme: styles.defaultTheme,
   user: {},
+  playerAlbum: "1DFixLWuPkv3KT3TnV35m3", /* temporary fallback for player */
+  me: {},
+  /* chat */
   history: [],
-  savedChatChannels: []
+  savedChatChannels: [],
 };
 
 const mutations = {
@@ -20,6 +23,12 @@ const mutations = {
   },
   login(state, payload) {
     state.user = payload;
+  },
+  setPlayerAlbum(state, playerAlbum) {
+    state.playerAlbum = playerAlbum;
+  },
+  setMe(state, {me}) {
+    state.me = me;
   },
   /* chat */
   addHistory(state, {history}) {
@@ -42,6 +51,8 @@ const getters = {
   getTheme: (state) => state.theme,
   getUser: (state) => state.user,
   getUserUuid: (state) => state.user.name,
+  getPlayerAlbum: (state) => state.playerAlbum,
+  getMyUuid: (state) => state.me.uuid,
   getHistoryMsgs: (state) => state.history,
   getSavedChatChannels: (state) => state.savedChatChannels,
 };

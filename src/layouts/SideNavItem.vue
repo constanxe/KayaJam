@@ -1,5 +1,11 @@
 <template>
-  <router-link :is="!route ? 'a' : 'router-link'" :to="route" class="nav-link" :exact="exact">
+  <router-link
+    class="nav-link"
+    :is="!route ? 'a' : 'router-link'"
+    :to="route"
+    :exact="exact"
+    :class="{'router-link-active-partial': partialMatch ? $route.path.includes(partialMatch) : false}"
+  >
     <SideNavItemIcon v-if="iconClass" :icon-class="iconClass"/>
     <slot/>
   </router-link>
@@ -16,7 +22,8 @@ export default {
   props: {
     route: String,
     iconClass: String,
-    exact: { type: Boolean, default: false }
+    partialMatch: String,
+    exact: { type: Boolean, default: false },
   }
 }
 </script>

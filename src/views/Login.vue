@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-lg-3 col-md-2"></div>
       <div class="col-lg-6 col-md-8 login-box">
-        <div class="col-lg-12 login-box_title">Spotify WebApp</div>
+        <div class="col-lg-12 login-box_title">KayaJam</div>
         <div class="col-lg-12 login-box_form">
           <div class="form-group">
             <label for="givenUsername">Username</label>
@@ -11,7 +11,7 @@
           </div>
           <div class="form-group">
             <label for="givenPwd">Password</label>
-            <input type="password" class="form-control" id="givenPwd" v-model="givenPwd" placeholder="Password" @keyup.enter="validate()">
+            <input type="password" class="form-control" id="givenPwd" v-model="givenPwd" placeholder="Password" @keyup.enter="validate">
           </div>
           <Button @click.native="validate()" btn-class="btn-primary">Submit</Button>
           <div class="alert" v-if="showError">{{ error }}</div>

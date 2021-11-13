@@ -58,6 +58,10 @@ export default {
 .hide-desc {
   display: inline-block;
 
+  .disabled {
+    opacity: 0.5;
+  }
+
   .star {
     margin: 0 !important;
     color: #f3d23e;

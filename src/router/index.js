@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Home from '@/views/Home.vue'
-import Login from '@/views/Login.vue'
 import Music from '@/views/Music.vue'
+import Album from '@/views/Album.vue'
+import Artist from '@/views/Artist.vue'
 import Chat from '@/views/Chat.vue'
+import Profile from '@/views/Profile.vue'
+import Settings from '@/views/Settings.vue'
+import Login from '@/views/Login.vue'
 
 Vue.use(VueRouter)
 
@@ -14,36 +17,64 @@ const routes = [
     redirect: '/music'
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: Login
-  },
-  {
     path: '/music*',
     name: 'Music',
     component: Music
   },
   {
-    path: '/chat/:channel?',
+    path: '/album/:id',
+    name: 'Album',
+    component: Album
+  },
+  {
+    path: '/artist/:id',
+    name: 'Artist',
+    component: Artist
+  },
+
+  {
+    path: '/chat/:activeChannel?',
     name: 'Chat',
     component: Chat,
     props: true
   },
 
-  /* showcase pages */
   {
-    path: '/demo/home',
-    name: 'Home',
-    component: Home
+    path: '/profile/:uuid?',
+    name: 'Profile',
+    component: Profile
   },
   {
-    path: '/demo/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    path: '/settings',
+    name: 'Settings',
+    component: Settings
+  },
+
+  /* deprecated pages */
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/demo/components',
+    name: 'DemoComponents',
     component: function () {
-      return import(/* webpackChunkName: "about" */ '@/views/About.vue')
+      return import('@/views/demo/DemoComponents.vue')
+    }
+  },
+  {
+    path: '/demo/spotify/api',
+    name: 'DemoSpotifyApi',
+    component: function () {
+      return import('@/views/demo/DemoSpotifyApi.vue')
+    }
+  },
+  {
+    path: '/demo/spotify/widgets',
+    name: 'DemoSpotifyWidgets',
+    component: function () {
+      return import('@/views/demo/DemoSpotifyWidgets.vue')
     }
   }
 ]

@@ -3,48 +3,51 @@
     <div class="fixed-height">
     <!-- List of selectable chats -->
       <div class="filter-buttons">
-        <!-- Global chat -->
-        <router-link to="/chat/global">
-          <Button btn-class="btn__toggle btn--radio" :class="{'active': channel == 'global'}" v-tooltip="'All users'">
-            Global
+        <!-- General chats (saved by default) -->
+        <router-link :to="'/chat/'+generalChannel" v-for="generalChannel of generalChannels" :key="generalChannel">
+          <Button btn-class="btn__toggle btn--radio" :class="{'active': activeChannel == generalChannel}">
+            {{ capitalizeFirstLetter(generalChannel) }}
             <Star :star="1" isdisabled v-tooltip="'You can\'t unstar this chat'"
                   :maxstars="1" starsize="xs"/>
           </Button>
         </router-link>
         <!-- Saved chats -->
-        <router-link :to="'/chat/'+savedChannel" v-for="savedChannel of savedChatChannels" :key="savedChannel">
-          <Button btn-class="btn__toggle btn--radio" :class="{'active': channel == savedChannel}">
+        <router-link :to="'/chat/'+savedChannel" v-for="savedChannel of savedChannels" :key="savedChannel">
+          <Button btn-class="btn__toggle btn--radio" :class="{'active': activeChannel == savedChannel}" v-tooltip="channelTooltip(savedChannel)">
             <i
-              class="bi"
-              :class="savedChannel.split(':')[0] == 'artist' ? 'bi-person-video2' : 'bi-book-fill'"
-              v-tooltip="capitalizeFirstLetter(savedChannel.split(':')[0])"
+              v-if="channelType(savedChannel)"
+              class="bi" :class="channelIconClass(savedChannel)"
+              v-tooltip="capitalizeFirstLetter(channelType(savedChannel))"
             />
-            {{ capitalizeFirstLetter(savedChannel.split(':')[1]) }}
+            {{ channelBtnText(savedChannel) }}
             <Star :star="1" @click.native="handleSavedChatChannels($event, savedChannel)"
                   :maxstars="1" starsize="xs" v-tooltip="'Star this chat for future viewing'"/>
-            <router-link :to="'/music/'+savedChannel" v-tooltip="'Visit this '+channel.split(':')[0]+'\'s page'">
+            <router-link :to="'/music/'+savedChannel" v-if="channelType(savedChannel)" v-tooltip="'Visit this '+channelType(savedChannel)+'\'s page'">
               <i class="bi bi-link-45deg go-icon"/>
             </router-link>
           </Button>
         </router-link>
         <!-- Active chat -->
-        <template v-if="channel != 'global' && !savedChatChannels.includes(channel)">
-          <router-link :to="'/chat/'+channel">
-            <Button btn-class="btn__toggle btn--radio active">
+        <template v-if="!generalChannels.includes(activeChannel) && !savedChannels.includes(activeChannel)">
+          <router-link :to="'/chat/'+activeChannel">
+            <Button btn-class="btn__toggle btn--radio active" v-tooltip="channelTooltip(activeChannel)">
               <i
-                class="bi"
-                :class="channel.split(':')[0] == 'artist' ? 'bi-person-video2' : 'bi-book-fill'"
-                v-tooltip="capitalizeFirstLetter(channel.split(':')[0])"
+                v-if="channelType(activeChannel)"
+                class="bi" :class="channelIconClass(activeChannel)"
+                v-tooltip="capitalizeFirstLetter(channelType(activeChannel))"
               />
-              {{ capitalizeFirstLetter(channel.split(':')[1]) }}
-              <Star :star="0" @click.native="handleSavedChatChannels($event, channel)"
+              {{ channelBtnText(activeChannel) }}
+              <Star :star="0" @click.native="handleSavedChatChannels($event, activeChannel)"
                     :maxstars="1" starsize="xs" v-tooltip="'Star this chat for future viewing'"/>
-              <router-link :to="'/music/'+channel" v-tooltip="'Visit this '+channel.split(':')[0]+'\'s page'">
+              <router-link :to="'/music/'+activeChannel" v-if="channelType(activeChannel)" v-tooltip="'Visit this '+channelType(activeChannel)+'\'s page'">
                 <i class="bi bi-link-45deg go-icon"/>
               </router-link>
             </Button>
           </router-link>
         </template>
+        <router-link to="/music" class="active">
+          <Button btn-class="btn__toggle go-icon" v-tooltip="'Discover more discussion topics'">+</Button>
+        </router-link>
       </div>
     <!-- Chat components -->
       <chat-log :channel="activeChannel"/>
@@ -58,7 +61,7 @@ import ChatLog from '@/components/chat/ChatLog';
 import MessageInput from '@/components/chat/MessageInput';
 import Button from '@/components/Btn.vue'
 import Star from '@/components/Star.vue'
-import { capitalizeFirstLetter } from '@/utils'
+import { capitalizeFirstLetter, toastedOptions } from '@/utils'
 import {mapGetters} from 'vuex';
 import PubNubVue from 'pubnub-vue';
 
@@ -71,21 +74,48 @@ export default {
     MessageInput
   },
   props: {
-    channel: { type: String, default: 'global' }
+    activeChannel: { type: String, default: 'global' }
+  },
+  data() {
+    return {
+      generalChannels: ['global', 'artists', 'albums'],
+      channelTypes: ['artist', 'album']
+    }
   },
   computed: {
     ...mapGetters({
       theme: 'getTheme',
-      savedChatChannels: 'getSavedChatChannels'
+      savedChannels: 'getSavedChatChannels'
     }),
-    activeChannel() {
-      return this.$route.params.channel || this.channel
-    },
   },
   methods: {
     capitalizeFirstLetter(string) {
       return capitalizeFirstLetter(string)
     },
+
+    channelType(channel) {
+      return this.channelTypes.includes(channel.split(":")[0]) ? channel.split(':')[0] : ""
+    },
+    channelLabel(channel) {
+      return capitalizeFirstLetter(
+        this.channelType(channel) ? channel.split(':').slice(1).join(":") : channel
+      )
+    },
+    channelBtnText(channel) {
+      const channelLabel = this.channelLabel(channel)
+      return channelLabel.length > 20 ? channelLabel.slice(0,20) + "..." : channelLabel
+    },
+    channelTooltip(channel) {
+      const channelLabel = this.channelLabel(channel)
+      return channelLabel.length > 20 ? channelLabel : ""
+    },
+    channelIconClass(channel) {
+      const channelType = this.channelType(channel)
+      if (channelType == 'artist') return 'bi-person-video2'
+      if (channelType == 'album') return 'bi-book-fill'
+      return ''
+    },
+
     handleSavedChatChannels(event, channel) {
       if (event.target.parentNode.classList.contains("active")) {
         this.$store.commit('addSavedChatChannel', channel)
@@ -93,11 +123,12 @@ export default {
         this.$store.commit('removeSavedChatChannel', channel)
       }
     },
+
   /* adapted from: https://www.pubnub.com/blog/vuejs-group-chat-app-tutorial/ */
     fetchHistory(store) {
       PubNubVue.getInstance().history(
         {
-          channel: this.channel,
+          channel: this.activeChannel,
           count: 6, // how many items to fetch
           stringifiedTimeToken: true, // false is the default
         },
@@ -110,21 +141,27 @@ export default {
   mounted() {
     // Subscribe to PubNub
     this.$pnSubscribe({
-      channels: [this.channel],
+      channels: [this.activeChannel],
     });
     this.$nextTick(this.fetchHistory(this.$store));
+
+    if (this.channelType(this.activeChannel) & ["","undefined"].includes(this.activeChannel.split(":")[1])) {
+      this.$router.push("/chat");
+      this.$toasted.error("Invalid chat group", toastedOptions)
+      this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
+    }
   },
 };
 </script>
 
 <style scoped lang="scss">
 .chat {
-  padding: 20px 30px 0 30px;
+  padding: 20px 28px 0 28px;
 
   .fixed-height {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 135px);  /* minus topnav & messageinput */
+    height: calc(100vh - 215px);  /* minus topnav & bottom */
 
     & > * {
       margin-bottom: 0.5rem;

@@ -1,7 +1,7 @@
 <template>
   <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
-    <router-link class="navbar-brand ps-3" to="/">Spotify Webapp</router-link>
+    <router-link class="navbar-brand ps-3" to="/">KayaJam</router-link>
     <!-- Sidebar Toggle-->
     <button class="btn btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" @click="toggleSidebar">
       <i class="bi bi-list"/>

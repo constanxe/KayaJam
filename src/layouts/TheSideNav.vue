@@ -7,19 +7,20 @@
           <div class="sb-sidenav-menu-heading">Discover</div>
           <SideNavMenu heading="Music" icon-class="bi-music-note-list">
             <SideNavItem route="/music" exact>All</SideNavItem>
-            <SideNavItem route="/music/album">Albums</SideNavItem>
-            <SideNavItem route="/music/artist">Artists</SideNavItem>
+            <SideNavItem route="/music/album" partial-match="album">Albums</SideNavItem>
+            <SideNavItem route="/music/artist" partial-match="artist">Artists</SideNavItem>
           </SideNavMenu>
           <SideNavMenu heading="Users" icon-class="bi-people-fill">
             <SideNavItem route="/chat">Chat</SideNavItem>
           </SideNavMenu>
           <div class="sb-sidenav-menu-heading">Account</div>
-          <SideNavItem route="/account/profile" icon-class="bi-person-fill">Profile</SideNavItem>
-          <SideNavItem route="/account/settings" icon-class="bi-gear-fill">Settings</SideNavItem>
+          <SideNavItem route="/profile" icon-class="bi-person-fill">Profile</SideNavItem>
+          <SideNavItem route="/settings" icon-class="bi-gear-fill">Settings</SideNavItem>
           <!-- showcase pages -->
-          <div class="sb-sidenav-menu-heading">Core</div>
-          <SideNavItem route="/demo/home" icon-class="bi-house-door-fill">Home</SideNavItem>
-          <SideNavItem route="/demo/about" icon-class="bi-question-circle-fill">About</SideNavItem>
+          <div class="sb-sidenav-menu-heading">Demo</div>
+          <SideNavItem route="/demo/components" icon-class="bi-house-door-fill">Components</SideNavItem>
+          <SideNavItem route="/demo/spotify/api" icon-class="bi-spotify">Spotify API</SideNavItem>
+          <SideNavItem route="/demo/spotify/widgets" icon-class="bi-spotify">Spotify Widgets</SideNavItem>
         </div>
       </div>
     </custom-scrollbar>
@@ -27,10 +28,11 @@
 </template>
 
 <script>
+import 'vue-custom-scrollbar/dist/vueScrollbar.css'
+import CustomScrollbar from 'vue-custom-scrollbar'
 import SideNavItem from './SideNavItem.vue'
 import SideNavMenu from './SideNavMenu.vue'
-import CustomScrollbar from 'vue-custom-scrollbar'
-import 'vue-custom-scrollbar/dist/vueScrollbar.css'
+import { mapState } from 'vuex'
 
 export default {
   name: 'TheSideNav',
@@ -50,15 +52,17 @@ export default {
     }
   },
   computed: {
-    theme() {
-      return this.$store.getters.getTheme
-    }
-  }
+    ...mapState(['theme'])
+  },
 }
 </script>
 
 <style lang="scss">
-#sidebarNav a.router-link-active {
+#sidebarNav .router-link-active {
   color: map-get($colors-brands, spotify);
+}
+
+.router-link-active-partial {
+  color: map-get($colors-brands, spotify) !important;
 }
 </style>

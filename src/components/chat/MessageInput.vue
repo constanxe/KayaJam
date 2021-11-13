@@ -50,6 +50,7 @@ export default {
 
 <style scoped lang="scss">
 textarea {
+  position: relative; /* non-static value for z-index else buttons overlap */
   width: 100%;
   height: 45px;
   padding: 5px 10px;

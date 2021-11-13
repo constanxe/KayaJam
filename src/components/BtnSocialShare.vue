@@ -2,7 +2,7 @@
   <!-- package used: https://github.com/nicolasbeauvais/vue-social-sharing -->
   <ShareNetwork :network="network" :url="url" :title="title">
     <ButtonSocial :network="network">
-      &nbsp;Share on {{ capitalizeFirstLetter(network) }}
+      &nbsp;{{ capitalizeFirstLetter(network) }}
     </ButtonSocial>
   </ShareNetwork>
 </template>
@@ -18,8 +18,8 @@ export default {
   },
   props: {
     network: String,
-    url: { type: String, default: "http://spotify.com/" },  /* facebook needs a valid URL */
-    title: { type: String, default: "sick!! check this out" }
+    url: String,
+    title: { type: String, default: "Check this out!" }
   },
   methods: {
     capitalizeFirstLetter(string) {

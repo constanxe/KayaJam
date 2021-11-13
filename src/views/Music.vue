@@ -1,152 +1,230 @@
 <template>
   <div class="music">
-    <!-- Top Bar-->
+    <!-- Top Bar -->
     <div class="container-jumbotron">
       <!-- Header-->
       <div class="container header">Join and build communities.</div>
 
       <!-- Search Bar-->
       <div class="container form">
-        <form id="form" role="search">
-          <input type="search" id="query" name="q" autocomplete="off"
-            placeholder="Search for your favourite artists or albums"
-            aria-label="Search through site content">
-          <Button btn-class="btn__search">Search</Button>
-        </form>
+        <input v-model="query" @keyup.enter="search" type="search" :placeholder="`Search for your favourite ${currentSelection ? currentSelection+'s' : 'artists or albums'}`" :key="currentSelection" aria-label="Search through site content">
+        <Button btn-class="btn__search" @click.native="search">Search</Button>
       </div>
 
       <!-- Filter Buttons-->
       <div class="container filter-buttons" ref="filterButtons">
-        <router-link to="/music"><Button btn-class="btn__toggle btn--radio" @click="filterSelection('')">All</Button></router-link>
-        <router-link to="/music/album"><Button btn-class="btn__toggle btn--radio" @click="filterSelection('album')">Albums</Button></router-link>
-        <router-link to="/music/artist"><Button btn-class="btn__toggle btn--radio" @click="filterSelection('artist')">Artists</Button></router-link>
+        <router-link to="/music"><Button btn-class="btn__toggle btn--radio">All</Button></router-link>
+        <router-link to="/music/album"><Button btn-class="btn__toggle btn--radio">Albums</Button></router-link>
+        <router-link to="/music/artist"><Button btn-class="btn__toggle btn--radio">Artists</Button></router-link>
       </div>
     </div>
 
+    <!-- SPOTIFY API -->
+
+    <!-- documentation: https://github.com/ankurk91/vue-loading-overlay -->
+    <Loading
+      :active="dataLoading" color="green" loader="bars"
+      :background-color="theme == 'light' ? 'white' : 'black'"
+    />
     <!-- Paginator -->
     <nav class="pagination">
-      <a role="button" class="active"/>
-      <a role="button"/>
-      <a role="button"/>
-      <a role="button"/>
-      <a role="button"/>
+      <a
+        v-for="page in Math.min(dataPages, 7)" :key="page"
+        :class="{'active': dataActivePage == page}"
+        @click="handlePaginate(page)" role="button"
+      />
     </nav>
 
     <!-- Albums/Artists Cards-->
-    <div class="container">
-      <div class="row" ref="musicCards">
-        <MusicCard data-type="album" type="album" artist-tag-name="Charlie Lim" title="Time/Space" img-src="https://f4.bcbits.com/img/a2407592093_10.jpg"/>
-        <MusicCard data-type="album" type="album" artist-tag-name="Subsonic Eye" title="Strawberry Feels" img-src="https://f4.bcbits.com/img/a3424343514_10.jpg"/>
-        <MusicCard data-type="album" type="album" artist-tag-name="Inch" title="Letters To Ubin" img-src="https://images.squarespace-cdn.com/content/v1/561f70f2e4b05c4e86dede19/1591256499796-J3CM6FL7W3W71PT8FJM2/1frontcover.jpg?format=2500w"/>
-        <MusicCard data-type="album" type="album" artist-tag-name="James Blake" title="Friends" img-src="https://media.pitchfork.com/photos/60f9880e4a319e50a860a52e/1:1/w_600/James-Blake.jpg"/>
-
-        <MusicCard data-type="artist" type="artist" title="Gentle Bones" img-src="https://cdn.filestackcontent.com/eLeq7DuSsKWq57U1mC1t/convert?cache=true&crop=0%2C146%2C1920%2C960&crop_first=true&quality=90&w=1920"/>
-        <MusicCard data-type="artist" type="artist" title="Benjamin Kheng" img-src="http://pilerats.com/assets/Uploads/benjamin-kheng-find-me-introducing.jpg"/>
-        <MusicCard data-type="artist" type="artist" title="Linying" img-src="https://www.nme.com/wp-content/uploads/2021/07/linying-credit-jovian-lim@2000x1270.jpg"/>
-        <MusicCard data-type="artist" type="artist" title="Yung Raja" img-src="https://www.augustman.com/my/wp-content/uploads/sites/3/2021/04/Yung_Raja_Thumb-scaled.jpg"/>      </div>
+    <div class="container ps-4 pe-4">
+      <div class="row">
+        <template v-if="currentSelection != 'artist'">
+          <MusicCard
+            v-for="item of albumData" :key="item.id" :item="item"
+            :artist-tag="item.artists[0]"
+          />
+        </template>
+        <template v-if="currentSelection != 'album'">
+          <MusicCard v-for="item of artistData" :key="item.id" :item="item"/>
+        </template>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
 import Button from '@/components/Btn.vue'
 import MusicCard from '@/components/MusicCard'
-import { gsap } from "gsap";
+import SpotifyApi from '@/services/spotify-auth'
+import { toastedOptions } from '@/utils'
+import { mapState } from 'vuex'
+// import { gsap } from "gsap";
 
 export default {
   name: "Music",
   components: {
     Button,
-    MusicCard
+    MusicCard,
+    Loading
+  },
+  data() {
+    return {
+      /* can customise */
+    // temporary fallbacks
+      artistIds: ["3FodFdWfVWIiER6Cv6YVVQ", "5IIP34JBy1d8kBYlAGnRaW", "2HXfSr5CfTPZbcqS2gyGYm", "53GouHDfCfsBJIn1OjYmPO", "4v3jejyuqIBVx8nKiCSDym"],  //This is the array of all artists
+      albumIds: ["5Ay88ZVN61blW8QYUpofy6"],  //This is the array of all albums
+    // pagination
+      dataLimit: 6,
+      /* will be updated automatically */
+      dataPages: 0,
+      dataActivePage: 1,
+      dataOffset: 0,
+      isSearch: false,
+    // data
+      dataLoading: true,
+      albumData: [],
+      artistData: [],
+    // other
+      query: "",
+    }
   },
   methods: {
-    filterSelection(selection) {
-      var cardBoxes = this.$refs.musicCards.children;
-      for (let i = 0; i < cardBoxes.length; i++) {
-        // Hide elements that are not selected by removing the "show" class (display:block)
-        this.RemoveClass(cardBoxes[i], "show");
-        // Show filtered elements by adding the "show" class (display:block)
-        if (cardBoxes[i].getAttribute("data-type").includes(selection)) this.AddClass(cardBoxes[i], "show");
+    setDataPages(){
+      this.dataPages = Math.ceil(this.artistIds.length/this.getCurrentDataLimit())
+      if (this.currentSelection == "album") {
+        while (this.dataPages != 1 && this.dataPages * this.getCurrentDataLimit() > this.albumData.length) this.dataPages--
       }
-      /* [animation] documentation: https://greensock.com/get-started/ */
-      gsap.timeline()
-        .to(cardBoxes, { duration: 0, opacity: 0, ease: 'expo.out' })
-        .to(cardBoxes, { duration: 0.9, opacity: 1, ease: 'back.out' })
     },
-    AddClass(element, name) {
-      var elementClasses = element.className.split(" ");
-      var newClasses = name.split(" ");
-      for (let i = 0; i < newClasses.length; i++) {
-        if (elementClasses.indexOf(newClasses[i]) == -1) {
-          element.className += " " + newClasses[i];
+    getCurrentDataLimit() {
+      if (!this.currentSelection) return Math.ceil(this.dataLimit/2)  /* all */
+      return this.dataLimit
+    },
+
+    search() {
+      if (!this.query) return
+
+      const types = this.currentSelection ? [this.currentSelection] : ['artist','album']
+      /* documentation: https://jmperezperez.com/spotify-web-api-js/?q=search#src-spotify-web-api.js-constr.prototype.search */
+      SpotifyApi
+        .search(this.query, types, { limit: this.getCurrentDataLimit(), offset: this.dataOffset })
+        .then((data) => {
+          this.isSearch = true
+          this.dataLoading = false
+          // console.log(data)
+          this.artistData = data.artists ? data.artists.items : []
+          this.albumData = data.albums ? data.albums.items : []
+          this.dataPages = Math.ceil(Math.max(data.artists ? data.artists.total : 0, data.albums ? data.albums.total : 0) / this.getCurrentDataLimit())
+        })
+        .catch((error) => {
+          this.dataLoading = false
+          // console.log(error.responseText)
+          this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
+          this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
+        })
+    },
+
+    getAlbums() {
+      /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getalbums */
+      SpotifyApi
+        .getAlbums(this.albumIds)
+        .then((data) => {
+          this.dataLoading = false
+          // console.log(data)
+          this.albumData = data.albums
+        })
+        .catch((error) => {
+          this.dataLoading = false
+          // console.log(error.responseText)
+          this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
+          this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
+        })
+    },
+    getArtists() {
+      const currentArtistIds = this.artistIds.slice(this.dataOffset, this.dataOffset+this.getCurrentDataLimit())
+      /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getartists */
+      SpotifyApi
+        .getArtists(currentArtistIds)
+        .then((data) => {
+          this.dataLoading = false
+          // console.log(data)
+          this.artistData = data.artists
+        })
+        .catch((error) => {
+          this.dataLoading = false
+          // console.log(error.responseText)
+          this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
+          this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
+        })
+    },
+    handlePaginate(page) {
+      if (page != this.dataActivePage) {
+        this.dataOffset = (page - 1) * this.getCurrentDataLimit()
+
+        if (this.isSearch) this.search()
+        else if (!this.currentSelection) {  /* all & not search */
+          this.getAlbums()
+          this.getArtists()
+        } else if (this.currentSelection == "album") {
+          this.getAlbums()
+        } else if (this.currentSelection == "artist") {
+          this.getArtists()
         }
+
+        this.dataActivePage = page
       }
     },
-    RemoveClass(element, name) {
-      var elementClasses = element.className.split(" ");
-      var newClasses = name.split(" ");
-      for (let i = 0; i < newClasses.length; i++) {
-        while (elementClasses.indexOf(newClasses[i]) > -1) {
-          elementClasses.splice(elementClasses.indexOf(newClasses[i]), 1);
-        }
-      }
-      element.className = elementClasses.join(" ");
+
+    // animateChangeSelection() {
+    //   var cardBoxes = this.$refs.musicCards;
+    //   /* [animation] documentation: https://greensock.com/get-started/ */
+    //   gsap.timeline()
+    //     .to(cardBoxes, { duration: 0, opacity: 0, ease: 'expo.out' })
+    //     .to(cardBoxes, { duration: 0.4, opacity: 1, ease: 'back.out' })
+    // },
+    ResetActiveClass(container) {
+      var currentActive = container.getElementsByClassName("active");
+      if (currentActive.length > 0) currentActive[0].classList.remove("active");
     },
-    ResetActiveClass(btnContainer) {
-      var currentBtn = btnContainer.getElementsByClassName("active");
-      if (currentBtn.length > 0) currentBtn[0].className = currentBtn[0].className.replace(" active", "");
-    },
-    routeLoaded() {
-      // get subroute on change in $route (specifically /music/subroute) or mounted
-      var currentSelection = this.$route.params.pathMatch.slice(1);
-      // Determine cards to display
-      this.filterSelection(currentSelection);
+
+    getActiveBtn() {
       // Add active class to the current control button (highlight it)
       var btnContainer = this.$refs.filterButtons;
       var btns = btnContainer.getElementsByClassName("btn");
       this.ResetActiveClass(btnContainer);
       var possibleSelections = ["", "album", "artist"];
-      var newBtn = btns[possibleSelections.indexOf(currentSelection)];
-      newBtn.className += " active";
+      var newBtn = btns[possibleSelections.indexOf(this.currentSelection)];
+      newBtn.classList.add("active");
     },
   },
-  /* reference: https://stackoverflow.com/questions/52468088/vue-router-call-function-after-route-has-loaded */
-  watch: {
-    $route() {
-      this.$nextTick(this.routeLoaded());
+  computed: {
+    ...mapState(['theme']),
+    currentSelection() {
+      return this.$route.params.pathMatch.slice(1);
     }
   },
+  /* depreceated due to use of key in nav */
+  // /* reference: https://stackoverflow.com/questions/52468088/vue-router-call-function-after-route-has-loaded */
+  // watch: {
+  //   $route() {
+  //     this.$nextTick(this.getActiveBtn());
+  //   }
+  // },
   mounted() {
-    this.$router.onReady(() => this.routeLoaded());
-    // Add active class to the current control button (highlight it)
-    var btnContainer = this.$refs.filterButtons;
-    var btns = btnContainer.getElementsByClassName("btn");
-    const instanceRef = this;
-    for (var i = 0; i < btns.length; i++) {
-      btns[i].addEventListener("click", function() {
-        instanceRef.ResetActiveClass(btnContainer);
-        this.className += " active";
-      });
-    }
-  }
+    this.getActiveBtn()
+    this.setDataPages()
+  },
+  created() {
+    /* give time to set access token in spotify-auth.js */
+    setTimeout(() => {
+      this.getAlbums()
+      this.getArtists()
+    }, 800)
+  },
 };
 </script>
 
 <style scoped lang="scss">
-form {
-  width: 450px;
-  height: 44px;
-  border-radius: 50px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: white;
-  padding-left: 5px;
-  padding-right: 20px;
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
 input {
   all: unset;
   color: black;
@@ -158,10 +236,14 @@ input {
 ::placeholder {
   color: black;
   opacity: 0.7;
+  text-align: left;
 }
 
 .container-jumbotron {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   background-color: map-get($colors-brands, spotify);
 
@@ -177,8 +259,18 @@ input {
   }
 
   .form {
+    max-width: 100%;
+    width: 450px;
+    height: 44px;
+    border-radius: 50px;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    padding-left: 10px;
+    padding-right: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
     margin-top: 10px;
     margin-bottom: 10px;
   }
@@ -189,13 +281,12 @@ input {
   margin-bottom: 5px;
 }
 
-/* The "show" class is added to the filtered elements */
-.show {
-  display: block;
-}
-
 .filter-buttons * {
   height: 44px;
   width: 70px;
+}
+
+.pagination {
+  padding-top: 30px;
 }
 </style>

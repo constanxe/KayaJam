@@ -6,16 +6,17 @@ import 'bootstrap/dist/js/bootstrap';
 import VueLogger from 'vuejs-logger';
 import VueSocialSharing from 'vue-social-sharing';
 import VTooltip from 'v-tooltip';
+import Toasted from 'vue-toasted';
 
 import PubNubVue from 'pubnub-vue';
 
 import Keycloak from 'keycloak-js'
-import { keycloakInitOptions } from './utils';
+import { keycloakInitOptions } from '@/utils';
 
 import Vue from 'vue'
-import App from './App.vue'
-import store from './store'
-import router from './router'
+import App from '@/App.vue'
+import store from '@/store';
+import router from '@/router'
 
 Vue.config.productionTip = false
 
@@ -29,6 +30,7 @@ Vue.use(VueLogger, options);
 
 Vue.use(VueSocialSharing)
 Vue.use(VTooltip)
+Vue.use(Toasted)
 
 const publish_Key = process.env.VUE_APP_PUBNUB_PUB_KEY;
 const subscribe_Key = process.env.VUE_APP_PUBNUB_SUB_KEY;

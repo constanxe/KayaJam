@@ -19,7 +19,7 @@ module.exports = {
       entry: 'src/main.js',
       // when using title option,
       // template title tag needs to be <title><%= htmlWebpackPlugin.options.title %></title>
-      title: 'Spotify Webapp'
+      title: 'KayaJam'
     }
   },
   /* for BASE_URL environment variable */
