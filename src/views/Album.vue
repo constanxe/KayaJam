@@ -6,7 +6,7 @@
 			:background-color="theme == 'light' ? 'white' : 'black'"
 		/>
 
-		<div class="container">
+		<div class="container pb-5">
 			<div class="row">
 				<!--Album Picture-->
 				<div class="col-xl-5 col-lg-12">
@@ -19,7 +19,10 @@
 					<!-- Name from Spotify API-->
 					<h1 class="display-4 text-center">{{ albumData.name }}</h1>
 					<h4 class="text-center">
-						{{ capitaliseFirstLetter(albumData.album_type) }} by <router-link :to="`/artist/${artistId}`" class="tag">{{ artistName }}</router-link>
+						{{ capitaliseFirstLetter(albumData.album_type) }} by 
+						<router-link :class="artistName == 'Various Artists' ? '' : 'tag'" :is="artistName == 'Various Artists' ? 'span' : 'router-link'" :to="`/artist/${artistId}`">
+							{{ artistName }}
+						</router-link>
 					</h4>
 					<br>
 
@@ -48,7 +51,7 @@
 		</div>
 
 		<!--Other Albums-->
-		<div class="container-fluid bg-success text-white mt-5">
+		<div class="container-fluid bg-success text-white" v-if="artistName != 'Various Artists'">
 			<div class="row pt-4 pb-1 text-center">
 				<h3>Works by {{ artistName }}</h3>
 			</div>

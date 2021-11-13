@@ -6,7 +6,7 @@
       :background-color="theme == 'light' ? 'white' : 'black'"
     />
 
-    <div class="container">
+    <div class="container pb-5">
       <div class="row">
         <!--Album Picture-->
         <div class="col-xl-5 col-lg-12">
@@ -51,7 +51,7 @@
 
 
     <!--Other Albums-->
-    <div class="container-fluid bg-success text-white mt-5">
+    <div class="container-fluid bg-success text-white" v-if="artistData.name != 'Various Artists'">
       <div class="row pt-4 pb-1 text-center">
         <h3>Works by {{ artistData.name }}</h3>
       </div>
