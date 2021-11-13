@@ -1,10 +1,13 @@
 <!--TODO List
-1. Every time a new user is created from the login page, add a new object to user_data based on first entry template.
-Set things which the user entered in account creation: username (must be unique), first name, last name.<template>
+1. Every time a new user is created from the login page, add a new object to users based on first entry template.
+Set things which the user entered in account creation: username (must be unique), first name, last name.
 
 2. List of favourites for albums/artists starts empty. Clicking favourite will add it to list, clicking again will remove it.
 
 3. All instances of 'Jack' in this file should refer to the current user's username.
+
+<template>
+
 </template>
 
 <script>
@@ -140,7 +143,10 @@ export default {
 </template>
 
 <script>
-var user_data = [
+import axios from 'axios'
+const usersDB = `http://localhost:3000/users`
+/*
+var users = [
 	{
 		first_name: "",
 		last_name: "",
@@ -184,18 +190,27 @@ var user_data = [
 			"https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
 	},
 ];
+*/
 export default {
-	name: "UserSettings",
+	name: "Settings",
 	data() {
 		return {
-			user_data,
-			update_pfps: 0,
+			users: [],
+			update_pfps: 0
 		};
+	},
+	async created(){
+		try {
+			const res = await axios.get(usersDB)
+			this.users = res.data
+		} catch(e){
+			console.error(e)
+		}
 	},
 	methods: {
 		getObjFromUser(user) {
 			//usernames are unique
-			for (var obj of user_data) {
+			for (var obj of this.users) {
 				if (obj.username === user) {
 					return obj;
 				}
@@ -204,7 +219,7 @@ export default {
 		changeProfilePic(user, image) {
 			var profile_pic = image;
 			var targetObj = this.getObjFromUser(user);
-			for (var obj of user_data) {
+			for (var obj of this.users) {
 				if (obj === targetObj) {
 					obj.profile_pic = profile_pic;
 					console.log(obj.profile_pic);
@@ -216,7 +231,7 @@ export default {
 			event.preventDefault();
 			var first_name = document.querySelector("input[name=first_name]").value;
 			var targetObj = this.getObjFromUser(user);
-			for (var obj of user_data) {
+			for (var obj of this.users) {
 				if (obj === targetObj) {
 					obj.first_name = first_name;
 					console.log(obj.first_name);
@@ -228,7 +243,7 @@ export default {
 			event.preventDefault();
 			var last_name = document.querySelector("input[name=last_name]").value;
 			var targetObj = this.getObjFromUser(user);
-			for (var obj of user_data) {
+			for (var obj of this.users) {
 				if (obj === targetObj) {
 					obj.last_name = last_name;
 					console.log(obj.last_name);
@@ -245,7 +260,7 @@ export default {
 		},
 		updateFeatAlbums(user, image) {
 			var targetObj = this.getObjFromUser(user);
-			for (var obj of user_data) {
+			for (var obj of this.users) {
 				if (obj === targetObj) {
 					var item_index = obj.feat_albums.indexOf(image);
 					if (item_index > -1) {
@@ -259,7 +274,7 @@ export default {
 		},
 		updateFeatArtists(user, image) {
 			var targetObj = this.getObjFromUser(user);
-			for (var obj of user_data) {
+			for (var obj of this.users) {
 				if (obj === targetObj) {
 					var item_index = obj.feat_artists.indexOf(image);
 					if (item_index > -1) {
@@ -281,7 +296,7 @@ export default {
 					var lat = position.coords.latitude;
 					var lng = position.coords.longitude;
 					alert(`Location shared.\nLatitude: ${lat}\nLongtitude: ${lng}`);
-					for (var obj of user_data) {
+					for (var obj of this.users) {
 						if (obj.username === user) {
 							obj.location = [lat, lng];
 							console.log(obj.location);

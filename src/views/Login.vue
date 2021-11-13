@@ -11,7 +11,7 @@
           </div>
           <div class="form-group">
             <label for="givenPwd">Password</label>
-            <input type="password" class="form-control" id="givenPwd" v-model="givenPwd" placeholder="Password" @keyup.enter="validate()">
+            <input type="password" class="form-control" id="givenPwd" v-model="givenPwd" placeholder="Password" @keyup.enter="validate">
           </div>
           <Button @click.native="validate()" btn-class="btn-primary">Submit</Button>
           <div class="alert" v-if="showError">{{ error }}</div>
@@ -81,14 +81,6 @@ export default {
       this.$router.push("/");
     },
   },
-  created() {
-    window.addEventListener('keydown', (e) => {
-        // Validate username and password on pressing Enter; credit https://stackoverflow.com/a/50395988
-        if (e.key == 'Enter') {
-            this.validate()
-        }
-    });
-  }
 };
 </script>
 
