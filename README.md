@@ -1,4 +1,4 @@
-# KayaJam
+<img src="src/assets/brand.jpg" alt="KayaJam">
 
 ## 1. Pre-requisites
 
@@ -27,7 +27,7 @@ Go to the `.scripts` folder and run all of the files. <small>(Made for Windows. 
 >	- <u>Database:</u> `3000`
 
 If otherwise specified by any of your CLI windows, do the following.
-> - <u>Client:</u> Open the app at that address.
+> - <u>Client:</u> Ensure the `publicPath` in `vue.config.js` is the same.
 > - <u>Other:</u> Edit the `.env` file to reflect those ports for `VUE_APP_JSONSERVER_URL` or `VUE_APP_KEYCLOAK_URL`.
 
 If first-time user, register for an account. <small>(If no verification email, check your spam inbox or quarantine page)</small>
@@ -44,3 +44,8 @@ If first-time user, register for an account. <small>(If no verification email, c
 		- <u>Value:</u>	<i>< JDK download path ></i>
 	- Find your `Path` environment variable and click **Edit**. Add this to the end of the string or otherwise:
 		- <i>< JDK download path ></i>`\bin`
+
+### Solutions for possible errors for `json-server`
+
+* `npm install -g json-server`
+* "...cannot be loaded because running scripts is disabled on this system" -> `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`

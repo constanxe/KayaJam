@@ -6,7 +6,7 @@
 			:background-color="theme == 'light' ? 'white' : 'black'"
 		/>
 
-		<div class="container">
+		<div class="container pb-5">
 			<div class="row">
 				<!--Album Picture-->
 				<div class="col-xl-5 col-lg-12">
@@ -19,7 +19,10 @@
 					<!-- Name from Spotify API-->
 					<h1 class="display-4 text-center">{{ albumData.name }}</h1>
 					<h4 class="text-center">
-						{{ capitaliseFirstLetter(albumData.album_type) }} by <router-link :to="`/artist/${artistId}`" class="tag">{{ artistName }}</router-link>
+						{{ capitaliseFirstLetter(albumData.album_type) }} by 
+						<router-link :class="artistName == 'Various Artists' ? '' : 'tag'" :is="artistName == 'Various Artists' ? 'span' : 'router-link'" :to="`/artist/${artistId}`">
+							{{ artistName }}
+						</router-link>
 					</h4>
 					<br>
 
@@ -48,7 +51,7 @@
 		</div>
 
 		<!--Other Albums-->
-		<div class="container-fluid bg-success text-white mt-5">
+		<div class="container-fluid bg-success text-white" v-if="artistName != 'Various Artists'">
 			<div class="row pt-4 pb-1 text-center">
 				<h3>Works by {{ artistName }}</h3>
 			</div>
@@ -61,7 +64,7 @@
 				/>
 			</nav>
 			<!--Other Albums - Photos & Links-->
-			<div class="row pb-2">
+			<div class="row pb-2" ref="musicCards">
 				<div class="p-2 text-center col-md-4 col-sm-6 mt-3" v-for="item of albumDataItems" :key="item.id">
 					<router-link :to="`/album/${item.id}`" :class="{'tag': id != item.id}">
 						<img class="img2" :src="item.images[0].url" />
@@ -93,6 +96,7 @@ import ButtonSocialShare from "@/components/BtnSocialShare.vue";
 import Loading from "vue-loading-overlay";
 import { toastedOptions } from '@/utils'
 import { mapState, mapMutations } from 'vuex'
+import { gsap } from "gsap";
 
 export default {
 	name: "Album",
@@ -168,8 +172,16 @@ export default {
 		handlePaginate(page) {
 			this.dataOffset = (page - 1) * this.dataLimit;
 			this.getArtistAlbums(this.artistId);
+			this.animateChangeSelection();
 			this.dataActivePage = page;
 		},
+    animateChangeSelection() {
+      var cardBoxes = this.$refs.musicCards;
+      /* [animation] documentation: https://greensock.com/get-started/ */
+      gsap.timeline()
+        .to(cardBoxes, { duration: 0, opacity: 0, ease: 'expo.out' })
+        .to(cardBoxes, { duration: 0.8, opacity: 1, ease: 'back.out' })
+    },
 	},
 	created() {
 		/* give time to set access token in spotify-auth.js */

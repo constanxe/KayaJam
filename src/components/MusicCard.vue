@@ -6,7 +6,11 @@
         <h4 class="card-title tag">{{ item.name }}</h4>
         <!-- for album typed cards -->
         <p class="card-text" v-if="item.type == 'album'">
-          by <router-link :to="'/artist/'+artistTag.id" class="tag">{{ artistTag.name }}</router-link>
+          by <router-link :class="artistTag.name == 'Various Artists' ? '' : 'tag'"
+                          :is="artistTag.name == 'Various Artists' ? 'span' : 'router-link'"
+                          :to="`/artist/${artistTag.id}`">
+          {{ artistTag.name }}
+          </router-link>
         </p>
       </div>
     </router-link>

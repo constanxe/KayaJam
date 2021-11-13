@@ -6,7 +6,7 @@
       :background-color="theme == 'light' ? 'white' : 'black'"
     />
 
-    <div class="container">
+    <div class="container pb-5">
       <div class="row">
         <!--Album Picture-->
         <div class="col-xl-5 col-lg-12">
@@ -51,7 +51,7 @@
 
 
     <!--Other Albums-->
-    <div class="container-fluid bg-success text-white mt-5">
+    <div class="container-fluid bg-success text-white" v-if="artistData.name != 'Various Artists'">
       <div class="row pt-4 pb-1 text-center">
         <h3>Works by {{ artistData.name }}</h3>
       </div>
@@ -64,7 +64,7 @@
 				/>
 			</nav>
       <!--Other Albums - Photos & Links-->
-      <div class="row pb-2">
+      <div class="row pb-2" ref="musicCards">
         <div class="p-2 text-center col-md-4 col-sm-6 mt-3" v-for="item of albumDataItems" :key="item.id">
           <router-link :to="`/album/${item.id}`" class="tag">
             <img class="img2" :src="item.images[0].url" />
@@ -97,6 +97,7 @@ import ButtonSocialShare from "@/components/BtnSocialShare.vue";
 import Loading from "vue-loading-overlay";
 import { toastedOptions } from '@/utils'
 import { mapState, mapMutations } from 'vuex'
+import { gsap } from "gsap";
 
 export default {
 	name: "Artist",
@@ -199,8 +200,16 @@ export default {
 		handlePaginate(page) {
 			this.dataOffset = (page - 1) * this.dataLimit;
 			this.getArtistAlbums();
+			this.animateChangeSelection();
 			this.dataActivePage = page;
 		},
+    animateChangeSelection() {
+      var cardBoxes = this.$refs.musicCards;
+      /* [animation] documentation: https://greensock.com/get-started/ */
+      gsap.timeline()
+        .to(cardBoxes, { duration: 0, opacity: 0, ease: 'expo.out' })
+        .to(cardBoxes, { duration: 0.8, opacity: 1, ease: 'back.out' })
+    },
 	},
 	created() {
 		/* give time to set access token in spotify-auth.js */
