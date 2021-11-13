@@ -9,9 +9,8 @@ Vue.use(Vuex);
 
 const state = {
   theme: styles.defaultTheme,
-  user: {},
   playerAlbum: "1DFixLWuPkv3KT3TnV35m3", /* temporary fallback for player */
-  me: {},
+  user: {},
   /* chat */
   history: [],
   savedChatChannels: [],
@@ -21,14 +20,11 @@ const mutations = {
   setTheme(state, theme) {
     state.theme = theme;
   },
-  login(state, payload) {
-    state.user = payload;
-  },
   setPlayerAlbum(state, playerAlbum) {
     state.playerAlbum = playerAlbum;
   },
-  setMe(state, {me}) {
-    state.me = me;
+  login(state, payload) {
+    state.user = payload;
   },
   /* chat */
   addHistory(state, {history}) {
@@ -49,10 +45,11 @@ const mutations = {
 
 const getters = {
   getTheme: (state) => state.theme,
+  getPlayerAlbum: (state) => state.playerAlbum,
+  /* user */
   getUser: (state) => state.user,
   getUserUuid: (state) => state.user.name,
-  getPlayerAlbum: (state) => state.playerAlbum,
-  getMyUuid: (state) => state.me.uuid,
+  /* chat */
   getHistoryMsgs: (state) => state.history,
   getSavedChatChannels: (state) => state.savedChatChannels,
 };
