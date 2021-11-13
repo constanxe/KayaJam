@@ -8,7 +8,7 @@
 							<div class="profile">
 								<div class="avatar">
 								
-								<img src="https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png"/>
+								<img :src="getObjFromUser().profile_pic"/>
 								<!-- <Star :star="starValue" :maxstars="1" style="align-right"/> -->
 
 								<!-- <div class='star' >
@@ -18,12 +18,12 @@
 				
 
 								<div class="name">
-									<h3 class="title">{{ myUuid }}</h3>
+									<h3 class="title">{{getObjFromUser().first_name}}</h3>
 									<h6>Singapore</h6>
 								</div>
 
 								<div class="description text-center border rounded">
-									<p>Hi, I'm John. My favourite artist is Elvis Presley and my favourite song is Blue Suede Shoes. </p>
+									<p>Hi, I'm {{getObjFromUser().first_name}}. My favourite artist is Elvis Presley and my favourite song is Blue Suede Shoes. </p>
 								</div>
 
 								<div class="social-buttons">
@@ -105,66 +105,96 @@ import ButtonSocial from "@/components/BtnSocial.vue";
 // import MusicCard from '@/components/MusicCard';
 import { mapGetters } from 'vuex';
 import { gsap } from "gsap";
-
+import axios from 'axios';
+const usersDB = `${process.env.VUE_APP_JSONSERVER_URL}/users`
 
 export default {
 	name: "About",
+	data() {
+		return {
+			users: [],
+			starValue: 0
+		};
+	},
 	components: {
 		ButtonSocial,
 		// Button,
 		// Star,
 	},
-
+	
+	async created(){
+		try {
+			const res = await axios.get(usersDB)
+			this.users = res.data
+		} catch(e){
+			console.error(e)
+		}
+	},
+	computed: {
+		...mapGetters({
+			username: 'getUserUuid'
+		}),	
+	},
 	methods: {
-    filterSelection(selection) {
-      var cardBoxes = this.$refs.musicCards.children;
-      for (let i = 0; i < cardBoxes.length; i++) {
-        // Hide elements that are not selected by removing the "show" class (display:block)
-        this.RemoveClass(cardBoxes[i], "show");
-        // Show filtered elements by adding the "show" class (display:block)
-        if (cardBoxes[i].getAttribute("data-type").includes(selection)) this.AddClass(cardBoxes[i], "show");
-      }
-      /* [animation] documentation: https://greensock.com/get-started/ */
-      gsap.timeline()
-        .to(cardBoxes, { duration: 0, opacity: 0, ease: 'expo.out' })
-        .to(cardBoxes, { duration: 0.9, opacity: 1, ease: 'back.out' })
-    },
-	AddClass(element, name) {
-      var elementClasses = element.className.split(" ");
-      var newClasses = name.split(" ");
-      for (let i = 0; i < newClasses.length; i++) {
-        if (elementClasses.indexOf(newClasses[i]) == -1) {
-          element.className += " " + newClasses[i];
-        }
-      }
-    },
-    RemoveClass(element, name) {
-      var elementClasses = element.className.split(" ");
-      var newClasses = name.split(" ");
-      for (let i = 0; i < newClasses.length; i++) {
-        while (elementClasses.indexOf(newClasses[i]) > -1) {
-          elementClasses.splice(elementClasses.indexOf(newClasses[i]), 1);
-        }
-      }
-      element.className = elementClasses.join(" ");
-    },
-    ResetActiveClass(btnContainer) {
-      var currentBtn = btnContainer.getElementsByClassName("active");
-      if (currentBtn.length > 0) currentBtn[0].className = currentBtn[0].className.replace(" active", "");
-    },
-    routeLoaded() {
-      // get subroute on change in $route (specifically /music/subroute) or mounted
-      var currentSelection = this.$route.params.pathMatch.slice(1);
-      // Determine cards to display
-      this.filterSelection(currentSelection);
-      // Add active class to the current control button (highlight it)
-      var btnContainer = this.$refs.filterButtons;
-      var btns = btnContainer.getElementsByClassName("a");
-      this.ResetActiveClass(btnContainer);
-      var possibleSelections = ["artist", "album", "song"];
-      var newBtn = btns[possibleSelections.indexOf(currentSelection)];
-      newBtn.className += " active";
-    },
+		getObjFromUser() {
+			//usernames are unique
+			for (var obj of this.users) {
+				if (obj.username === this.username) {
+					console.log(obj.username)
+					console.log(this.username)
+					return obj;
+				}
+			}
+		},
+		filterSelection(selection) {
+		var cardBoxes = this.$refs.musicCards.children;
+		for (let i = 0; i < cardBoxes.length; i++) {
+			// Hide elements that are not selected by removing the "show" class (display:block)
+			this.RemoveClass(cardBoxes[i], "show");
+			// Show filtered elements by adding the "show" class (display:block)
+			if (cardBoxes[i].getAttribute("data-type").includes(selection)) this.AddClass(cardBoxes[i], "show");
+		}
+		/* [animation] documentation: https://greensock.com/get-started/ */
+		gsap.timeline()
+			.to(cardBoxes, { duration: 0, opacity: 0, ease: 'expo.out' })
+			.to(cardBoxes, { duration: 0.9, opacity: 1, ease: 'back.out' })
+		},
+		AddClass(element, name) {
+		var elementClasses = element.className.split(" ");
+		var newClasses = name.split(" ");
+		for (let i = 0; i < newClasses.length; i++) {
+			if (elementClasses.indexOf(newClasses[i]) == -1) {
+			element.className += " " + newClasses[i];
+			}
+		}
+		},
+		RemoveClass(element, name) {
+		var elementClasses = element.className.split(" ");
+		var newClasses = name.split(" ");
+		for (let i = 0; i < newClasses.length; i++) {
+			while (elementClasses.indexOf(newClasses[i]) > -1) {
+			elementClasses.splice(elementClasses.indexOf(newClasses[i]), 1);
+			}
+		}
+		element.className = elementClasses.join(" ");
+		},
+		ResetActiveClass(btnContainer) {
+		var currentBtn = btnContainer.getElementsByClassName("active");
+		if (currentBtn.length > 0) currentBtn[0].className = currentBtn[0].className.replace(" active", "");
+		},
+		routeLoaded() {
+		// get subroute on change in $route (specifically /music/subroute) or mounted
+		var currentSelection = this.$route.params.pathMatch.slice(1);
+		// Determine cards to display
+		this.filterSelection(currentSelection);
+		// Add active class to the current control button (highlight it)
+		var btnContainer = this.$refs.filterButtons;
+		var btns = btnContainer.getElementsByClassName("a");
+		this.ResetActiveClass(btnContainer);
+		var possibleSelections = ["artist", "album", "song"];
+		var newBtn = btns[possibleSelections.indexOf(currentSelection)];
+		newBtn.className += " active";
+		},
 	
 
 //  geocodeLatLng(geocoder) {
@@ -177,19 +207,6 @@ export default {
 
 
     },
-
-
-	data() {
-		return {
-			starValue: 0
-		}
-	},
-  computed: {
-    ...mapGetters({
-			myUuid: 'getMyUuid'
-		}),
-		
-  }
 };
 
 

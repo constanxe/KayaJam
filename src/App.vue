@@ -42,12 +42,14 @@ export default {
     async addUser(){
       console.log("wadawdwa hello")
       console.log(this.users)
+      var isInUsers = false
 			for (var obj of this.users){
         if (obj.username === this.username){
-          return
+          isInUsers = true
         }
       }
-      const res = await axios.post(usersDB, {
+      if (!isInUsers){
+        const res = await axios.post(usersDB, {
             "first_name": "",
             "last_name": "",
             "username": this.username,
@@ -62,8 +64,12 @@ export default {
                 "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg"
             ],
             "profile_pic":
-                "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg"
-      })
+                "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
+            "saved_chats": []
+        })
+        this.users = [...this.users, res.data]
+      }
+      
     }
   },
   mounted() {
