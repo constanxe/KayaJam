@@ -50,6 +50,25 @@
         "artist:Charlie Lim",
       ],
       "id": 1
+    },
+    {
+      "username": "anuprabha",
+      "profile_pic": "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
+      "description": "",
+      "facebook_un": "",
+      "twitter_un": "",
+      "telegram_un": "",
+      "theme": "dark",
+      "fav_albums": [],
+      "feat_albums": [],
+      "fav_artists": [],
+      "feat_artists": [],
+      "location": [
+        0,
+        0
+      ],
+      "saved_chats": [],
+      "id": 2
     }
   ]
 }
