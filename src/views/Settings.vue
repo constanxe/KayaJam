@@ -14,10 +14,10 @@ Set things which the user entered in account creation: username (must be unique)
 		/>
 
 		<div class="container header">
-			<div class="row" style="background-color: #1db954">Settings</div>
+			<div class="row" style="background-color: #1db954">User Settings</div>
 		</div>
 		<!-- Search Bar-->
-		<div id="user_setting_app" class="container form p-4">
+		<div id="user_setting_app" class="container p-4">
 			<div class="row mb-4">
 				<div class="display-6 col-4">Theme</div>
 				<div class="col-8">
@@ -175,7 +175,7 @@ Set things which the user entered in account creation: username (must be unique)
 
 			<button
 				class="btn"
-				style="margin-top: 10px"
+				style="margin-top: 10px; margin-right: 5px;"
 				@click="shareLocation()"
 			>
 				Click to Share Location
@@ -552,7 +552,7 @@ label {
 .profile_pic,
 .album_pic,
 .artist_pic {
-	width: 140px;
+	width: 130px;
 	margin-right: 10px;
 	margin-bottom: 10px;
 	border: 1px grey solid;

@@ -34,9 +34,18 @@
 								v-tooltip="'Play on Spotify'"
 								@click.native="setPlayerAlbum(albumData.id)"
 								style="border: 1px grey solid;"
-							>Preview this {{ albumData.album_type }}</Button>
+							>Preview this {{ albumData.album_type }} 🎵</Button>
 						</a>
 					</div>
+
+					<!-- Fav -->
+          <div class="row text-center mt-3">
+						<a role="button">
+							<Button class="btn-lg bg-success" v-tooltip="'Set Spotify player to a random album by this artist'" @click.native="setPlayerAlbum(getRandomAlbum().id)"  style="border: 1px grey solid;">
+								Favourite this {{ albumData.album_type }} ⭐
+							</Button>
+						</a>
+          </div>
 
 					<!--Discussion Button-->
 					<div class="row text-center mt-4">

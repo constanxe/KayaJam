@@ -34,7 +34,16 @@
           <div class="row text-center mt-3">
 						<a role="button">
 							<Button class="btn-lg bg-white text-dark" v-tooltip="'Set Spotify player to a random album by this artist'" @click.native="setPlayerAlbum(getRandomAlbum().id)"  style="border: 1px grey solid;">
-								Preview {{ artistData.name }}'s music
+								Preview {{ artistData.name }}'s music 🎵
+							</Button>
+						</a>
+          </div>
+
+					<!-- Fav -->
+          <div class="row text-center mt-3">
+						<a role="button">
+							<Button class="btn-lg bg-success" v-tooltip="'Set Spotify player to a random album by this artist'" @click.native="setPlayerAlbum(getRandomAlbum().id)"  style="border: 1px grey solid;">
+								Favourite {{ artistData.name }} ⭐
 							</Button>
 						</a>
           </div>
