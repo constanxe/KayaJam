@@ -40,7 +40,7 @@ export default {
 	},
   methods:{
     async addUser(){
-      console.log(this.users)
+      // console.log(this.users)
       var isInUsers = false
 			for (var obj of this.users){
         if (obj.username == this.username){

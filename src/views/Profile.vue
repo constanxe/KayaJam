@@ -6,7 +6,7 @@
         <div class="container">
           <div class="col-xl-l-md-s-xs-6 ml-auto mr-auto">
             <div class="profile">
-              <div class="avatar">
+              <div class="avatar" v-tooltip="getObjFromUser().profile_pic == 'https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png' ? 'Not configured yet' : ''">
 								<img :src="getObjFromUser().profile_pic"/>
               </div>
 
@@ -26,6 +26,7 @@
                   :href="'https://facebook.com/' + getObjFromUser().facebook_un"
                   target="_blank"
                   role="button"
+                  v-tooltip="getObjFromUser().facebook_un == '' ? 'Not configured yet' : ''"
                 >
                   <ButtonSocial
                     network="facebook"
@@ -36,13 +37,19 @@
                   :href="'https://twitter.com/' + getObjFromUser().twitter_un"
                   target="_blank"
                   role="button"
+                  v-tooltip="getObjFromUser().twitter_un == '' ? 'Not configured yet' : ''"
                 >
                   <ButtonSocial
                     network="twitter"
                     class="justify-content-center"
                   ></ButtonSocial
                 ></a>
-                <a :href="'https://t.me/' + getObjFromUser().telegram_un" target="_blank" role="button">
+                <a
+                  :href="'https://t.me/' + getObjFromUser().telegram_un"
+                  target="_blank"
+                  role="button"
+                  v-tooltip="getObjFromUser().telegram_un == '' ? 'Not configured yet' : ''"
+                >
                   <ButtonSocial
                     network="telegram"
                     class="justify-content-center"
@@ -103,8 +110,12 @@
             :active="dataLoading" color="green" loader="bars"
             :background-color="theme == 'light' ? 'white' : 'black'"
           />
-          <div class="container ps-4 pe-4">
-            <div class="row">
+          <div class="container">
+            <div class="row p-4 text-center">
+              <div v-if="currentSelection == 'all' & artistData.length == 0 & albumData == []">None yet</div>
+              <div v-if="currentSelection == 'artist' & artistData.length == 0">None yet</div>
+              <div v-if="currentSelection == 'album' & albumData.length == 0">None yet</div>
+
               <template v-if="currentSelection != 'album'">
                 <MusicCard
                   v-for="item of artistData"
@@ -177,11 +188,12 @@ export default {
 		try {
 			const res = await axios.get(usersDB)
 			this.users = res.data
+
+      this.getAlbums();
+      this.getArtists();
 		} catch(e){
 			console.error(e)
 		}
-    this.getAlbums();
-    this.getArtists();
 	},
 
   methods: {
@@ -197,36 +209,42 @@ export default {
       return defaultUser
 		},
     getAlbums() {
-      /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getalbums */
-      SpotifyApi
-        .getAlbums(this.getObjFromUser().fav_albums)
-        .then((data) => {
-          this.dataLoading = false
-          // console.log(data)
-          this.albumData = data.albums
-        })
-        .catch((error) => {
-          this.dataLoading = false
-          // console.log(error.responseText)
-          this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
-          this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
-        })
+      const featAlbums = this.getObjFromUser().feat_albums
+      if (featAlbums.length != 0) {
+        /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getalbums */
+        SpotifyApi
+          .getAlbums(featAlbums)
+          .then((data) => {
+            this.dataLoading = false
+            // console.log(data)
+            this.albumData = data.albums
+          })
+          .catch((error) => {
+            this.dataLoading = false
+            // console.log(error.responseText)
+            this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
+            this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
+          })
+      }
     },
     getArtists() {
-      /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getartists */
-      SpotifyApi
-        .getArtists(this.getObjFromUser().fav_artists)
-        .then((data) => {
-          this.dataLoading = false
-          // console.log(data)
-          this.artistData = data.artists
-        })
-        .catch((error) => {
-          this.dataLoading = false
-          // console.log(error.responseText)
-          this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
-          this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
-        })
+      const featArtists = this.getObjFromUser().feat_artists
+      if (featArtists.length != 0) {
+        /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getartists */
+        SpotifyApi
+          .getArtists(featArtists)
+          .then((data) => {
+            this.dataLoading = false
+            // console.log(data)
+            this.artistData = data.artists
+          })
+          .catch((error) => {
+            this.dataLoading = false
+            // console.log(error.responseText)
+            this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
+            this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
+          })
+      }
     },
   },
   computed: {
