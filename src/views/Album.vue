@@ -41,8 +41,8 @@
 					<!-- Fav -->
           <div class="row text-center mt-3">
 						<a role="button">
-							<Button class="btn-lg bg-success" v-tooltip="'Set Spotify player to a random album by this artist'" @click.native="setPlayerAlbum(getRandomAlbum().id)"  style="border: 1px grey solid;">
-								Favourite this {{ albumData.album_type }} ⭐
+							<Button class="btn-lg bg-success" v-tooltip="'Favourite to save and possibly feature on your profile!'" @click.native="handleFavourited" style="border: 1px grey solid;">
+								{{ getObjFromUser.fav_albums.indexOf(id) > -1 ? 'Unfavourite' : 'Favourite' }} {{ albumData.album_type }} ⭐
 							</Button>
 						</a>
           </div>
@@ -105,9 +105,12 @@ import SpotifyApi from "@/services/spotify-auth";
 import Button from "@/components/Btn.vue";
 import ButtonSocialShare from "@/components/BtnSocialShare.vue";
 import Loading from "vue-loading-overlay";
-import { toastedOptions } from '@/utils'
-import { mapState, mapMutations } from 'vuex'
+import { toastedOptions, defaultUser } from '@/utils'
+import { mapGetters, mapMutations } from 'vuex'
 import { gsap } from "gsap";
+import axios from 'axios'
+
+const usersDB = `${process.env.VUE_APP_JSONSERVER_URL}/users`
 
 export default {
 	name: "Album",
@@ -129,8 +132,21 @@ export default {
 			albumData: {images:[{url:''}]},	/* prevent error when haven't set */
 			artistName: "",
 			artistId: "",
-			baseUrl: "localhost:8081/"	/* temporary fallback */
+			baseUrl: "localhost:8081/",	/* temporary fallback */
+			users: []
 		};
+	},
+	async created(){
+		try {
+			const res = await axios.get(usersDB)
+			this.users = res.data
+			/* give time to set access token in spotify-auth.js */
+			setTimeout(() => {
+			this.getAlbum()
+			}, 800)
+		} catch(e){
+			console.error(e)
+		}
 	},
 	methods: {
 		...mapMutations(['setPlayerAlbum']),
@@ -143,6 +159,29 @@ export default {
 				arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
 			}
 			return arr.join(" ");
+		},
+
+		async patch(id, data){
+      try {
+        const res = await axios.patch(`${usersDB}/${id}`, data)
+        this.users[id] = res.data
+      } catch(e){
+        console.error(e)
+      }
+    },
+		handleFavourited() {
+			for (var obj of this.users) {
+        if (obj.username === this.username) {
+          var item_index = obj.fav_albums.indexOf(this.id);
+          if (item_index > -1) {
+            obj.fav_albums.splice(item_index, 1);
+          } else {
+            obj.fav_albums.push(this.id);
+          }
+          console.log(obj.fav_albums)
+          this.patch(this.getObjFromUser.id, {"fav_albums": obj.fav_albums})
+        }
+			}
 		},
 
 		getArtistAlbums() {
@@ -183,7 +222,7 @@ export default {
 
 		handlePaginate(page) {
 			this.dataOffset = (page - 1) * this.dataLimit;
-			this.getArtistAlbums(this.artistId);
+			this.getArtistAlbums();
 			this.animateChangeSelection();
 			this.dataActivePage = page;
 		},
@@ -195,15 +234,23 @@ export default {
         .to(cardBoxes, { duration: 0.8, opacity: 1, ease: 'back.out' })
     },
 	},
-	created() {
-		/* give time to set access token in spotify-auth.js */
-    setTimeout(() => this.getAlbum(), 800)
-	},
 	computed: {
-		...mapState(["theme"]),
+    ...mapGetters({
+      theme: 'getTheme',
+      username: 'getUserUuid'
+    }),
 		id() {
       return this.$route.params.id;
-    }
+    },
+		getObjFromUser() {
+      //usernames are unique
+      for (var obj of this.users) {
+        if (obj.username === this.username) {
+          return obj;
+        }
+      }
+      return defaultUser;
+    },
 	},
 	mounted() {
 		this.baseUrl = process.env.BASE_URL
