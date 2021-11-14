@@ -293,9 +293,9 @@ export default {
 					obj.profile_pic = profile_pic;
 					console.log(obj.profile_pic);
 					this.update_pfps += 1;
+					this.patch(this.getObjFromUser().id, {"profile_pic": profile_pic})
 				}
 			}
-			this.patch(this.getObjFromUser().id, {"profile_pic": profile_pic})
 		},
 		changeDescription() {
 			event.preventDefault();
@@ -304,9 +304,9 @@ export default {
 				if (obj.username === this.username) {
 					obj.description = description;
 					console.log(obj.description);
+					this.patch(this.getObjFromUser().id, {"description": description})
 				}
 			}
-			this.patch(this.getObjFromUser().id, {"description": description})
 		},
 
 		changeFacebookUn() {
@@ -316,9 +316,9 @@ export default {
 				if (obj.username === this.username) {
 					obj.facebook_un = facebook_un;
 					console.log(obj.facebook_un);
+					this.patch(this.getObjFromUser().id, {"facebook_un": facebook_un})
 				}
 			}
-			this.patch(this.getObjFromUser().id, {"facebook_un": facebook_un})
 		},
 		changeTwitterUn() {
 			event.preventDefault();
@@ -327,9 +327,9 @@ export default {
 				if (obj.username === this.username) {
 					obj.twitter_un = twitter_un;
 					console.log(obj.twitter_un);
+					this.patch(this.getObjFromUser().id, {"twitter_un": twitter_un})
 				}
 			}
-			this.patch(this.getObjFromUser().id, {"twitter_un": twitter_un})
 		},
 		changeTelegramUn() {
 			event.preventDefault();
@@ -338,9 +338,9 @@ export default {
 				if (obj.username === this.username) {
 					obj.telegram_un = telegram_un;
 					console.log(obj.telegram_un);
+					this.patch(this.getObjFromUser().id, {"telegram_un": telegram_un})
 				}
 			}
-			this.patch(this.getObjFromUser().id, {"telegram_un": telegram_un})
 		},
 
 		updateFeatAlbums(id) {
@@ -352,8 +352,8 @@ export default {
 					} else {
 						obj.feat_albums.push(id);
 					}
-				console.log(obj.feat_albums)
-				this.patch(this.getObjFromUser().id, {"feat_albums": obj.feat_albums})
+					this.patch(this.getObjFromUser().id, {"feat_albums": obj.feat_albums})
+					console.log(obj.feat_albums)
 				}
 			}
 		},
@@ -366,10 +366,10 @@ export default {
 					} else {
 						obj.feat_artists.push(id);
 					}
+					this.patch(this.getObjFromUser().id, {"feat_artists": obj.feat_artists})
 					console.log(obj.feat_artists)
 				}
 			}
-			this.patch(this.getObjFromUser().id, {"feat_artists": obj.feat_artists})
 		},
 
 		shareLocation() {
@@ -387,9 +387,9 @@ export default {
 						if (obj.username === instance.username) {
 							obj.location = [lat, lng];
 							console.log(obj.location);
+							instance.patch(instance.getObjFromUser().id, {"location": [lat, lng]})
 						}
 					}
-					instance.patch(instance.getObjFromUser().id, {"location": [lat, lng]})
 				},
 				function () {
 					// fail cb

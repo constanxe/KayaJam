@@ -2,7 +2,7 @@
   "users": [
     {
       "username": "jmneo",
-      "profile_pic": "http://pilerats.com/assets/Uploads/benjamin-kheng-find-me-introducing.jpg",
+      "profile_pic": "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
       "description": "Hi, I'm JM. My favourite artist is Elvis Presley and my favourite song is Blue Suede Shoes.",
       "facebook_un": "test",
       "twitter_un": "",
@@ -17,12 +17,12 @@
       ],
       "saved_chats": [
         "artist:Charlie Lim",
-        "album:asjda"
+        "artist:Linying"
       ],
       "id": 0
     },
     {
-      "username": "constancetan",
+      "username": "cons ancetan",
       "profile_pic": "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg",
       "description": "",
       "facebook_un": "test",
@@ -48,7 +48,6 @@
       ],
       "saved_chats": [
         "artist:Charlie Lim",
-        "album:asjda"
       ],
       "id": 1
     }

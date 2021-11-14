@@ -12,7 +12,7 @@
           </Button>
         </router-link>
         <!-- Saved chats -->
-        <router-link :to="'/chat/'+savedChannel" v-for="savedChannel of savedChannels" :key="savedChannel">
+        <router-link :to="'/chat/'+savedChannel" v-for="savedChannel of getObjFromUser().saved_chats" :key="savedChannel">
           <Button btn-class="btn__toggle btn--radio" :class="{'active': activeChannel == savedChannel}" v-tooltip="channelTooltip(savedChannel)">
             <i
               v-if="channelType(savedChannel)"
@@ -20,7 +20,7 @@
               v-tooltip="capitalizeFirstLetter(channelType(savedChannel))"
             />
             {{ channelBtnText(savedChannel) }}
-            <Star :star="1" @click.native="handleSavedChatChannels($event, savedChannel)"
+            <Star :star="1" @click.native="handleSavedChatChannels(savedChannel)"
                   :maxstars="1" starsize="xs" v-tooltip="'Star this chat for future viewing'"/>
             <router-link :to="'/music/'+savedChannel" v-if="channelType(savedChannel)" v-tooltip="'Visit this '+channelType(savedChannel)+'\'s page'">
               <i class="bi bi-link-45deg go-icon"/>
@@ -37,7 +37,7 @@
                 v-tooltip="capitalizeFirstLetter(channelType(activeChannel))"
               />
               {{ channelBtnText(activeChannel) }}
-              <Star :star="0" @click.native="handleSavedChatChannels($event, activeChannel)"
+              <Star :star="0" @click.native="handleSavedChatChannels(activeChannel)"
                     :maxstars="1" starsize="xs" v-tooltip="'Star this chat for future viewing'"/>
               <router-link :to="'/music/'+activeChannel" v-if="channelType(activeChannel)" v-tooltip="'Visit this '+channelType(activeChannel)+'\'s page'">
                 <i class="bi bi-link-45deg go-icon"/>
@@ -61,9 +61,12 @@ import ChatLog from '@/components/chat/ChatLog';
 import MessageInput from '@/components/chat/MessageInput';
 import Button from '@/components/Btn.vue'
 import Star from '@/components/Star.vue'
-import { capitalizeFirstLetter, toastedOptions } from '@/utils'
+import { capitalizeFirstLetter, toastedOptions, defaultUser} from '@/utils'
 import {mapGetters} from 'vuex';
 import PubNubVue from 'pubnub-vue';
+import axios from 'axios'
+
+const usersDB = `${process.env.VUE_APP_JSONSERVER_URL}/users`
 
 export default {
   name: 'chat',
@@ -79,16 +82,34 @@ export default {
   data() {
     return {
       generalChannels: ['global', 'artists', 'albums'],
-      channelTypes: ['artist', 'album']
+      channelTypes: ['artist', 'album'],
+      users: []
+    }
+  },
+  async created(){
+    try {
+      const res = await axios.get(usersDB)
+      this.users = res.data
+    } catch(e){
+      console.error(e)
     }
   },
   computed: {
     ...mapGetters({
       theme: 'getTheme',
-      savedChannels: 'getSavedChatChannels'
+      savedChannels: 'getSavedChatChannels',
+      username: 'getUserUuid'
     }),
   },
   methods: {
+    async patch(id, data){
+      try {
+        const res = await axios.patch(`${usersDB}/${id}`, data)
+        this.users[id] = res.data
+      } catch(e){
+        console.error(e)
+      }
+    },
     capitalizeFirstLetter(string) {
       return capitalizeFirstLetter(string)
     },
@@ -116,11 +137,27 @@ export default {
       return ''
     },
 
-    handleSavedChatChannels(event, channel) {
-      if (event.target.parentNode.classList.contains("active")) {
-        this.$store.commit('addSavedChatChannel', channel)
-      } else {
-        this.$store.commit('removeSavedChatChannel', channel)
+    getObjFromUser() {
+      //usernames are unique
+      for (var obj of this.users) {
+        if (obj.username === this.username) {
+          return obj;
+        }
+      }
+      return defaultUser;
+    },
+    handleSavedChatChannels(channel) {
+      for (var obj of this.users) {
+        if (obj.username === this.username) {
+          var item_index = obj.saved_chats.indexOf(channel);
+          if (item_index > -1) {
+            obj.saved_chats.splice(item_index, 1);
+          } else {
+            obj.saved_chats.push(channel);
+          }
+          console.log(obj.saved_chats)
+          this.patch(this.getObjFromUser().id, {"saved_chats": obj.saved_chats})
+        }
       }
     },
 
