@@ -1,22 +1,8 @@
 <!--TODO List
 1. Every time a new user is created from the login page, add a new object to users based on first entry template.
-Set things which the user entered in account creation: username (must be unique), first name, last name.
+Set things which the user entered in account creation: username (must be unique).
 
 2. List of favourites for albums/artists starts empty. Clicking favourite will add it to list, clicking again will remove it.
-
-<template>
-
-</template>
-
-<script>
-export default {
-
-}
-</script>
-
-<style>
-
-</style>
 -->
 
 <template>
@@ -32,7 +18,7 @@ export default {
 			/>
 			<div class="row">
 				<div class="col-3">
-					<label class="label" for="last_name">Profile Picture</label>
+					<label class="label" for="profile_pic">Profile Picture</label>
 				</div>
 
 				<div class="col-9" :key="update_pfps">
@@ -56,17 +42,17 @@ export default {
 			</div>
 			<div class="row">
 				<div class="col-3">
-					<label class="label" for="first_name">First Name</label>
+					<label class="label" for="description">Description</label>
 				</div>
 				<div class="col-9">
 					<form>
 						<input
 							type="text"
-							id="first_name"
-							name="first_name"
-							v-bind:value="getObjFromUser().first_name"
+							id="description"
+							name="description"
+							v-bind:value="getObjFromUser().description"
 						/>
-						<button @click="changeFirstName()" style="color: black">
+						<button @click="changeDescription()" style="color: black">
 							Save
 						</button>
 					</form>
@@ -75,17 +61,17 @@ export default {
 
 			<div class="row">
 				<div class="col-3">
-					<label class="label" for="last_name">Last Name</label>
+					<label class="label" for="facebook_un">Facebook Un</label>
 				</div>
 				<div class="col-9">
 					<form>
 						<input
 							type="text"
-							id="last_name"
-							name="last_name"
-							v-bind:value="getObjFromUser().last_name"
+							id="facebook_un"
+							name="facebook_un"
+							v-bind:value="getObjFromUser().facebook_un"
 						/>
-						<button @click="changeLastName()" style="color: black">
+						<button @click="changeFacebookUn()" style="color: black">
 							Save
 						</button>
 					</form>
@@ -93,6 +79,44 @@ export default {
 			</div>
 
 			<div class="row">
+				<div class="col-3">
+					<label class="label" for="twitter_un">Twitter Un</label>
+				</div>
+				<div class="col-9">
+					<form>
+						<input
+							type="text"
+							id="twitter_un"
+							name="twitter_un"
+							v-bind:value="getObjFromUser().twitter_un"
+						/>
+						<button @click="changeTwitterUn()" style="color: black">
+							Save
+						</button>
+					</form>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-3">
+					<label class="label" for="telegram_un">Telegram Un</label>
+				</div>
+				<div class="col-9">
+					<form>
+						<input
+							type="text"
+							id="telegram_un"
+							name="telegram_un"
+							v-bind:value="getObjFromUser().telegram_un"
+						/>
+						<button @click="changeTelegramUn()" style="color: black">
+							Save
+						</button>
+					</form>
+				</div>
+			</div>
+
+			<!-- <div class="row">
 				<div class="col-3">
 					<label class="label">Featured Albums</label>
 				</div>
@@ -131,7 +155,7 @@ export default {
 				<div class="col-9" v-else>
 					<label>No favourited artists.</label>
 				</div>
-			</div>
+			</div> -->
 
 			<button
 				class="btn"
@@ -199,27 +223,48 @@ export default {
 				}
 			}
 		},
-		changeFirstName() {
+		changeDescription() {
 			event.preventDefault();
-			var first_name = document.querySelector("input[name=first_name]").value;
+			var description = document.querySelector("input[name=description]").value;
 			for (var obj of this.users) {
 				if (obj.username === this.username) {
-					obj.first_name = first_name;
-					console.log(obj.first_name);
+					obj.description = description;
+					console.log(obj.description);
 				}
 			}
 		},
 
-		changeLastName() {
+		changeFacebookUn() {
 			event.preventDefault();
-			var last_name = document.querySelector("input[name=last_name]").value;
+			var facebook_un = document.querySelector("input[name=facebook_un]").value;
 			for (var obj of this.users) {
 				if (obj.username === this.username) {
-					obj.last_name = last_name;
-					console.log(obj.last_name);
+					obj.facebook_un = facebook_un;
+					console.log(obj.facebook_un);
 				}
 			}
 		},
+		changeTwitterUn() {
+			event.preventDefault();
+			var twitter_un = document.querySelector("input[name=twitter_un]").value;
+			for (var obj of this.users) {
+				if (obj.username === this.username) {
+					obj.twitter_un = twitter_un;
+					console.log(obj.twitter_un);
+				}
+			}
+		},
+		changeTelegramUn() {
+			event.preventDefault();
+			var telegram_un = document.querySelector("input[name=telegram_un]").value;
+			for (var obj of this.users) {
+				if (obj.username === this.username) {
+					obj.telegram_un = telegram_un;
+					console.log(obj.telegram_un);
+				}
+			}
+		},
+
 		updateImageSelect() {
 			var eleStyle = event.target.style;
 			if (eleStyle.border == "") {
@@ -394,7 +439,8 @@ label {
 .profile_pic,
 .album_pic,
 .artist_pic {
-	max-height: 100px;
+	width: 140px;
+	height: 90px;
 	margin-right: 10px;
 	margin-bottom: 10px;
 }
