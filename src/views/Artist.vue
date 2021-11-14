@@ -9,13 +9,13 @@
     <div class="container pb-5">
       <div class="row">
         <!--Album Picture-->
-        <div class="col-xl-5 col-lg-12">
+        <div class="col-xl-4 col-lg-12 sm-3 xs-1">
           <img class="img1 rounded center-block" :src="artistData.images[0].url" alt="Card image"/>
         </div>
         <br />
 
         <!--Album Writeup + Info-->
-        <div class="writeup col-xl-7 col-lg-12 p-3 text-center">
+        <div class="writeup col-xl-5 col-lg-12 sm-4 xs-1 p-3 text-center">
 
           <!-- Name from Spotify API-->
           <h1 class="display-4">Meet {{ artistData.name }}</h1>

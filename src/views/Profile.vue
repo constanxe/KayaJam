@@ -1,13 +1,28 @@
 <template>
   <div class="profile-page">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
     <div class="page-header"></div>
     <div class="main main-raised text-center">
       <div class="profile-content">
         <div class="container">
-          <div class="col-xl-l-md-s-xs-6 ml-auto mr-auto">
+          <div class="ml-auto mr-auto">
             <div class="profile">
-              <div class="avatar" v-tooltip="getObjFromUser().profile_pic == 'https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png' ? 'Not configured yet' : ''">
-								<img :src="getObjFromUser().profile_pic" style="border: 1px grey solid;"/>
+              <div
+                class="avatar"
+                v-tooltip="
+                  getObjFromUser().profile_pic ==
+                  'https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png'
+                    ? 'Not configured yet'
+                    : ''
+                "
+              >
+                <img
+                  :src="getObjFromUser().profile_pic"
+                  style="border: 1px grey solid"
+                />
               </div>
 
               <div class="name">
@@ -17,44 +32,85 @@
 
               <div class="description text-center border rounded">
                 <p>
-                  {{ getObjFromUser().description ? getObjFromUser().description : "No description yet." }}
+                  {{
+                    getObjFromUser().description
+                      ? getObjFromUser().description
+                      : "No description yet."
+                  }}
                 </p>
-                <p v-if="username == myUsername & !getObjFromUser().description">
+                <p
+                  v-if="
+                    (username == myUsername) & !getObjFromUser().description
+                  "
+                >
                   <a href="./#/settings">Click here to set one</a>
                 </p>
               </div>
 
-              <div class="social-buttons">
-                  <a
-                    role="button"
-                    v-tooltip="getObjFromUser().facebook_un == '' ? 'Not configured yet' : ''"
-                    :data-bs-target="getObjFromUser().facebook_un == '' ? (username == getObjFromUser().username ? '#settingsModal' : '#otherUserModal') : '#facebookModal'" data-bs-toggle="modal"
-                  >
-                    <ButtonSocial
-                      network="facebook"
-                      class="justify-content-center"
-                    ></ButtonSocial
-                  ></a>
-                  <a
-                    role="button"
-                    v-tooltip="getObjFromUser().twitter_un == '' ? 'Not configured yet' : ''"
-                    :data-bs-target="getObjFromUser().twitter_un == '' ? (username == myUsername ? '#settingsModal' : '#otherUserModal') : '#twitterModal'" data-bs-toggle="modal"
-                  >
-                    <ButtonSocial
-                      network="twitter"
-                      class="justify-content-center"
-                    ></ButtonSocial
-                  ></a>
-                  <a
-                    role="button"
-                    v-tooltip="getObjFromUser().telegram_un == '' ? 'Not configured yet' : ''"
-                    :data-bs-target="getObjFromUser().telegram_un == '' ? (username == myUsername ? '#settingsModal' : '#otherUserModal') : '#telegramModal'" data-bs-toggle="modal"
-                  >
-                    <ButtonSocial
-                      network="telegram"
-                      class="justify-content-center"
-                    ></ButtonSocial
-                  ></a>
+              <div class="social-buttons ml-auto mr-auto">
+                <a
+                  role="button"
+                  v-tooltip="
+                    getObjFromUser().facebook_un == ''
+                      ? 'Not configured yet'
+                      : ''
+                  "
+                  :data-bs-target="
+                    getObjFromUser().facebook_un == ''
+                      ? username == getObjFromUser().username
+                        ? '#settingsModal'
+                        : '#otherUserModal'
+                      : '#facebookModal'
+                  "
+                  data-bs-toggle="modal"
+                >
+                  <ButtonSocial
+                    network="facebook"
+                    class="justify-content-center"
+                  ></ButtonSocial
+                ></a>
+                <a
+                  role="button"
+                  v-tooltip="
+                    getObjFromUser().twitter_un == ''
+                      ? 'Not configured yet'
+                      : ''
+                  "
+                  :data-bs-target="
+                    getObjFromUser().twitter_un == ''
+                      ? username == myUsername
+                        ? '#settingsModal'
+                        : '#otherUserModal'
+                      : '#twitterModal'
+                  "
+                  data-bs-toggle="modal"
+                >
+                  <ButtonSocial
+                    network="twitter"
+                    class="justify-content-center"
+                  ></ButtonSocial
+                ></a>
+                <a
+                  role="button"
+                  v-tooltip="
+                    getObjFromUser().telegram_un == ''
+                      ? 'Not configured yet'
+                      : ''
+                  "
+                  :data-bs-target="
+                    getObjFromUser().telegram_un == ''
+                      ? username == myUsername
+                        ? '#settingsModal'
+                        : '#otherUserModal'
+                      : '#telegramModal'
+                  "
+                  data-bs-toggle="modal"
+                >
+                  <ButtonSocial
+                    network="telegram"
+                    class="justify-content-center"
+                  ></ButtonSocial
+                ></a>
                 <!-- </template> -->
                 <!-- <template v-else></template> -->
               </div>
@@ -62,61 +118,78 @@
           </div>
 
           <!-- Filter Buttons-->
-          <div class="col-xl-l-md-s-xs-6 ml-auto mr-auto">
-            <div class="profile-tabs">
-              <ul
-                class="nav nav-pills nav-pills-icons justify-content-center"
-                ref="filterButtons"
-              >
-                <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    :class="{ active: currentSelection == 'all' }"
-                    @click="currentSelection = 'all'"
-                    role="button"
-                  >
-                    <i class="bi bi-music-note-list" />
-                    All
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    :class="{ active: currentSelection == 'artist' }"
-                    @click="currentSelection = 'artist'"
-                    role="button"
-                  >
-                    <i class="bi bi-person-video2" />
-                    Artists
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    :class="{ active: currentSelection == 'album' }"
-                    @click="currentSelection = 'album'"
-                    role="button"
-                  >
-                    <i class="bi bi-book-fill" />
-                    Albums
-                  </a>
-                </li>
-              </ul>
-            </div>
+
+          <div class="profile-tabs ml-auto mr-auto">
+            <ul
+              class="nav nav-pills nav-pills-icons justify-content-center"
+              ref="filterButtons"
+            >
+              <li class="nav-item">
+                <a
+                  class="nav-link "
+                  :class="{ active: currentSelection == 'all' }"
+                  @click="currentSelection = 'all'"
+                  role="button"
+                >
+                  <i class="bi bi-music-note-list" />
+                  All
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  :class="{ active: currentSelection == 'artist' }"
+                  @click="currentSelection = 'artist'"
+                  role="button"
+                >
+                  <i class="bi bi-person-video2" />
+                  Artists
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  :class="{ active: currentSelection == 'album' }"
+                  @click="currentSelection = 'album'"
+                  role="button"
+                >
+                  <i class="bi bi-book-fill" />
+                  Albums
+                </a>
+              </li>
+            </ul>
           </div>
 
           <!-- SPOTIFY API -->
 
           <!-- documentation: https://github.com/ankurk91/vue-loading-overlay -->
           <Loading
-            :active="dataLoading" color="green" loader="bars"
+            :active="dataLoading"
+            color="green"
+            loader="bars"
             :background-color="theme == 'light' ? 'white' : 'black'"
           />
-          <div class="container">
-            <div class="row p-4 text-center">
-              <div v-if="currentSelection == 'all' & artistData.length == 0 & albumData.length == 0">None yet</div>
-              <div v-if="currentSelection == 'artist' & artistData.length == 0">None yet</div>
-              <div v-if="currentSelection == 'album' & albumData.length == 0">None yet</div>
+          <div class="container ps-4 pe-4">
+            <div class="row" ref="musicCards" >
+              <div
+                v-if="
+                  (currentSelection == 'all') &
+                  (artistData.length == 0) &
+                  (albumData.length == 0)
+                "
+              >
+                None yet
+              </div>
+              <div
+                v-if="(currentSelection == 'artist') & (artistData.length == 0)"
+              >
+                None yet
+              </div>
+              <div
+                v-if="(currentSelection == 'album') & (albumData.length == 0)"
+              >
+                None yet
+              </div>
 
               <template v-if="currentSelection != 'album'">
                 <MusicCard
@@ -143,7 +216,7 @@
           </a>
         </div>
       </div>
-      </div>
+    </div>
 
     <!-- Social media buttons modal  -->
     <Modal id="otherUserModal">
@@ -155,7 +228,9 @@
     </Modal>
     <Modal id="settingsModal">
       <template #title>Hold it!</template>
-      <template #body>You have not configured this. Would you like to do so?</template>
+      <template #body
+        >You have not configured this. Would you like to do so?</template
+      >
       <template #footer>
         <Button btn-class="btn-secondary" data-bs-dismiss="modal">No</Button>
         <a href="./#/settings"><Button data-bs-dismiss="modal">Yes</Button></a>
@@ -164,30 +239,42 @@
 
     <Modal id="facebookModal">
       <template #title>Hold it!</template>
-      <template #body>You will leave this site. Do you wish to proceed? </template>
+      <template #body
+        >You will leave this site. Do you wish to proceed?
+      </template>
       <template #footer>
         <Button btn-class="btn-secondary" data-bs-dismiss="modal">No</Button>
-        <a :href="'https://facebook.com/' + getObjFromUser().facebook_un" target="_blank"
+        <a
+          :href="'https://facebook.com/' + getObjFromUser().facebook_un"
+          target="_blank"
           ><Button data-bs-dismiss="modal">Yes</Button>
         </a>
       </template>
     </Modal>
     <Modal id="twitterModal">
       <template #title>Hold it!</template>
-      <template #body>You will leave this site. Do you wish to proceed? </template>
+      <template #body
+        >You will leave this site. Do you wish to proceed?
+      </template>
       <template #footer>
         <Button btn-class="btn-secondary" data-bs-dismiss="modal">No</Button>
-        <a :href="'https://twitter.com/' + getObjFromUser().twitter_un" target="_blank"
+        <a
+          :href="'https://twitter.com/' + getObjFromUser().twitter_un"
+          target="_blank"
           ><Button data-bs-dismiss="modal">Yes</Button>
         </a>
       </template>
     </Modal>
     <Modal id="telegramModal">
       <template #title>Hold it!</template>
-      <template #body>You will leave this site. Do you wish to proceed? </template>
+      <template #body
+        >You will leave this site. Do you wish to proceed?
+      </template>
       <template #footer>
         <Button btn-class="btn-secondary" data-bs-dismiss="modal">No</Button>
-        <a :href="'https://t.me/' + getObjFromUser().telegram_un" target="_blank"
+        <a
+          :href="'https://t.me/' + getObjFromUser().telegram_un"
+          target="_blank"
           ><Button data-bs-dismiss="modal">Yes</Button>
         </a>
       </template>
@@ -197,16 +284,16 @@
 
 <script>
 import SpotifyApi from "@/services/spotify-auth";
-import Modal from '@/components/Modal.vue'
+import Modal from "@/components/Modal.vue";
 import Button from "@/components/Btn.vue";
 import ButtonSocial from "@/components/BtnSocial.vue";
 import MusicCard from "@/components/MusicCard";
-import Loading from 'vue-loading-overlay';
+import Loading from "vue-loading-overlay";
 import { mapGetters } from "vuex";
 import { toastedOptions, defaultUser } from "@/utils";
-import axios from 'axios';
+import axios from "axios";
 
-const usersDB = `${process.env.VUE_APP_JSONSERVER_URL}/users`
+const usersDB = `${process.env.VUE_APP_JSONSERVER_URL}/users`;
 
 export default {
   name: "Profile",
@@ -215,88 +302,101 @@ export default {
     Button,
     ButtonSocial,
     MusicCard,
-    Loading
+    Loading,
   },
   data() {
     return {
       users: [],
-    // data
+      // data
       dataLoading: true,
       albumData: [],
       artistData: [],
-    // other
+      // other
       currentSelection: "all",
     };
   },
-	async created(){
-		try {
-			const res = await axios.get(usersDB)
-			this.users = res.data
+  async created() {
+    try {
+      const res = await axios.get(usersDB);
+      this.users = res.data;
 
       if (this.getObjFromUser() == defaultUser) {
-        this.$toasted.error("This user does not exist. Redirected to own profile page", toastedOptions)
-        this.$router.push("/profile")
+        this.$toasted.error(
+          "This user does not exist. Redirected to own profile page",
+          toastedOptions
+        );
+        this.$router.push("/profile");
       }
 
       this.getAlbums();
       this.getArtists();
-		} catch(e){
-			console.error(e)
-		}
-	},
+    } catch (e) {
+      console.error(e);
+    }
+  },
 
   methods: {
     getObjFromUser() {
-			//usernames are unique
-			for (var obj of this.users) {
-				if (obj.username == this.username) {
-					// console.log(obj.username)
-					// console.log(this.username)
-					return obj;
-				}
-			}
-      return defaultUser
-		},
+      //usernames are unique
+      for (var obj of this.users) {
+        if (obj.username == this.username) {
+          // console.log(obj.username)
+          // console.log(this.username)
+          return obj;
+        }
+      }
+      return defaultUser;
+    },
     getAlbums() {
-      const featAlbums = this.getObjFromUser().feat_albums
+      const featAlbums = this.getObjFromUser().feat_albums;
       if (featAlbums.length != 0) {
         /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getalbums */
-        SpotifyApi
-          .getAlbums(featAlbums)
+        SpotifyApi.getAlbums(featAlbums)
           .then((data) => {
-            this.dataLoading = false
+            this.dataLoading = false;
             // console.log(data)
-            this.albumData = data.albums
+            this.albumData = data.albums;
           })
           .catch((error) => {
-            this.dataLoading = false
+            this.dataLoading = false;
             // console.log(error.responseText)
-            this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
-            this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
-          })
+            this.$toasted.error(
+              "Error occurred while fetching data. Please try again.",
+              toastedOptions
+            );
+            this.$toasted.info(
+              `Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `,
+              toastedOptions
+            );
+          });
       } else {
-        this.dataLoading = false
+        this.dataLoading = false;
       }
     },
     getArtists() {
-      const featArtists = this.getObjFromUser().feat_artists
+      const featArtists = this.getObjFromUser().feat_artists;
       if (featArtists.length != 0) {
         /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getartists */
-        SpotifyApi
-          .getArtists(featArtists)
+        SpotifyApi.getArtists(featArtists)
           .then((data) => {
-            this.dataLoading = false
+            this.dataLoading = false;
             // console.log(data)
-            this.artistData = data.artists
+            this.artistData = data.artists;
           })
           .catch((error) => {
-            this.dataLoading = false
+            this.dataLoading = false;
             // console.log(error.responseText)
-            this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
-            this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
-          })
+            this.$toasted.error(
+              "Error occurred while fetching data. Please try again.",
+              toastedOptions
+            );
+            this.$toasted.info(
+              `Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `,
+              toastedOptions
+            );
+          });
       } else {
-        this.dataLoading = false
+        this.dataLoading = false;
       }
     },
   },
@@ -306,8 +406,10 @@ export default {
       myUsername: "getUserUuid",
     }),
     username() {
-      return this.$route.params.uuid ? this.$route.params.uuid : this.$store.getters.getUserUuid
-    }
+      return this.$route.params.uuid
+        ? this.$route.params.uuid
+        : this.$store.getters.getUserUuid;
+    },
   },
 };
 </script>
@@ -427,7 +529,7 @@ p {
 }
 
 .profile-page .profile-tabs {
-  margin-top: 4.284rem;
+  margin-top: 36px;
   align-content: center;
 }
 
@@ -464,6 +566,7 @@ p {
   padding: 0 15px;
 }
 
+
 .nav .nav-item {
   position: relative;
   margin: 0 2px;
@@ -472,6 +575,7 @@ p {
 
 .nav-pills.nav-pills-icons .nav-item .nav-link {
   border-radius: 4px;
+  margin: 10px;
 }
 
 .nav-pills .nav-item .nav-link.active {
@@ -480,6 +584,7 @@ p {
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.2),
     0 13px 24px -11px rgba(156, 39, 176, 0.6);
 }
+
 
 .nav-pills .nav-item .nav-link {
   line-height: 24px;
