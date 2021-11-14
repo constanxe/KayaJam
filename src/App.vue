@@ -40,7 +40,6 @@ export default {
 	},
   methods:{
     async addUser(){
-      console.log("wadawdwa hello")
       console.log(this.users)
       var isInUsers = false
 			for (var obj of this.users){
@@ -52,14 +51,14 @@ export default {
         const res = await axios.post(usersDB, {
           "username": this.username,
           "profile_pic": "https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png",
-          "description": "Hi, I'm John. My favourite artist is Elvis Presley and my favourite song is Blue Suede Shoes.",
-          "facebook_un": "jack",
-          "twitter_un": "jack",
-          "telegram_un": "jack",
+          "description": "No description yet",
+          "facebook_un": "",
+          "twitter_un": "",
+          "telegram_un": "",
           "theme": "dark",
           "fav_albums": [],
           "feat_albums": [],
-          "fav_artists": ["3FodFdWfVWIiER6Cv6YVVQ", "5IIP34JBy1d8kBYlAGnRaW", "2HXfSr5CfTPZbcqS2gyGYm"],
+          "fav_artists": [],
           "feat_artists": [],
           "location": [0,0],
           "saved_chats": [],
@@ -70,7 +69,9 @@ export default {
     }
   },
   mounted() {
-    this.addUser()
+    setTimeout(() => {
+      this.addUser()
+    }, 3000);
     document.documentElement.setAttribute('data-theme', this.$store.getters.getTheme)
     this.$toasted.success(`Login successful. Welcome and have fun discovering new music & people!`, toastedOptions)
     this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)

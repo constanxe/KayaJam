@@ -105,27 +105,19 @@
           />
           <div class="container ps-4 pe-4">
             <div class="row">
-              <template v-if="currentSelection == ''">
+              <template v-if="currentSelection != 'album'">
                 <MusicCard
                   v-for="item of artistData"
                   :key="item.id"
                   :item="item"
                 />
               </template>
-
               <template v-if="currentSelection != 'artist'">
                 <MusicCard
                   v-for="item of albumData"
                   :key="item.id"
                   :item="item"
                   :artist-tag="item.artists[0]"
-                />
-              </template>
-              <template v-if="currentSelection != 'album'">
-                <MusicCard
-                  v-for="item of artistData"
-                  :key="item.id"
-                  :item="item"
                 />
               </template>
             </div>
@@ -147,17 +139,17 @@ import axios from 'axios';
 
 const usersDB = `${process.env.VUE_APP_JSONSERVER_URL}/users`
 const defaultUser = {
-  "username": "jack",
+  "username": "",
   "profile_pic": "https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png",
-  "description": "Hi, I'm John. My favourite artist is Elvis Presley and my favourite song is Blue Suede Shoes.",
-  "facebook_un": "jack",
-  "twitter_un": "jack",
-  "telegram_un": "jack",
+  "description": "No description yet",
+  "facebook_un": "",
+  "twitter_un": "",
+  "telegram_un": "",
   "theme": "dark",
-  "fav_albums": ["3kWRWSez6mxCgZUsdy06Yk"],
-  "feat_albums": ["3kWRWSez6mxCgZUsdy06Yk"],
-  "fav_artists": ["3FodFdWfVWIiER6Cv6YVVQ", "5IIP34JBy1d8kBYlAGnRaW", "2HXfSr5CfTPZbcqS2gyGYm"],
-  "feat_artists": ["3FodFdWfVWIiER6Cv6YVVQ", "5IIP34JBy1d8kBYlAGnRaW", "2HXfSr5CfTPZbcqS2gyGYm", "53GouHDfCfsBJIn1OjYmPO", "4v3jejyuqIBVx8nKiCSDym"],
+  "fav_albums": [],
+  "feat_albums": [],
+  "fav_artists": [],
+  "feat_artists": [],
   "location": [0,0],
   "saved_chats": [],
   "id": 0
@@ -170,7 +162,6 @@ export default {
     MusicCard,
     Loading
   },
-
   data() {
     return {
       users: [],
@@ -197,9 +188,9 @@ export default {
     getObjFromUser() {
 			//usernames are unique
 			for (var obj of this.users) {
-				if (obj.username === this.username) {
-					console.log(obj.username)
-					console.log(this.username)
+				if (obj.username == this.username) {
+					// console.log(obj.username)
+					// console.log(this.username)
 					return obj;
 				}
 			}
@@ -240,6 +231,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      theme: "getTheme",
       username: "getUserUuid",
     }),
   },
