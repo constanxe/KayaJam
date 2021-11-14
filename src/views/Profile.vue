@@ -29,6 +29,7 @@
                 <h3 class="title">{{ username }}</h3>
                 <h6>Singapore</h6>
               </div>
+              <div id="map"></div>
 
               <div class="description text-center border rounded">
                 <p>
@@ -292,6 +293,7 @@ import Loading from "vue-loading-overlay";
 import { mapGetters } from "vuex";
 import { toastedOptions, defaultUser } from "@/utils";
 import axios from "axios";
+import initMap from "../gmaps";
 
 const usersDB = `${process.env.VUE_APP_JSONSERVER_URL}/users`;
 
@@ -411,26 +413,24 @@ export default {
         : this.$store.getters.getUserUuid;
     },
   },
+  // example credit (start): https://markus.oberlehner.net/blog/using-the-google-maps-api-with-vue/ and Week 1 Ex 4
+  async mounted() {
+    try {
+      const google = await initMap();
+      var location = {
+        lat: this.getObjFromUser().location[0],
+        lng: this.getObjFromUser().location[1]
+      }
+      var map = new google.maps.Map(
+          document.getElementById('map'), {zoom: 4, center: location});
+      var marker = new google.maps.Marker({position: location, map: map});
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  // example credit (end): https://markus.oberlehner.net/blog/using-the-google-maps-api-with-vue/ and Week 1 Ex 4
 };
 </script>
-<!--Map API example from Week 1 Exercise 4: Start
-
-    <script defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrTi43G7eqOr4x8cDR6EsH1bJIBvWBW28&callback=initMap">
-
-        // Initialize and add the map
-        function initMap() {
-          // The location of the user (default: SMU)
-          var location = {lat: 111, lng: 111};//get these numbers from user database
-          // The map, centered at location
-          var map = new google.maps.Map(
-              document.getElementById('map'), {zoom: 4, center: location});
-          // The marker, positioned at location
-          var marker = new google.maps.Marker({position: location, map: map});
-        }
-    </script>
-
-    Map API example from Week 1 Exercise 4: End-->
 
 <style scoped lang="scss">
 h6 {
@@ -640,5 +640,12 @@ img.rounded {
   height: 35px;
   padding-left: 15px;
   padding-right: 15px;
+}
+
+#map {
+  margin-left:auto;
+  margin-right:auto;
+  width: 50%;
+  height: 200px;
 }
 </style>
