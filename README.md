@@ -1,21 +1,26 @@
 <img src="src/assets/brand.jpg" alt="KayaJam">
 
-## 1. Pre-requisites
+Skip to the section on [starting the app](#3-start-up) if you have already successfully ran the app before.
 
-If you have already configured your setup, you may skip to the [next section](#2-setup).
 
 🚧 Else, if running the app for the first time:
 
-### Keycloak (IAM)
-1. Go to the `server` folder and **unzip** `keycloak-15.0.2.zip`.
-2. Ensure you have the `JAVA_HOME` environment variable set to your Java SDK location. <small>(See FAQ if you did not already configure this)</small>
+## 1. Pre-requisites
 
-### Client
-3. Add `.env.local` to the root directory <small>(unless already provided by us)</small>. It should contain **client keys and secrets** for <i>Spotify</i> and <i>PubNub</i> for the functioning of the data and chat features.
-4. Ensure you have **Node.js** installed for `npm`. <small>(If not, download at https://nodejs.org/en/download/)</small>
-5. Run `npm i` to install the packages. <small>(If running the development version)</small>
+Ensure you have the following.
 
-## 2. Setup
+- `JAVA_HOME` environment variable set to your Java SDK location. <small>(See FAQ if you did not already configure this)</small>
+- `.env.local` in the root directory. <small>(If not, add the **client keys and secrets** for <i>Spotify</i> and <i>PubNub</i> for the functioning of the data and chat features)</small>
+- **Node.js** installed. <small>(If not, download at https://nodejs.org/en/download/. This is for `npm`)</small>
+
+## 2. First-time set up
+
+- Run `npm i -g json-server`.
+- Run `npm i` in the CLI at the root directory.
+- **Unzip** `keycloak-15.0.2.zip` in the `server` folder.
+
+
+## 3. Start up
 
 Go to the `.scripts` folder and run all of the files. <small>(Made for Windows. Edit the contents according to your OS if needed)</small>
 
@@ -45,7 +50,9 @@ If first-time user, register for an account. <small>(If no verification email, c
 	- Find your `Path` environment variable and click **Edit**. Add this to the end of the string or otherwise:
 		- <i>< JDK download path ></i>`\bin`
 
-### Solutions for possible errors for `json-server`
+### Security error for running `json-server`
 
-* `npm install -g json-server`
-* "...cannot be loaded because running scripts is disabled on this system" -> `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`
+"...cannot be loaded because running scripts is disabled on this system"
+```
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
