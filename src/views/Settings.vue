@@ -7,6 +7,12 @@ Set things which the user entered in account creation: username (must be unique)
 
 <template>
 	<div class="user-settings">
+		<!-- documentation: https://github.com/ankurk91/vue-loading-overlay -->
+		<Loading
+			:active="dataLoading" color="green" loader="bars"
+			:background-color="theme == 'light' ? 'white' : 'black'"
+		/>
+
 		<div class="container header">
 			<div class="row" style="background-color: #1db954">Settings</div>
 		</div>
@@ -124,19 +130,20 @@ Set things which the user entered in account creation: username (must be unique)
 				</div>
 			</div>
 
-			<!-- <div class="row">
+			<div class="row">
 				<div class="col-3">
 					<label class="label">Featured Albums</label>
 				</div>
 				<div class="col-9" v-if="getObjFromUser().fav_albums.length > 0">
 					<img
-						v-for="image of getObjFromUser().fav_albums"
-						:key="image"
+						v-for="item of albumData"
+						:key="item.id"
 						class="album_pic"
-						:src="image"
+						:src="item.images[0].url"
+						:style="getObjFromUser().feat_albums.indexOf(item.id) > -1 ? 'border: 5px solid cyan' : ''"
 						@click="
 							updateImageSelect();
-							updateFeatAlbums(image);
+							updateFeatAlbums(item.id);
 						"
 					/>
 				</div>
@@ -150,20 +157,21 @@ Set things which the user entered in account creation: username (must be unique)
 				</div>
 				<div class="col-9" v-if="getObjFromUser().fav_artists.length > 0">
 					<img
-						v-for="image of getObjFromUser().fav_artists"
-						:key="image"
+						v-for="item of artistData"
+						:key="item.id"
 						class="artist_pic"
-						:src="image"
+						:style="getObjFromUser().feat_artists.indexOf(item.id) > -1 ? 'border: 5px solid cyan' : ''"
+						:src="item.images[0].url"
 						@click="
 							updateImageSelect();
-							updateFeatArtists(image);
+							updateFeatArtists(item.id);
 						"
 					/>
 				</div>
 				<div class="col-9" v-else>
 					<label>No favourited artists.</label>
 				</div>
-			</div> -->
+			</div>
 
 			<button
 				class="btn"
@@ -179,10 +187,12 @@ Set things which the user entered in account creation: username (must be unique)
 </template>
 
 <script>
-import axios from 'axios'
-import { mapGetters } from 'vuex';
-import { defaultUser, capitalizeFirstLetter } from "@/utils";
+import SpotifyApi from "@/services/spotify-auth";
 import Button from '@/components/Btn.vue'
+import Loading from 'vue-loading-overlay';
+import { toastedOptions, defaultUser, capitalizeFirstLetter } from "@/utils";
+import { mapGetters } from 'vuex';
+import axios from 'axios'
 
 const usersDB = `${process.env.VUE_APP_JSONSERVER_URL}/users`
 
@@ -190,6 +200,7 @@ export default {
 	name: "Settings",
 	components: {
     Button,
+		Loading
   },
 	data() {
 		return {
@@ -199,13 +210,22 @@ export default {
         "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
         "https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
         "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg"
-      ]
+      ],
+			theme: [],
+    // data
+      dataLoading: true,
+      albumData: [],
+      artistData: [],
 		};
 	},
 	async created(){
 		try {
 			const res = await axios.get(usersDB)
 			this.users = res.data
+			// setTimeout(() => {
+			this.getAlbums()
+			this.getArtists()
+			// }, 800)
 		} catch(e){
 			console.error(e)
 		}
@@ -318,31 +338,33 @@ export default {
 			this.patch(this.getObjFromUser().id, {"telegram_un": telegram_un})
 		},
 
-		updateFeatAlbums(image) {
+		updateFeatAlbums(id) {
 			for (var obj of this.users) {
 				if (obj.username === this.username) {
-					var item_index = obj.feat_albums.indexOf(image);
+					var item_index = obj.feat_albums.indexOf(id);
 					if (item_index > -1) {
 						obj.feat_albums.splice(item_index, 1);
 					} else {
-						obj.feat_albums.push(image);
+						obj.feat_albums.push(id);
 					}
 				console.log(obj.feat_albums)
+				this.patch(this.getObjFromUser().id, {"feat_albums": obj.feat_albums})
 				}
 			}
 		},
-		updateFeatArtists(image) {
+		updateFeatArtists(id) {
 			for (var obj of this.users) {
 				if (obj.username === this.username) {
-					var item_index = obj.feat_artists.indexOf(image);
+					var item_index = obj.feat_artists.indexOf(id);
 					if (item_index > -1) {
 						obj.feat_artists.splice(item_index, 1);
 					} else {
-						obj.feat_artists.push(image);
+						obj.feat_artists.push(id);
 					}
 					console.log(obj.feat_artists)
 				}
 			}
+			this.patch(this.getObjFromUser().id, {"feat_artists": obj.feat_artists})
 		},
 
 		shareLocation() {
@@ -372,6 +394,49 @@ export default {
 				}
 			);
 		},
+
+		getAlbums() {
+      const favAlbums = this.getObjFromUser().fav_albums
+      if (favAlbums.length != 0) {
+        /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getalbums */
+        SpotifyApi
+          .getAlbums(favAlbums)
+          .then((data) => {
+            this.dataLoading = false
+            // console.log(data)
+            this.albumData = data.albums
+          })
+          .catch((error) => {
+            this.dataLoading = false
+            // console.log(error.responseText)
+            this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
+            this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
+          })
+      } else {
+        this.dataLoading = false
+      }
+    },
+    getArtists() {
+      const favArtists = this.getObjFromUser().fav_artists
+      if (favArtists.length != 0) {
+        /* documentation: https://jmperezperez.com/spotify-web-api-js/#src-spotify-web-api.js-constr.prototype.getartists */
+        SpotifyApi
+          .getArtists(favArtists)
+          .then((data) => {
+            this.dataLoading = false
+            // console.log(data)
+            this.artistData = data.artists
+          })
+          .catch((error) => {
+            this.dataLoading = false
+            // console.log(error.responseText)
+            this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
+            this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
+          })
+      } else {
+        this.dataLoading = false
+      }
+    },
 	}
 };
 </script>
@@ -483,7 +548,6 @@ label {
 .album_pic,
 .artist_pic {
 	width: 140px;
-	height: 90px;
 	margin-right: 10px;
 	margin-bottom: 10px;
 	border: 1px grey solid;
