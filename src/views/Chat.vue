@@ -9,7 +9,7 @@
             {{ capitalizeFirstLetter(generalChannel) }}
             <Star :star="1" isdisabled v-tooltip="'You can\'t unstar this chat'"
                   :maxstars="1" starsize="xs"/>
-              <router-link :to="'/music/'+generalChannel" v-if="generalChannel != 'global'" v-tooltip="'Discover more '+generalChannel">
+              <router-link :to="'/music/'+generalChannel.slice(0,-1)" v-if="generalChannel != 'global'" v-tooltip="'Discover more '+generalChannel">
                 <i class="bi bi-link-45deg go-icon"/>
               </router-link>
           </Button>
