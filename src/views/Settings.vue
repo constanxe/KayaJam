@@ -36,7 +36,7 @@ export default {
 				</div>
 
 				<div class="col-9" :key="update_pfps">
-					<template v-for="pfp_image of getObjFromUser().available_pics">
+					<template v-for="pfp_image of available_pics">
 						<img
 							v-if="pfp_image === getObjFromUser().profile_pic"
 							style="border: 5px solid cyan"
@@ -158,7 +158,12 @@ export default {
 	data() {
 		return {
 			users: [],
-			update_pfps: 0
+			update_pfps: 0,
+			available_pics: [
+        "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
+        "https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
+        "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg"
+      ]
 		};
 	},
 	async created(){

@@ -2,7 +2,7 @@
   "users": [
     {
       "username": "jmneo",
-      "profile_pic": "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
+      "profile_pic": "http://pilerats.com/assets/Uploads/benjamin-kheng-find-me-introducing.jpg",
       "description": "Hi, I'm JM. My favourite artist is Elvis Presley and my favourite song is Blue Suede Shoes.",
       "facebook_un": "test",
       "twitter_un": "",
@@ -24,16 +24,11 @@
         "artist:Charlie Lim",
         "album:asjda"
       ],
-      "available_pics": [
-        "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
-        "https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
-        "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg"
-      ],
       "id": 0
     },
     {
       "username": "constancetan",
-      "profile_pic": "https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png",
+      "profile_pic": "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg",
       "description": "No description yet",
       "facebook_un": "test",
       "twitter_un": "",
@@ -56,11 +51,6 @@
       "saved_chats": [
         "artist:Charlie Lim",
         "album:asjda"
-      ],
-      "available_pics": [
-        "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
-        "https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
-        "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg"
       ],
       "id": 1
     }

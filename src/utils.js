@@ -28,7 +28,7 @@ export const toastedOptions = {
 
 export const defaultUser = {
   "username": "",
-  "profile_pic": "https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png",
+  "profile_pic": "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
   "description": "No description yet",
   "facebook_un": "",
   "twitter_un": "",

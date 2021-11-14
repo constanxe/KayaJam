@@ -11,7 +11,8 @@ import axios from 'axios'
 import { mapGetters } from 'vuex';
 import TheNav from '@/layouts/TheNav.vue'
 // import Login from '@/views/Login.vue'
-import { toastedOptions } from '@/utils'
+import { toastedOptions, defaultUser } from '@/utils'
+
 const usersDB = `${process.env.VUE_APP_JSONSERVER_URL}/users`
 
 export default {
@@ -49,20 +50,8 @@ export default {
       }
       if (!isInUsers){
         const res = await axios.post(usersDB, {
+          ...defaultUser,
           "username": this.username,
-          "profile_pic": "https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png",
-          "description": "No description yet",
-          "facebook_un": "",
-          "twitter_un": "",
-          "telegram_un": "",
-          "theme": "dark",
-          "fav_albums": [],
-          "feat_albums": [],
-          "fav_artists": [],
-          "feat_artists": [],
-          "location": [0,0],
-          "saved_chats": [],
-          "id": 0
         })
         this.users = [...this.users, res.data]
       }

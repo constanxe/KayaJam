@@ -19,10 +19,10 @@
             <SideNavItem route="/chat">Chat</SideNavItem>
           </SideNavMenu>
           <!-- showcase pages -->
-          <div class="sb-sidenav-menu-heading">Demo</div>
+          <!-- <div class="sb-sidenav-menu-heading">Demo</div>
           <SideNavItem route="/demo/components" icon-class="bi-house-door-fill">Components</SideNavItem>
           <SideNavItem route="/demo/spotify/api" icon-class="bi-spotify">Spotify API</SideNavItem>
-          <SideNavItem route="/demo/spotify/widgets" icon-class="bi-spotify">Spotify Widgets</SideNavItem>
+          <SideNavItem route="/demo/spotify/widgets" icon-class="bi-spotify">Spotify Widgets</SideNavItem> -->
         </div>
       </div>
     </custom-scrollbar>

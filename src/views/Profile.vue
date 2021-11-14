@@ -22,7 +22,6 @@
               </div>
 
               <div class="social-buttons">
-                <!-- <template v-if="username == getObjFromUser().username"> -->
                   <a
                     role="button"
                     v-tooltip="getObjFromUser().facebook_un == '' ? 'Not configured yet' : ''"
@@ -396,7 +395,7 @@ h6 {
 }
 
 .title {
-  margin-top: 10px;
+  margin-top: 50px;
   margin-bottom: 20px;
   min-height: 32px;
   font-weight: 700;
