@@ -81,9 +81,9 @@
 			</div>
 			<div class="socialshare justify-content-center">
 			<!-- Share post to social media platforms -->
-				<ButtonSocialShare network="facebook" :url="`https://open.spotify.com/album/${id}`"/>
-				<ButtonSocialShare network="twitter" :url="`https://open.spotify.com/album/${id}`"/>
-				<ButtonSocialShare network="telegram" :url="`https://open.spotify.com/album/${id}`"/>
+				<ButtonSocialShare network="facebook" :url="`${baseUrl}album/${id}`"/>
+				<ButtonSocialShare network="twitter" :url="`${baseUrl}album/${id}`"/>
+				<ButtonSocialShare network="telegram" :url="`${baseUrl}album/${id}`"/>
 			</div>
 		</div>
 	</div>
@@ -117,7 +117,8 @@ export default {
 			albumDataItems: [],
 			albumData: {images:[{url:''}]},	/* prevent error when haven't set */
 			artistName: "",
-			artistId: ""
+			artistId: "",
+			baseUrl: "localhost:8081/"	/* temporary fallback */
 		};
 	},
 	methods: {
@@ -192,6 +193,9 @@ export default {
 		id() {
       return this.$route.params.id;
     }
+	},
+	mounted() {
+		this.baseUrl = process.env.BASE_URL
 	},
 };
 </script>
