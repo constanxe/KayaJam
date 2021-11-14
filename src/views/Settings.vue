@@ -19,8 +19,8 @@ Set things which the user entered in account creation: username (must be unique)
 		<!-- Search Bar-->
 		<div id="user_setting_app" class="container form p-4">
 			<div class="row mb-4">
-				<div class="display-6 col-3">Theme</div>
-				<div class="col-9">
+				<div class="display-6 col-4">Theme</div>
+				<div class="col-8">
 						<Button btn-class="btn__toggle " ref="themeToggle" @click.native="toggleTheme()" style="width:40px;"/>
 				</div>
 			</div>
@@ -31,11 +31,11 @@ Set things which the user entered in account creation: username (must be unique)
 				v-bind:src="getObjFromUser().profile_pic"
 			/> -->
 			<div class="row">
-				<div class="col-3">
+				<div class="col-4">
 					<label class="label" for="profile_pic">Profile Picture</label>
 				</div>
 
-				<div class="col-9" :key="update_pfps">
+				<div class="col-8" :key="update_pfps">
 					<template v-for="pfp_image of available_pics">
 						<img
 							v-if="pfp_image === getObjFromUser().profile_pic"
@@ -55,10 +55,10 @@ Set things which the user entered in account creation: username (must be unique)
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-3">
+				<div class="col-4">
 					<label class="label" for="description">Description</label>
 				</div>
-				<div class="col-9">
+				<div class="col-8">
 					<form>
 						<input
 							type="text"
@@ -74,10 +74,10 @@ Set things which the user entered in account creation: username (must be unique)
 			</div>
 
 			<div class="row">
-				<div class="col-3">
-					<label class="label" for="facebook_un">Facebook Un</label>
+				<div class="col-4">
+					<label class="label" for="facebook_un">Facebook</label>
 				</div>
-				<div class="col-9">
+				<div class="col-8">
 					<form>
 						<input
 							type="text"
@@ -93,10 +93,10 @@ Set things which the user entered in account creation: username (must be unique)
 			</div>
 
 			<div class="row">
-				<div class="col-3">
-					<label class="label" for="twitter_un">Twitter Un</label>
+				<div class="col-4">
+					<label class="label" for="twitter_un">Twitter</label>
 				</div>
-				<div class="col-9">
+				<div class="col-8">
 					<form>
 						<input
 							type="text"
@@ -112,10 +112,10 @@ Set things which the user entered in account creation: username (must be unique)
 			</div>
 
 			<div class="row">
-				<div class="col-3">
-					<label class="label" for="telegram_un">Telegram Un</label>
+				<div class="col-4">
+					<label class="label" for="telegram_un">Telegram</label>
 				</div>
-				<div class="col-9">
+				<div class="col-8">
 					<form>
 						<input
 							type="text"
@@ -131,10 +131,10 @@ Set things which the user entered in account creation: username (must be unique)
 			</div>
 
 			<div class="row">
-				<div class="col-3">
+				<div class="col-4">
 					<label class="label">Featured Albums</label>
 				</div>
-				<div class="col-9" v-if="getObjFromUser().fav_albums.length > 0">
+				<div class="col-8" v-if="getObjFromUser().fav_albums.length > 0">
 					<img
 						v-for="item of albumData"
 						:key="item.id"
@@ -147,15 +147,15 @@ Set things which the user entered in account creation: username (must be unique)
 						"
 					/>
 				</div>
-				<div class="col-9" v-else>
+				<div class="col-8" v-else>
 					<label>No favourited albums.</label>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-3">
+				<div class="col-4">
 					<label class="label">Featured Artists</label>
 				</div>
-				<div class="col-9" v-if="getObjFromUser().fav_artists.length > 0">
+				<div class="col-8" v-if="getObjFromUser().fav_artists.length > 0">
 					<img
 						v-for="item of artistData"
 						:key="item.id"
@@ -168,7 +168,7 @@ Set things which the user entered in account creation: username (must be unique)
 						"
 					/>
 				</div>
-				<div class="col-9" v-else>
+				<div class="col-8" v-else>
 					<label>No favourited artists.</label>
 				</div>
 			</div>
