@@ -29,7 +29,7 @@ export const toastedOptions = {
 export const defaultUser = {
   "username": "",
   "profile_pic": "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
-  "description": "No description yet",
+  "description": "",
   "facebook_un": "",
   "twitter_un": "",
   "telegram_un": "",

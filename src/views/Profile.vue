@@ -17,7 +17,10 @@
 
               <div class="description text-center border rounded">
                 <p>
-                  {{ getObjFromUser().description }}
+                  {{ getObjFromUser().description ? getObjFromUser().description : "No description yet." }}
+                </p>
+                <p v-if="username == myUsername & !getObjFromUser().description">
+                  <a href="./#/settings">Click here to set one</a>
                 </p>
               </div>
 
