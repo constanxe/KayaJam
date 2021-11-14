@@ -148,22 +148,19 @@ import axios from 'axios';
 const usersDB = `${process.env.VUE_APP_JSONSERVER_URL}/users`
 const defaultUser = {
   "username": "jack",
-  "fav_albums": ["3kWRWSez6mxCgZUsdy06Yk"],
-  "feat_albums": ["3kWRWSez6mxCgZUsdy06Yk"],
-  "fav_artists": ["3FodFdWfVWIiER6Cv6YVVQ", "5IIP34JBy1d8kBYlAGnRaW", "2HXfSr5CfTPZbcqS2gyGYm"],
-  "feat_artists": ["3FodFdWfVWIiER6Cv6YVVQ", "5IIP34JBy1d8kBYlAGnRaW", "2HXfSr5CfTPZbcqS2gyGYm", "53GouHDfCfsBJIn1OjYmPO", "4v3jejyuqIBVx8nKiCSDym"],
-  "location": [
-    0,
-    0
-  ],
   "profile_pic": "https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png",
-  "saved_chats": [],
-  "id": 0,
+  "description": "Hi, I'm John. My favourite artist is Elvis Presley and my favourite song is Blue Suede Shoes.",
   "facebook_un": "jack",
   "twitter_un": "jack",
   "telegram_un": "jack",
   "theme": "dark",
-  "description": "Hi, I'm John. My favourite artist is Elvis Presley and my favourite song is Blue Suede Shoes."
+  "fav_albums": ["3kWRWSez6mxCgZUsdy06Yk"],
+  "feat_albums": ["3kWRWSez6mxCgZUsdy06Yk"],
+  "fav_artists": ["3FodFdWfVWIiER6Cv6YVVQ", "5IIP34JBy1d8kBYlAGnRaW", "2HXfSr5CfTPZbcqS2gyGYm"],
+  "feat_artists": ["3FodFdWfVWIiER6Cv6YVVQ", "5IIP34JBy1d8kBYlAGnRaW", "2HXfSr5CfTPZbcqS2gyGYm", "53GouHDfCfsBJIn1OjYmPO", "4v3jejyuqIBVx8nKiCSDym"],
+  "location": [0,0],
+  "saved_chats": [],
+  "id": 0
 }
 
 export default {

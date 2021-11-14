@@ -1,55 +1,13 @@
 {
   "users": [
     {
-      "first_name": "",
-      "last_name": "",
-      "username": "",
-      "fav_albums": [],
-      "feat_albums": [],
-      "fav_artists": [],
-      "feat_artists": [],
-      "location": [
-        0,
-        0
-      ],
-      "available_pics": [
-        "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
-        "https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
-        "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg"
-      ],
-      "profile_pic": "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
-      "saved_chats": [],
-      "id": 0
-    },
-    {
-      "first_name": "Jack",
-      "last_name": "Smith",
-      "username": "jack",
-      "fav_albums": [],
-      "feat_albums": [],
-      "fav_artists": [
-        "https://cdn.filestackcontent.com/eLeq7DuSsKWq57U1mC1t",
-        "http://pilerats.com/assets/Uploads/benjamin-kheng-find-me-introducing.jpg",
-        "https://www.nme.com/wp-content/uploads/2021/07/linying-credit-jovian-lim@2000x1270.jpg"
-      ],
-      "feat_artists": [],
-      "location": [
-        0,
-        0
-      ],
-      "available_pics": [
-        "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
-        "https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
-        "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg"
-      ],
-      "profile_pic": "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
-      "saved_chats": [],
-      "id": 1
-    },
-    {
-      "first_name": "Jing Min",
-      "last_name": "Neo",
       "username": "jmneo",
+      "profile_pic": "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
+      "description": "Hi, I'm JM. My favourite artist is Elvis Presley and my favourite song is Blue Suede Shoes.",
+      "facebook_un": "test",
+      "twitter_un": "",
+      "telegram_un": "",
+      "theme": "dark",
       "fav_albums": [],
       "feat_albums": [],
       "fav_artists": [
@@ -62,37 +20,47 @@
         0,
         0
       ],
-      "available_pics": [
-        "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
-        "https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
-        "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg"
-      ],
-      "profile_pic": "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
       "saved_chats": [
         "artist:Charlie Lim",
         "album:asjda"
       ],
-      "id": 2
+      "available_pics": [
+        "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
+        "https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
+        "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg"
+      ],
+      "id": 0
     },
     {
-      "first_name": "",
-      "last_name": "",
-      "fav_albums": [],
+      "username": "constancetan",
+      "profile_pic": "https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png",
+      "description": "Hi",
+      "facebook_un": "test",
+      "twitter_un": "",
+      "telegram_un": "",
+      "theme": "dark",
+      "fav_albums": ["3kWRWSez6mxCgZUsdy06Yk"],
       "feat_albums": [],
-      "fav_artists": [],
+      "fav_artists": [
+        "3FodFdWfVWIiER6Cv6YVVQ",
+        "5IIP34JBy1d8kBYlAGnRaW",
+        "2HXfSr5CfTPZbcqS2gyGYm"
+      ],
       "feat_artists": [],
       "location": [
         0,
         0
+      ],
+      "saved_chats": [
+        "artist:Charlie Lim",
+        "album:asjda"
       ],
       "available_pics": [
         "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
         "https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
         "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg"
       ],
-      "profile_pic": "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
-      "saved_chats": [],
-      "id": 3
+      "id": 1
     }
   ]
 }

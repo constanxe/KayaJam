@@ -44,32 +44,29 @@ export default {
       console.log(this.users)
       var isInUsers = false
 			for (var obj of this.users){
-        if (obj.username === this.username){
+        if (obj.username == this.username){
           isInUsers = true
         }
       }
       if (!isInUsers){
         const res = await axios.post(usersDB, {
-            "first_name": "",
-            "last_name": "",
-            "username": this.username,
-            "fav_albums": [],
-            "feat_albums": [],
-            "fav_artists": [],
-            "feat_artists": [],
-            "location": [0, 0],
-            "available_pics": [
-                "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
-                "https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
-                "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg"
-            ],
-            "profile_pic":
-                "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
-            "saved_chats": []
+          "username": this.username,
+          "profile_pic": "https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png",
+          "description": "Hi, I'm John. My favourite artist is Elvis Presley and my favourite song is Blue Suede Shoes.",
+          "facebook_un": "jack",
+          "twitter_un": "jack",
+          "telegram_un": "jack",
+          "theme": "dark",
+          "fav_albums": [],
+          "feat_albums": [],
+          "fav_artists": ["3FodFdWfVWIiER6Cv6YVVQ", "5IIP34JBy1d8kBYlAGnRaW", "2HXfSr5CfTPZbcqS2gyGYm"],
+          "feat_artists": [],
+          "location": [0,0],
+          "saved_chats": [],
+          "id": 0
         })
         this.users = [...this.users, res.data]
       }
-      
     }
   },
   mounted() {

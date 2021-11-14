@@ -150,52 +150,7 @@ export default {
 import axios from 'axios'
 import { mapGetters } from 'vuex';
 const usersDB = `${process.env.VUE_APP_JSONSERVER_URL}/users`
-/*
-var users = [
-	{
-		first_name: "",
-		last_name: "",
-		username: "",
-		fav_albums: [],
-		feat_albums: [],
-		fav_artists: [],
-		feat_artists: [],
-		location: [0, 0], //latitude, longtitude
-		available_pics: [
-			"https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
-			"https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
-			"https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg",
-		], //always the same for every user
-		profile_pic:
-			"https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
-	},
-	{
-		first_name: "Jack",
-		last_name: "Smith",
-		username: "Jack",
-		fav_albums: [
-			"https://f4.bcbits.com/img/a2407592093_10.jpg",
-			"https://f4.bcbits.com/img/a3424343514_10.jpg",
-			"https://images.squarespace-cdn.com/content/v1/561f70f2e4b05c4e86dede19/1591256499796-J3CM6FL7W3W71PT8FJM2/1frontcover.jpg",
-		],
-		feat_albums: [],
-		fav_artists: [
-			"https://cdn.filestackcontent.com/eLeq7DuSsKWq57U1mC1t",
-			"http://pilerats.com/assets/Uploads/benjamin-kheng-find-me-introducing.jpg",
-			"https://www.nme.com/wp-content/uploads/2021/07/linying-credit-jovian-lim@2000x1270.jpg",
-		],
-		feat_artists: [],
-		location: [0, 0], //latitude, longtitude
-		available_pics: [
-			"https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
-			"https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
-			"https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg",
-		], //always the same for every user
-		profile_pic:
-			"https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
-	},
-];
-*/
+
 export default {
 	name: "Settings",
 	data() {
