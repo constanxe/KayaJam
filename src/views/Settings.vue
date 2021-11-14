@@ -12,10 +12,10 @@ Set things which the user entered in account creation: username (must be unique)
 		</div>
 		<!-- Search Bar-->
 		<div id="user_setting_app" class="container form p-4">
-			<img
+			<!-- <img
 				class="profile_pic"
 				v-bind:src="getObjFromUser().profile_pic"
-			/>
+			/> -->
 			<div class="row">
 				<div class="col-3">
 					<label class="label" for="profile_pic">Profile Picture</label>
@@ -204,6 +204,14 @@ export default {
 		}),
 	},
 	methods: {
+		async patch(id, data){
+			try {
+				const res = await axios.patch(`${usersDB}/${id}`, data)
+				this.users[id] = res.data
+			} catch(e){
+				console.error(e)
+			}
+		},
 		getObjFromUser() {
 			//usernames are unique
 			for (var obj of this.users) {
@@ -213,6 +221,7 @@ export default {
 			}
 			return defaultUser;
 		},
+
 		changeProfilePic(image) {
 			var profile_pic = image;
 			for (var obj of this.users) {
@@ -222,6 +231,7 @@ export default {
 					this.update_pfps += 1;
 				}
 			}
+			this.patch(this.getObjFromUser().id, {"profile_pic": profile_pic})
 		},
 		changeDescription() {
 			event.preventDefault();
@@ -232,6 +242,7 @@ export default {
 					console.log(obj.description);
 				}
 			}
+			this.patch(this.getObjFromUser().id, {"description": description})
 		},
 
 		changeFacebookUn() {
@@ -243,6 +254,7 @@ export default {
 					console.log(obj.facebook_un);
 				}
 			}
+			this.patch(this.getObjFromUser().id, {"facebook_un": facebook_un})
 		},
 		changeTwitterUn() {
 			event.preventDefault();
@@ -253,6 +265,7 @@ export default {
 					console.log(obj.twitter_un);
 				}
 			}
+			this.patch(this.getObjFromUser().id, {"twitter_un": twitter_un})
 		},
 		changeTelegramUn() {
 			event.preventDefault();
@@ -263,6 +276,7 @@ export default {
 					console.log(obj.telegram_un);
 				}
 			}
+			this.patch(this.getObjFromUser().id, {"telegram_un": telegram_un})
 		},
 
 		updateImageSelect() {
