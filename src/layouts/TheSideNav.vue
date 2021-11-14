@@ -12,8 +12,8 @@
           <div class="sb-sidenav-menu-heading">Discover</div>
           <SideNavMenu heading="Music" icon-class="bi-music-note-list">
             <SideNavItem route="/music" exact>All</SideNavItem>
-            <SideNavItem route="/music/album" partial-match="album/">Albums</SideNavItem>
             <SideNavItem route="/music/artist" partial-match="artist/">Artists</SideNavItem>
+            <SideNavItem route="/music/album" partial-match="album/">Albums</SideNavItem>
           </SideNavMenu>
           <SideNavMenu heading="Users" icon-class="bi-people-fill">
             <SideNavItem route="/chat">Chat</SideNavItem>

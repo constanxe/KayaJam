@@ -14,8 +14,8 @@
       <!-- Filter Buttons-->
       <div class="container filter-buttons" ref="filterButtons">
         <router-link to="/music"><Button btn-class="btn__toggle btn--radio" @click.native="isSearch = false" v-tooltip="isSearch & currentSelection!='' ? 'Clicking this will reset your search' : ''">All</Button></router-link>
-        <router-link to="/music/album"><Button btn-class="btn__toggle btn--radio" @click.native="isSearch = false" v-tooltip="isSearch & currentSelection!='album' ? 'Clicking this will reset your search' : ''">Albums</Button></router-link>
         <router-link to="/music/artist"><Button btn-class="btn__toggle btn--radio" @click.native="isSearch = false" v-tooltip="isSearch & currentSelection!='artist' ? 'Clicking this will reset your search' : ''">Artists</Button></router-link>
+        <router-link to="/music/album"><Button btn-class="btn__toggle btn--radio" @click.native="isSearch = false" v-tooltip="isSearch & currentSelection!='album' ? 'Clicking this will reset your search' : ''">Albums</Button></router-link>
       </div>
     </div>
 
@@ -38,14 +38,14 @@
     <!-- Albums/Artists Cards-->
     <div class="container ps-4 pe-4">
       <div class="row" ref="musicCards">
+        <template v-if="currentSelection != 'album'">
+          <MusicCard v-for="item of artistData" :key="item.id" :item="item"/>
+        </template>
         <template v-if="currentSelection != 'artist'">
           <MusicCard
             v-for="item of albumData" :key="item.id" :item="item"
             :artist-tag="item.artists[0]"
           />
-        </template>
-        <template v-if="currentSelection != 'album'">
-          <MusicCard v-for="item of artistData" :key="item.id" :item="item"/>
         </template>
       </div>
     </div>

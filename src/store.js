@@ -9,7 +9,7 @@ Vue.use(Vuex);
 
 const state = {
   theme: styles.defaultTheme,
-  playerAlbum: "1DFixLWuPkv3KT3TnV35m3", /* temporary fallback for player */
+  playerAlbum: "6T0uX51GLiQW6bFBXSz05I", /* temporary fallback for player */
   user: {},
   /* chat */
   history: [],

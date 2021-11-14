@@ -73,6 +73,26 @@
         "album:asjda"
       ],
       "id": 2
+    },
+    {
+      "first_name": "",
+      "last_name": "",
+      "fav_albums": [],
+      "feat_albums": [],
+      "fav_artists": [],
+      "feat_artists": [],
+      "location": [
+        0,
+        0
+      ],
+      "available_pics": [
+        "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
+        "https://freefoodphotos.com/imagelibrary/fruit/slides/ripe_orange.jpg",
+        "https://freefoodphotos.com/imagelibrary/fruit/slides/green_grapes.jpg"
+      ],
+      "profile_pic": "https://freefoodphotos.com/imagelibrary/fruit/slides/red_apple.jpg",
+      "saved_chats": [],
+      "id": 3
     }
   ]
 }
