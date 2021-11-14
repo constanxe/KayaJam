@@ -192,7 +192,7 @@ export default {
       var btnContainer = this.$refs.filterButtons;
       var btns = btnContainer.getElementsByClassName("btn");
       this.ResetActiveClass(btnContainer);
-      var possibleSelections = ["", "album", "artist"];
+      var possibleSelections = ["", "artist", "album"];
       var newBtn = btns[possibleSelections.indexOf(this.currentSelection)];
       newBtn.classList.add("active");
     },
