@@ -22,39 +22,39 @@
               </div>
 
               <div class="social-buttons">
-                <a
-                  :href="'https://facebook.com/' + getObjFromUser().facebook_un"
-                  target="_blank"
-                  role="button"
-                  v-tooltip="getObjFromUser().facebook_un == '' ? 'Not configured yet' : ''"
-                >
-                  <ButtonSocial
-                    network="facebook"
-                    class="justify-content-center"
-                  ></ButtonSocial
-                ></a>
-                <a
-                  :href="'https://twitter.com/' + getObjFromUser().twitter_un"
-                  target="_blank"
-                  role="button"
-                  v-tooltip="getObjFromUser().twitter_un == '' ? 'Not configured yet' : ''"
-                >
-                  <ButtonSocial
-                    network="twitter"
-                    class="justify-content-center"
-                  ></ButtonSocial
-                ></a>
-                <a
-                  :href="'https://t.me/' + getObjFromUser().telegram_un"
-                  target="_blank"
-                  role="button"
-                  v-tooltip="getObjFromUser().telegram_un == '' ? 'Not configured yet' : ''"
-                >
-                  <ButtonSocial
-                    network="telegram"
-                    class="justify-content-center"
-                  ></ButtonSocial
-                ></a>
+                <!-- <template v-if="username == getObjFromUser().username"> -->
+                  <a
+                    role="button"
+                    v-tooltip="getObjFromUser().facebook_un == '' ? 'Not configured yet' : ''"
+                    :data-bs-target="getObjFromUser().facebook_un == '' ? (username == getObjFromUser().username ? '#settingsModal' : '#otherUserModal') : '#facebookModal'" data-bs-toggle="modal"
+                  >
+                    <ButtonSocial
+                      network="facebook"
+                      class="justify-content-center"
+                    ></ButtonSocial
+                  ></a>
+                  <a
+                    role="button"
+                    v-tooltip="getObjFromUser().twitter_un == '' ? 'Not configured yet' : ''"
+                    :data-bs-target="getObjFromUser().twitter_un == '' ? (username == getObjFromUser().username ? '#settingsModal' : '#otherUserModal') : '#twitterModal'" data-bs-toggle="modal"
+                  >
+                    <ButtonSocial
+                      network="twitter"
+                      class="justify-content-center"
+                    ></ButtonSocial
+                  ></a>
+                  <a
+                    role="button"
+                    v-tooltip="getObjFromUser().telegram_un == '' ? 'Not configured yet' : ''"
+                    :data-bs-target="getObjFromUser().telegram_un == '' ? (username == getObjFromUser().username ? '#settingsModal' : '#otherUserModal') : '#telegramModal'" data-bs-toggle="modal"
+                  >
+                    <ButtonSocial
+                      network="telegram"
+                      class="justify-content-center"
+                    ></ButtonSocial
+                  ></a>
+                <!-- </template> -->
+                <!-- <template v-else></template> -->
               </div>
             </div>
           </div>
@@ -136,11 +136,60 @@
         </div>
       </div>
     </div>
+    <!-- Social media buttons modal  -->
+    <Modal id="otherUserModal">
+      <template #title>Hold it!</template>
+      <template #body>This user has not configured this.</template>
+      <template #footer>
+        <Button btn-class="btn-secondary" data-bs-dismiss="modal">Close</Button>
+      </template>
+    </Modal>
+    <Modal id="settingsModal">
+      <template #title>Hold it!</template>
+      <template #body>You have not configured this. Would you like to do so?</template>
+      <template #footer>
+        <Button btn-class="btn-secondary" data-bs-dismiss="modal">No</Button>
+        <a href="./#/settings"><Button data-bs-dismiss="modal">Yes</Button></a>
+      </template>
+    </Modal>
+
+    <Modal id="facebookModal">
+      <template #title>Hold it!</template>
+      <template #body>You will leave this site. Do you wish to proceed? </template>
+      <template #footer>
+        <Button btn-class="btn-secondary" data-bs-dismiss="modal">No</Button>
+        <a :href="'https://facebook.com/' + getObjFromUser().facebook_un" target="_blank"
+          ><Button data-bs-dismiss="modal">Yes</Button>
+        </a>
+      </template>
+    </Modal>
+    <Modal id="twitterModal">
+      <template #title>Hold it!</template>
+      <template #body>You will leave this site. Do you wish to proceed? </template>
+      <template #footer>
+        <Button btn-class="btn-secondary" data-bs-dismiss="modal">No</Button>
+        <a :href="'https://twitter.com/' + getObjFromUser().twitter_un" target="_blank"
+          ><Button data-bs-dismiss="modal">Yes</Button>
+        </a>
+      </template>
+    </Modal>
+    <Modal id="telegramModal">
+      <template #title>Hold it!</template>
+      <template #body>You will leave this site. Do you wish to proceed? </template>
+      <template #footer>
+        <Button btn-class="btn-secondary" data-bs-dismiss="modal">No</Button>
+        <a :href="'https://t.me/' + getObjFromUser().telegram_un" target="_blank"
+          ><Button data-bs-dismiss="modal">Yes</Button>
+        </a>
+      </template>
+    </Modal>
   </div>
 </template>
 
 <script>
 import SpotifyApi from "@/services/spotify-auth";
+import Modal from '@/components/Modal.vue'
+import Button from "@/components/Btn.vue";
 import ButtonSocial from "@/components/BtnSocial.vue";
 import MusicCard from "@/components/MusicCard";
 import Loading from 'vue-loading-overlay';
@@ -169,6 +218,8 @@ const defaultUser = {
 export default {
   name: "Profile",
   components: {
+    Modal,
+    Button,
     ButtonSocial,
     MusicCard,
     Loading

@@ -386,8 +386,7 @@ label {
 .profile_pic,
 .album_pic,
 .artist_pic {
-	width: 150px;
-	height: 100px;
+	max-height: 150px;
 	margin-right: 10px;
 	margin-bottom: 10px;
 }
