@@ -13,7 +13,7 @@ const state = {
   user: {},
   /* chat */
   history: [],
-  savedChatChannels: [],
+  // savedChatChannels: [],
 };
 
 const mutations = {
@@ -33,14 +33,14 @@ const mutations = {
       state.history.push(element.entry);
     });
   },
-  addSavedChatChannel(state, channel) {
-    const pos = state.savedChatChannels.indexOf(channel);
-    if (pos == -1) state.savedChatChannels.push(channel);
-  },
-  removeSavedChatChannel(state, channel) {
-    const pos = state.savedChatChannels.indexOf(channel);
-    if (pos > -1) state.savedChatChannels.splice(pos,1);
-  },
+  // addSavedChatChannel(state, channel) {
+  //   const pos = state.savedChatChannels.indexOf(channel);
+  //   if (pos == -1) state.savedChatChannels.push(channel);
+  // },
+  // removeSavedChatChannel(state, channel) {
+  //   const pos = state.savedChatChannels.indexOf(channel);
+  //   if (pos > -1) state.savedChatChannels.splice(pos,1);
+  // },
 }
 
 const getters = {
@@ -51,7 +51,7 @@ const getters = {
   getUserUuid: (state) => state.user.name,
   /* chat */
   getHistoryMsgs: (state) => state.history,
-  getSavedChatChannels: (state) => state.savedChatChannels,
+  // getSavedChatChannels: (state) => state.savedChatChannels,
 };
 
 export default new Vuex.Store({

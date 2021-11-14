@@ -9,6 +9,9 @@
             {{ capitalizeFirstLetter(generalChannel) }}
             <Star :star="1" isdisabled v-tooltip="'You can\'t unstar this chat'"
                   :maxstars="1" starsize="xs"/>
+              <router-link :to="'/'+generalChannel" v-if="generalChannel != 'global'" v-tooltip="'Discover more '+generalChannel">
+                <i class="bi bi-link-45deg go-icon"/>
+              </router-link>
           </Button>
         </router-link>
         <!-- Saved chats -->
@@ -22,13 +25,10 @@
             {{ channelBtnText(savedChannel) }}
             <Star :star="1" @click.native="handleSavedChatChannels(savedChannel)"
                   :maxstars="1" starsize="xs" v-tooltip="'Star this chat for future viewing'"/>
-            <router-link :to="'/music/'+savedChannel" v-if="channelType(savedChannel)" v-tooltip="'Visit this '+channelType(savedChannel)+'\'s page'">
-              <i class="bi bi-link-45deg go-icon"/>
-            </router-link>
           </Button>
         </router-link>
         <!-- Active chat -->
-        <template v-if="!generalChannels.includes(activeChannel) && !savedChannels.includes(activeChannel)">
+        <template v-if="!generalChannels.includes(activeChannel) && !getObjFromUser().saved_chats.includes(activeChannel)">
           <router-link :to="'/chat/'+activeChannel">
             <Button btn-class="btn__toggle btn--radio active" v-tooltip="channelTooltip(activeChannel)">
               <i
@@ -39,9 +39,6 @@
               {{ channelBtnText(activeChannel) }}
               <Star :star="0" @click.native="handleSavedChatChannels(activeChannel)"
                     :maxstars="1" starsize="xs" v-tooltip="'Star this chat for future viewing'"/>
-              <router-link :to="'/music/'+activeChannel" v-if="channelType(activeChannel)" v-tooltip="'Visit this '+channelType(activeChannel)+'\'s page'">
-                <i class="bi bi-link-45deg go-icon"/>
-              </router-link>
             </Button>
           </router-link>
         </template>
@@ -97,7 +94,7 @@ export default {
   computed: {
     ...mapGetters({
       theme: 'getTheme',
-      savedChannels: 'getSavedChatChannels',
+      // savedChannels: 'getSavedChatChannels',
       username: 'getUserUuid'
     }),
   },
