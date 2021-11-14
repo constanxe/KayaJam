@@ -224,6 +224,11 @@ export default {
 			const res = await axios.get(usersDB)
 			this.users = res.data
 
+      if (this.getObjFromUser() == defaultUser) {
+        this.$toasted.error("This user does not exist. Redirected to own profile page", toastedOptions)
+        this.$router.push("/profile")
+      }
+
       this.getAlbums();
       this.getArtists();
 		} catch(e){
@@ -285,8 +290,11 @@ export default {
   computed: {
     ...mapGetters({
       theme: "getTheme",
-      username: "getUserUuid",
+      // username: "getUserUuid",
     }),
+    username() {
+      return this.$route.params.uuid ? this.$route.params.uuid : this.$store.getters.getUserUuid
+    }
   },
 };
 </script>

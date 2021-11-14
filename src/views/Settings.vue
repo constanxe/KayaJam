@@ -389,7 +389,7 @@ label {
 .profile_pic,
 .album_pic,
 .artist_pic {
-	max-height: 150px;
+	max-height: 100px;
 	margin-right: 10px;
 	margin-bottom: 10px;
 }
