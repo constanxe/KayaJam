@@ -43,7 +43,7 @@
           <div class="row text-center mt-3">
 						<a role="button">
 							<Button class="btn-lg bg-success" v-tooltip="'Favourite to save and possibly feature on your profile!'" @click.native="handleFavourited" style="border: 1px grey solid;">
-								{{ getObjFromUser.fav_artists.indexOf(id) > -1 ? 'Favourite' : 'Unfavourite' }} {{ artistData.name }} ⭐
+								{{ getObjFromUser.fav_artists.indexOf(id) > -1 ? 'Unfavourite' : 'Favourite' }} {{ artistData.name }} ⭐
 							</Button>
 						</a>
           </div>
