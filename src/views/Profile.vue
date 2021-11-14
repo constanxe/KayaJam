@@ -31,7 +31,7 @@
               </div>
               <div id="map"></div>
 
-              <div class="description text-center border rounded">
+              <div class="description text-center border rounded mt-3">
                 <p>
                   {{
                     getObjFromUser().description
@@ -292,8 +292,8 @@ import MusicCard from "@/components/MusicCard";
 import Loading from "vue-loading-overlay";
 import { mapGetters } from "vuex";
 import { toastedOptions, defaultUser } from "@/utils";
+import initMap from "@/services/gmaps";
 import axios from "axios";
-import initMap from "../gmaps";
 
 const usersDB = `${process.env.VUE_APP_JSONSERVER_URL}/users`;
 
