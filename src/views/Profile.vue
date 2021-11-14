@@ -1,7 +1,7 @@
 <template>
   <div class="profile-page">
     <div class="page-header"></div>
-    <div class="main main-raised">
+    <div class="main main-raised text-center">
       <div class="profile-content">
         <div class="container">
           <div class="col-xl-l-md-s-xs-6 ml-auto mr-auto">
@@ -135,9 +135,16 @@
               </template>
             </div>
           </div>
+
+          <a href="./#/settings" class="mb-2">
+            <Button class="btn__toggle settings-link-btn">
+              Edit your featured music
+            </Button>
+          </a>
         </div>
       </div>
-    </div>
+      </div>
+
     <!-- Social media buttons modal  -->
     <Modal id="otherUserModal">
       <template #title>Hold it!</template>
@@ -521,5 +528,12 @@ img.rounded {
 
 .tab-content > .active {
   display: block;
+}
+
+.settings-link-btn {
+  background-color: #3c4858;
+  height: 35px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 </style>

@@ -181,6 +181,12 @@ Set things which the user entered in account creation: username (must be unique)
 				Click to Share Location
 			</button>
 
+			<a href="./#/profile" style="margin-top: 10px;">
+				<Button style="background-color: darkgrey;">
+					View your profile
+				</Button>
+			</a>
+
 			<div id="map"></div>
 		</div>
 	</div>
@@ -278,7 +284,6 @@ export default {
       const toggleBtn = this.$refs.themeToggle.$el
       toggleBtn.classList.toggle("active")
       toggleBtn.innerText = capitalizeFirstLetter(this.theme)
-			this.patch(this.getObjFromUser().id, {"theme": this.theme})
     },
 
 		changeProfilePic(image) {
