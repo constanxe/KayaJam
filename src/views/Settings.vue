@@ -149,6 +149,8 @@ export default {
 <script>
 import axios from 'axios'
 import { mapGetters } from 'vuex';
+import { defaultUser } from "@/utils";
+
 const usersDB = `${process.env.VUE_APP_JSONSERVER_URL}/users`
 
 export default {
@@ -180,6 +182,7 @@ export default {
 					return obj;
 				}
 			}
+			return defaultUser;
 		},
 		changeProfilePic(image) {
 			var profile_pic = image;

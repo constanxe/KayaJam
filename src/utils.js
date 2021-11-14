@@ -25,3 +25,20 @@ export const toastedOptions = {
 		}
 	}
 }
+
+export const defaultUser = {
+  "username": "",
+  "profile_pic": "https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png",
+  "description": "No description yet",
+  "facebook_un": "",
+  "twitter_un": "",
+  "telegram_un": "",
+  "theme": "dark",
+  "fav_albums": [],
+  "feat_albums": [],
+  "fav_artists": [],
+  "feat_artists": [],
+  "location": [0,0],
+  "saved_chats": [],
+  "id": 0
+}
