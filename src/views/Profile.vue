@@ -36,7 +36,7 @@
                   <a
                     role="button"
                     v-tooltip="getObjFromUser().twitter_un == '' ? 'Not configured yet' : ''"
-                    :data-bs-target="getObjFromUser().twitter_un == '' ? (username == getObjFromUser().username ? '#settingsModal' : '#otherUserModal') : '#twitterModal'" data-bs-toggle="modal"
+                    :data-bs-target="getObjFromUser().twitter_un == '' ? (username == myUsername ? '#settingsModal' : '#otherUserModal') : '#twitterModal'" data-bs-toggle="modal"
                   >
                     <ButtonSocial
                       network="twitter"
@@ -46,7 +46,7 @@
                   <a
                     role="button"
                     v-tooltip="getObjFromUser().telegram_un == '' ? 'Not configured yet' : ''"
-                    :data-bs-target="getObjFromUser().telegram_un == '' ? (username == getObjFromUser().username ? '#settingsModal' : '#otherUserModal') : '#telegramModal'" data-bs-toggle="modal"
+                    :data-bs-target="getObjFromUser().telegram_un == '' ? (username == myUsername ? '#settingsModal' : '#otherUserModal') : '#telegramModal'" data-bs-toggle="modal"
                   >
                     <ButtonSocial
                       network="telegram"
@@ -112,7 +112,7 @@
           />
           <div class="container">
             <div class="row p-4 text-center">
-              <div v-if="currentSelection == 'all' & artistData.length == 0 & albumData == []">None yet</div>
+              <div v-if="currentSelection == 'all' & artistData.length == 0 & albumData.length == 0">None yet</div>
               <div v-if="currentSelection == 'artist' & artistData.length == 0">None yet</div>
               <div v-if="currentSelection == 'album' & albumData.length == 0">None yet</div>
 
@@ -265,6 +265,8 @@ export default {
             this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
             this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
           })
+      } else {
+        this.dataLoading = false
       }
     },
     getArtists() {
@@ -284,13 +286,15 @@ export default {
             this.$toasted.error("Error occurred while fetching data. Please try again.", toastedOptions)
             this.$toasted.info(`Feel free to contact us for any inquiries at ${process.env.VUE_APP_EMAIL} `, toastedOptions)
           })
+      } else {
+        this.dataLoading = false
       }
     },
   },
   computed: {
     ...mapGetters({
       theme: "getTheme",
-      // username: "getUserUuid",
+      myUsername: "getUserUuid",
     }),
     username() {
       return this.$route.params.uuid ? this.$route.params.uuid : this.$store.getters.getUserUuid
