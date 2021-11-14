@@ -7,7 +7,7 @@
           <div class="col-xl-l-md-s-xs-6 ml-auto mr-auto">
             <div class="profile">
               <div class="avatar" v-tooltip="getObjFromUser().profile_pic == 'https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png' ? 'Not configured yet' : ''">
-								<img :src="getObjFromUser().profile_pic"/>
+								<img :src="getObjFromUser().profile_pic" style="border: 1px grey solid;"/>
               </div>
 
               <div class="name">

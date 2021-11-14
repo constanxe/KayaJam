@@ -32,7 +32,9 @@
 
           <!--Play Random Album-->
           <div class="row text-center mt-3">
-            <Button class="btn-lg bg-white text-dark" id="chatButton" v-tooltip="'Set Spotify player to a random album by this artist'" @click.native="setPlayerAlbum(getRandomAlbum().id)">Preview {{ artistData.name }}'s music</Button>
+            <Button class="btn-lg bg-white text-dark" id="chatButton" v-tooltip="'Set Spotify player to a random album by this artist'" @click.native="setPlayerAlbum(getRandomAlbum().id)"  style="border: 1px grey solid;">
+							Preview {{ artistData.name }}'s music
+						</Button>
           </div>
 
           <!--Discussion Button-->
@@ -68,7 +70,7 @@
         <div class="p-2 text-center col-md-4 col-sm-6 mt-3" v-for="item of albumDataItems" :key="item.id">
           <router-link :to="`/album/${item.id}`" class="tag">
             <img class="img2" :src="item.images[0].url" />
-            <h4>{{ item.name }}</h4>
+            <h4 style="color:white;">{{ item.name }}</h4>
           </router-link>
         </div>
       </div>

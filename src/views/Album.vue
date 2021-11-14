@@ -33,6 +33,7 @@
 							id="chatButton"
 							v-tooltip="'Play on Spotify'"
 							@click.native="setPlayerAlbum(albumData.id)"
+							style="border: 1px grey solid;"
 						>Preview this {{ albumData.album_type }}</Button>
 					</div>
 
@@ -68,7 +69,7 @@
 				<div class="p-2 text-center col-md-4 col-sm-6 mt-3" v-for="item of albumDataItems" :key="item.id">
 					<router-link :to="`/album/${item.id}`" :class="{'tag': id != item.id}">
 						<img class="img2" :src="item.images[0].url" />
-						<h4>{{ item.name }}</h4>
+						<h4 style="color:white;">{{ item.name }}</h4>
 					</router-link>
 				</div>
 			</div>

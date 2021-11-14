@@ -8,10 +8,18 @@ Set things which the user entered in account creation: username (must be unique)
 <template>
 	<div class="user-settings">
 		<div class="container header">
-			<div class="row" style="background-color: #1db954">Profile Settings</div>
+			<div class="row" style="background-color: #1db954">Settings</div>
 		</div>
 		<!-- Search Bar-->
 		<div id="user_setting_app" class="container form p-4">
+			<div class="row mb-4">
+				<div class="display-6 col-3">Theme</div>
+				<div class="col-9">
+						<Button btn-class="btn__toggle " ref="themeToggle" @click.native="toggleTheme()" style="width:40px;"/>
+				</div>
+			</div>
+
+			<div class="display-6">Profile</div>
 			<!-- <img
 				class="profile_pic"
 				v-bind:src="getObjFromUser().profile_pic"
@@ -173,12 +181,16 @@ Set things which the user entered in account creation: username (must be unique)
 <script>
 import axios from 'axios'
 import { mapGetters } from 'vuex';
-import { defaultUser } from "@/utils";
+import { defaultUser, capitalizeFirstLetter } from "@/utils";
+import Button from '@/components/Btn.vue'
 
 const usersDB = `${process.env.VUE_APP_JSONSERVER_URL}/users`
 
 export default {
 	name: "Settings",
+	components: {
+    Button,
+  },
 	data() {
 		return {
 			users: [],
@@ -203,6 +215,13 @@ export default {
 			username: 'getUserUuid'
 		}),
 	},
+  mounted() {
+    this.theme = this.$store.getters.getTheme
+
+    const toggleBtn = this.$refs.themeToggle.$el
+    if (this.theme == "light") toggleBtn.classList.add("active")
+    toggleBtn.innerText = capitalizeFirstLetter(this.theme)
+  },
 	methods: {
 		async patch(id, data){
 			try {
@@ -221,6 +240,26 @@ export default {
 			}
 			return defaultUser;
 		},
+		updateImageSelect() {
+			var eleStyle = event.target.style;
+			if (eleStyle.border == "") {
+				eleStyle.border = "5px solid cyan";
+			} else {
+				eleStyle.border = "";
+			}
+		},
+
+		toggleTheme() {
+      this.theme = this.theme == 'light' ? 'dark' : 'light'
+
+      document.documentElement.setAttribute('data-theme', this.theme)
+      this.$store.commit('setTheme', this.theme)
+
+      const toggleBtn = this.$refs.themeToggle.$el
+      toggleBtn.classList.toggle("active")
+      toggleBtn.innerText = capitalizeFirstLetter(this.theme)
+			this.patch(this.getObjFromUser().id, {"theme": this.theme})
+    },
 
 		changeProfilePic(image) {
 			var profile_pic = image;
@@ -279,14 +318,6 @@ export default {
 			this.patch(this.getObjFromUser().id, {"telegram_un": telegram_un})
 		},
 
-		updateImageSelect() {
-			var eleStyle = event.target.style;
-			if (eleStyle.border == "") {
-				eleStyle.border = "5px solid cyan";
-			} else {
-				eleStyle.border = "";
-			}
-		},
 		updateFeatAlbums(image) {
 			for (var obj of this.users) {
 				if (obj.username === this.username) {
@@ -313,7 +344,9 @@ export default {
 				}
 			}
 		},
+
 		shareLocation() {
+			const instance = this
 			//Get current location, credit: https://shellcreeper.com/get-current-address-with-geolocation-and-google-maps-api/
 			navigator.geolocation.getCurrentPosition(
 				function (position) {
@@ -323,12 +356,13 @@ export default {
 					var lat = position.coords.latitude;
 					var lng = position.coords.longitude;
 					alert(`Location shared.\nLatitude: ${lat}\nLongtitude: ${lng}`);
-					for (var obj of this.users) {
-						if (obj.username === this.username) {
+					for (var obj of instance.users) {
+						if (obj.username === instance.username) {
 							obj.location = [lat, lng];
 							console.log(obj.location);
 						}
 					}
+					instance.patch(instance.getObjFromUser().id, {"location": [lat, lng]})
 				},
 				function () {
 					// fail cb
@@ -355,10 +389,12 @@ form {
 	margin-left: 5px;
 	margin-right: 5px;
 	margin-bottom: 10px;
+	border: 1px grey solid;
 }
 input {
 	all: unset;
 	color: black;
+	border: grey;
 	height: 100%;
 	width: 100%;
 	padding: 6px 10px;
@@ -439,14 +475,7 @@ svg {
 	margin-top: 0px;
 	justify-content: center;
 }
-body {
-	font-family: Helvetica, sans-serif;
-	background-color: black;
-	margin-left: auto;
-	margin-right: auto;
-}
 label {
-	color: white;
 	font-size: 20px;
 	font-weight: bolder;
 }
@@ -457,5 +486,6 @@ label {
 	height: 90px;
 	margin-right: 10px;
 	margin-bottom: 10px;
+	border: 1px grey solid;
 }
 </style>

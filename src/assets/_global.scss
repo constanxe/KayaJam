@@ -104,7 +104,7 @@ a {
 
 /* if <a> color not brand */
 .tag {
-  color: white;
+  color: var(--color-text);
 
   &:hover {
     color: map-get($colors-brands, spotify) !important;
