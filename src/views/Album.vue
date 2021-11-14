@@ -28,13 +28,14 @@
 
 					<!--Play Random Album-->
 					<div class="row text-center mt-3">
-						<Button
-							class="btn-lg bg-white text-dark"
-							id="chatButton"
-							v-tooltip="'Play on Spotify'"
-							@click.native="setPlayerAlbum(albumData.id)"
-							style="border: 1px grey solid;"
-						>Preview this {{ albumData.album_type }}</Button>
+						<a role="button">
+							<Button
+								class="btn-lg bg-white text-dark"
+								v-tooltip="'Play on Spotify'"
+								@click.native="setPlayerAlbum(albumData.id)"
+								style="border: 1px grey solid;"
+							>Preview this {{ albumData.album_type }}</Button>
+						</a>
 					</div>
 
 					<!--Discussion Button-->

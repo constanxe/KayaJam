@@ -32,15 +32,17 @@
 
           <!--Play Random Album-->
           <div class="row text-center mt-3">
-            <Button class="btn-lg bg-white text-dark" id="chatButton" v-tooltip="'Set Spotify player to a random album by this artist'" @click.native="setPlayerAlbum(getRandomAlbum().id)"  style="border: 1px grey solid;">
-							Preview {{ artistData.name }}'s music
-						</Button>
+						<a role="button">
+							<Button class="btn-lg bg-white text-dark" v-tooltip="'Set Spotify player to a random album by this artist'" @click.native="setPlayerAlbum(getRandomAlbum().id)"  style="border: 1px grey solid;">
+								Preview {{ artistData.name }}'s music
+							</Button>
+						</a>
           </div>
 
           <!--Discussion Button-->
           <div class="row text-center mt-4">
             <router-link :to="`/chat/artist:${artistData.name}`">
-              <Button class="btn-lg bg-danger" v-tooltip="'Chat with fans or write a message of support'">
+              <Button class="btn-lg btn-lg bg-danger" v-tooltip="'Chat with fans or write a message of support'">
                 Chat with fans ❤️
               </Button>
             </router-link>
@@ -127,7 +129,7 @@ export default {
      ...mapMutations(['setPlayerAlbum']),
 
     getRandomAlbum() {
-      return this.artistDataItems[Math.floor(Math.random() * this.dataLimit)]
+      return this.albumDataItems[Math.floor(Math.random() * this.albumDataItems.length-1)]
     },
 		storeArrayAsString: function (genres) {
       if (!genres) return ""
