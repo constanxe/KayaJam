@@ -223,7 +223,7 @@ export default {
           } else {
             obj.fav_artists.push(this.id);
           }
-          console.log(obj.fav_artists)
+          // console.log(obj.fav_artists)
           this.patch(this.getObjFromUser.id, {"fav_artists": obj.fav_artists})
         }
 			}

@@ -291,7 +291,7 @@ export default {
 			for (var obj of this.users) {
 				if (obj.username === this.username) {
 					obj.profile_pic = profile_pic;
-					console.log(obj.profile_pic);
+					// console.log(obj.profile_pic);
 					this.update_pfps += 1;
 					this.patch(this.getObjFromUser().id, {"profile_pic": profile_pic})
 				}
@@ -303,7 +303,7 @@ export default {
 			for (var obj of this.users) {
 				if (obj.username === this.username) {
 					obj.description = description;
-					console.log(obj.description);
+					// console.log(obj.description);
 					this.patch(this.getObjFromUser().id, {"description": description})
 				}
 			}
@@ -315,7 +315,7 @@ export default {
 			for (var obj of this.users) {
 				if (obj.username === this.username) {
 					obj.facebook_un = facebook_un;
-					console.log(obj.facebook_un);
+					// console.log(obj.facebook_un);
 					this.patch(this.getObjFromUser().id, {"facebook_un": facebook_un})
 				}
 			}
@@ -326,7 +326,7 @@ export default {
 			for (var obj of this.users) {
 				if (obj.username === this.username) {
 					obj.twitter_un = twitter_un;
-					console.log(obj.twitter_un);
+					// console.log(obj.twitter_un);
 					this.patch(this.getObjFromUser().id, {"twitter_un": twitter_un})
 				}
 			}
@@ -337,7 +337,7 @@ export default {
 			for (var obj of this.users) {
 				if (obj.username === this.username) {
 					obj.telegram_un = telegram_un;
-					console.log(obj.telegram_un);
+					// console.log(obj.telegram_un);
 					this.patch(this.getObjFromUser().id, {"telegram_un": telegram_un})
 				}
 			}
@@ -353,7 +353,7 @@ export default {
 						obj.feat_albums.push(id);
 					}
 					this.patch(this.getObjFromUser().id, {"feat_albums": obj.feat_albums})
-					console.log(obj.feat_albums)
+					// console.log(obj.feat_albums)
 				}
 			}
 		},
@@ -367,7 +367,7 @@ export default {
 						obj.feat_artists.push(id);
 					}
 					this.patch(this.getObjFromUser().id, {"feat_artists": obj.feat_artists})
-					console.log(obj.feat_artists)
+					// console.log(obj.feat_artists)
 				}
 			}
 		},
@@ -378,7 +378,7 @@ export default {
 			navigator.geolocation.getCurrentPosition(
 				function (position) {
 					// success cb
-					console.log(position);
+					// console.log(position);
 
 					var lat = position.coords.latitude;
 					var lng = position.coords.longitude;
@@ -386,7 +386,7 @@ export default {
 					for (var obj of instance.users) {
 						if (obj.username === instance.username) {
 							obj.location = [lat, lng];
-							console.log(obj.location);
+							// console.log(obj.location);
 							instance.patch(instance.getObjFromUser().id, {"location": [lat, lng]})
 						}
 					}

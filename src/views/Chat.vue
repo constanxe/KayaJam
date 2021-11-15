@@ -152,7 +152,7 @@ export default {
           } else {
             obj.saved_chats.push(channel);
           }
-          console.log(obj.saved_chats)
+          // console.log(obj.saved_chats)
           this.patch(this.getObjFromUser().id, {"saved_chats": obj.saved_chats})
         }
       }

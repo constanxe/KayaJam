@@ -178,7 +178,7 @@ export default {
           } else {
             obj.fav_albums.push(this.id);
           }
-          console.log(obj.fav_albums)
+          // console.log(obj.fav_albums)
           this.patch(this.getObjFromUser.id, {"fav_albums": obj.fav_albums})
         }
 			}
